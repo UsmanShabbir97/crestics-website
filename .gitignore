@@ -45,3 +45,4 @@ logs
 # Deploy artifacts
 .vercel
 .netlify
+claude-design-output.html

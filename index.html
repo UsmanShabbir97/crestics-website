@@ -510,18 +510,75 @@
   }
   .marquee-logo:hover { opacity: 1; color: var(--text); }
 
-  /* ─── INTRO / EMPATHY (with subtle violet wash) ─── */
-  .intro-wrap {
+  /* ─── SCROLL-PINNED NARRATIVE (Morningside pattern) ─── */
+  .story-section {
     position: relative;
+    height: 600vh; /* tall — 5 lines × ~120vh per line */
     background:
-      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124, 92, 255, 0.06), transparent 60%),
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124, 92, 255, 0.05), transparent 65%),
       linear-gradient(180deg, var(--dark) 0%, #0d0d10 50%, var(--dark) 100%);
   }
-  .intro-section {
-    max-width: 920px; margin: 0 auto;
-    padding: 140px var(--pad-x);
+  .story-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .story-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 var(--pad-x);
+    will-change: transform;
+    transition: transform 0.7s var(--ease-out);
+  }
+  .story-line {
+    margin: 0;
     text-align: center;
-    position: relative;
+    font-family: 'Geist', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4.2vw, 52px);
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    color: var(--muted);
+    opacity: 0.18;
+    transition: color 0.6s var(--ease-out), opacity 0.6s var(--ease-out);
+    max-width: 880px;
+  }
+  .story-line .accent { color: var(--violet); font-style: italic; }
+  .story-line.s-active { color: var(--text); opacity: 1; }
+  .story-line.s-near { opacity: 0.45; }
+
+  /* Scroll cue at top of section */
+  .story-cue {
+    position: absolute;
+    top: 80px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    color: var(--subtle);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .story-cue .line {
+    width: 1px; height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--violet), transparent);
+    animation: cueLine 2s ease-in-out infinite;
+  }
+  @keyframes cueLine {
+    0%, 100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(1.4); opacity: 1; }
   }
   .intro-eyebrow {
     display: inline-block;
@@ -1086,23 +1143,22 @@
   </div>
 </section>
 
-<!-- ─── INTRO / EMPATHY ─── -->
-<div class="intro-wrap" id="approach">
-<section class="intro-section">
-  <div data-animate>
-    <div class="intro-eyebrow">— THE REALITY</div>
-    <h2>You're not behind. You're <span class="accent">stuck</span> where every company gets stuck.</h2>
-    <p>
-      Hiring an AI engineer takes six months and costs $220K+. Generic dev shops quote you year-long timelines and don't understand modern AI stacks. ChatGPT alone doesn't solve real workflow problems — you need integrations, RAG pipelines, agent orchestration, monitoring.
-    </p>
-    <p>
-      <strong>Most companies pay to experiment.</strong> Pilots get built. Pilots never scale. Tools sit unused. Crestics is what fixes that — a small senior team using every modern AI tool to ship what used to take 6 engineers in 6 months.
-    </p>
+<!-- ─── SCROLL-PINNED NARRATIVE (Morningside pattern) ─── -->
+<section class="story-section" id="approach">
+  <div class="story-pin">
+    <div class="story-cue">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
+    <div class="story-stack" id="storyStack">
+      <p class="story-line">You've explored the AI tools. Watched the demos. Sat through the pitches.</p>
+      <p class="story-line">But months later, the workflows are unchanged. The pilots never shipped. The ROI never showed up.</p>
+      <p class="story-line">Or you're pre-launch — trying not to repeat the mistakes everyone else made.</p>
+      <p class="story-line">You're not behind. You're just <span class="accent">stuck</span> where every company gets stuck.</p>
+      <p class="story-line">Crestics is the fix. A small senior team using modern AI tooling to ship what used to take six engineers six months.</p>
+    </div>
   </div>
 </section>
-
-</section>
-</div>
 
 <!-- ─── 3 PHASES ─── -->
 <section class="phases-section" id="services">
@@ -1481,6 +1537,11 @@
   let lastScrollY = window.pageYOffset;
   let marqueeOffset = 0;
 
+  // ─── Scroll-pinned narrative refs (referenced by updateScroll) ───
+  const storySection = document.querySelector('.story-section');
+  const storyStack = document.getElementById('storyStack');
+  const storyLines = document.querySelectorAll('.story-line');
+
   // ─── Master scroll handler (single rAF loop for performance) ───
   let ticking = false;
   function onScroll() {
@@ -1532,6 +1593,9 @@
 
     // Active nav link (scrollspy)
     updateActiveNavLink(scrollY);
+
+    // Story-pinned narrative
+    if (typeof updateStory === 'function') updateStory();
 
     ticking = false;
   }
@@ -1593,6 +1657,45 @@
       card.style.transform = '';
     });
   });
+
+  // ─── Scroll-pinned narrative (Morningside pattern) ───
+  // Translate the entire stack upward so the active line sits at viewport center.
+  // Active line: opacity 1, full color. Adjacent: faded. Far: very faded.
+  function updateStory() {
+    if (!storySection || !storyStack || storyLines.length === 0) return;
+    const rect = storySection.getBoundingClientRect();
+    const sectionH = storySection.offsetHeight;
+    const winH = window.innerHeight;
+    const scrolled = -rect.top;
+    const scrollable = sectionH - winH;
+    if (scrollable <= 0) return;
+
+    const progress = Math.max(0, Math.min(1, scrolled / scrollable));
+    const totalLines = storyLines.length;
+
+    // Active idx via rounded progress
+    let activeIdx = Math.round(progress * (totalLines - 1));
+    if (activeIdx < 0) activeIdx = 0;
+    if (activeIdx > totalLines - 1) activeIdx = totalLines - 1;
+
+    // Compute translation: stack is centered in pin via flex.
+    // To put line N at center, translate by (stackHalfHeight - lineCenterInStack)
+    const activeLine = storyLines[activeIdx];
+    const lineCenterInStack = activeLine.offsetTop + activeLine.offsetHeight / 2;
+    const stackHalfHeight = storyStack.offsetHeight / 2;
+    const translateY = stackHalfHeight - lineCenterInStack;
+    storyStack.style.transform = 'translateY(' + translateY + 'px)';
+
+    // Update line states (active + near for fade)
+    storyLines.forEach((line, i) => {
+      line.classList.remove('s-active', 's-near');
+      const diff = Math.abs(i - activeIdx);
+      if (diff === 0) line.classList.add('s-active');
+      else if (diff === 1) line.classList.add('s-near');
+    });
+  }
+  // Initial call (master scroll handler also calls this on every scroll)
+  updateStory();
 
   // ─── Smooth scroll for anchor links ───
   document.querySelectorAll('a[href^="#"]').forEach(link => {

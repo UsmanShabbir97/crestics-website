@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Crestics</title>
+<meta name="description" content="Crestics terms of service: how engagements work, payment, IP, warranties, and liability.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="assets/logo/PNGs/icon-white-violet-dot.png">
+<link rel="apple-touch-icon" href="assets/logo/PNGs/icon-white-violet-dot.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal-styles.css">
+<style>
+  :root {
+    --violet: #7c5cff; --violet-light: #9b7fff;
+    --violet-wash: rgba(124, 92, 255, 0.08); --violet-border: rgba(124, 92, 255, 0.3);
+    --dark: #0a0a0b; --surface: #111113; --surface-hi: #1f1f22; --border: #2a2a2e;
+    --text: #f5f5f7; --muted: #a1a1aa; --subtle: #71717a;
+    --container: 800px; --pad-x: 32px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; position: relative; min-height: 100vh; }
+  a { color: var(--violet); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--violet-light); }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.04; pointer-events: none; z-index: 9999; mix-blend-mode: overlay; }
+  .page-glow { position: fixed; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(ellipse at center, rgba(124, 92, 255, 0.15), transparent 65%); pointer-events: none; z-index: 0; }
+  .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 11, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; }
+  .nav-inner { max-width: 1280px; margin: 0 auto; padding: 18px var(--pad-x); display: flex; justify-content: space-between; align-items: center; }
+  .nav-brand { display: flex; align-items: center; }
+  .nav-brand img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--violet); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+  .nav-cta:hover { background: var(--violet-light); }
+  @media (max-width: 768px) { .nav-links a:not(.nav-cta) { display: none; } }
+  .doc-hero { position: relative; padding: 140px var(--pad-x) 60px; text-align: center; z-index: 1; }
+  .doc-eyebrow { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.25em; text-transform: uppercase; padding: 6px 14px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 100px; margin-bottom: 24px; }
+  .doc-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(40px, 5vw, 64px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px; }
+  .doc-meta { color: var(--subtle); font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.05em; }
+  .doc { max-width: var(--container); margin: 0 auto; padding: 40px var(--pad-x) 100px; position: relative; z-index: 1; }
+  .doc-intro { padding: 28px; background: linear-gradient(180deg, var(--surface), rgba(124, 92, 255, 0.04)); border: 1px solid var(--border); border-radius: 14px; color: var(--muted); font-size: 16px; line-height: 1.7; margin-bottom: 56px; }
+  .doc-intro strong { color: var(--text); }
+  .doc h2 { font-family: 'Geist', sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-top: 56px; margin-bottom: 20px; color: var(--text); }
+  .doc h2 .num { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--violet); letter-spacing: 0.15em; display: block; margin-bottom: 6px; }
+  .doc h3 { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin-top: 28px; margin-bottom: 12px; color: var(--text); }
+  .doc p { color: var(--muted); font-size: 15.5px; line-height: 1.75; margin-bottom: 16px; }
+  .doc p strong { color: var(--text); font-weight: 500; }
+  .doc ul, .doc ol { list-style: none; margin-bottom: 16px; }
+  .doc li { padding: 6px 0 6px 24px; position: relative; color: var(--muted); font-size: 15.5px; line-height: 1.7; }
+  .doc ul li::before { content: ''; position: absolute; left: 4px; top: 16px; width: 6px; height: 6px; border-radius: 50%; background: var(--violet); }
+  .doc strong { color: var(--text); }
+  .doc-divider { height: 1px; background: var(--border); margin: 56px 0; }
+  .doc-contact-card { margin-top: 40px; padding: 32px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(124, 92, 255, 0.02)); border: 1px solid var(--violet); border-radius: 16px; }
+  .doc-contact-card h3 { font-family: 'Geist', sans-serif; font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .doc-contact-card p { color: var(--muted); margin-bottom: 12px; }
+  .doc-contact-list { display: flex; flex-direction: column; gap: 6px; font-family: 'Inter', sans-serif; font-size: 14.5px; color: var(--text); margin-top: 10px; }
+  .doc-contact-list strong { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--subtle); letter-spacing: 0.12em; text-transform: uppercase; margin-right: 10px; font-weight: 400; }
+  .footer { max-width: 1280px; margin: 0 auto; padding: 60px var(--pad-x) 40px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-legal { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--subtle); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--muted); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--violet); }
+</style>
+</head>
+<body>
+
+<div class="page-glow"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand" aria-label="Crestics — AI Product Studio">
+      <img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics" />
+    </a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="work-with-us.html" class="nav-cta">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<section class="doc-hero">
+  <div class="doc-eyebrow">— LEGAL</div>
+  <h1>Terms of Service</h1>
+  <div class="doc-meta">Last updated: April 27, 2026</div>
+</section>
+
+<main class="doc">
+
+  <div class="doc-intro">
+    <strong>The short version:</strong> If you hire us, we'll send you a Master Services Agreement and Statement of Work that supersede these terms. These terms apply to your use of <a href="https://crestics.com">crestics.com</a> and our public communications.
+  </div>
+
+  <h2><span class="num">01 — ABOUT US</span>Who you're agreeing with</h2>
+  <p>
+    These Terms of Service ("Terms") form a legal agreement between you and <strong>Crestics LLC</strong>, a Texas-registered limited liability company located at 6001 W Parmer Ln, Austin, TX 78727, USA. By using this website, you agree to these Terms.
+  </p>
+
+  <h2><span class="num">02 — WEBSITE USE</span>Acceptable use</h2>
+  <p>You may use our website for lawful purposes only. You agree not to:</p>
+  <ul>
+    <li>Use our content for commercial purposes without our written permission</li>
+    <li>Scrape, mirror, or systematically copy our website</li>
+    <li>Attempt to break, hack, or disrupt our infrastructure</li>
+    <li>Submit false information through our forms</li>
+    <li>Use any automated bots to interact with our site (without prior written consent)</li>
+  </ul>
+
+  <h2><span class="num">03 — INTELLECTUAL PROPERTY</span>What's ours</h2>
+  <p>
+    All content on crestics.com — including the Crestics name, logo, design, copy, code, and case studies — is the property of Crestics LLC. You may not reproduce, redistribute, or create derivative works without written permission.
+  </p>
+  <p>
+    The "Crestics" name and logo are trademarks of Crestics LLC.
+  </p>
+
+  <h2><span class="num">04 — ENGAGEMENTS</span>How working together works</h2>
+  <p>
+    These Terms do <strong>not</strong> apply to client engagements. If we agree to work together, we'll execute a separate <strong>Master Services Agreement (MSA)</strong> and <strong>Statement of Work (SOW)</strong> that govern that specific engagement, including:
+  </p>
+  <ul>
+    <li>Fixed scope, deliverables, milestones, and timeline</li>
+    <li>Fees, payment terms, and refund policy</li>
+    <li>IP ownership and licensing</li>
+    <li>Confidentiality and NDA terms</li>
+    <li>Warranties, liability limits, and indemnification</li>
+    <li>Termination clauses (typically 30-day exit on retainers)</li>
+  </ul>
+  <p>
+    The MSA + SOW always supersede these Terms for engaged clients.
+  </p>
+
+  <h2><span class="num">05 — INQUIRIES & FORM SUBMISSIONS</span>What happens when you contact us</h2>
+  <p>
+    Submitting our contact form does not create a contract or attorney-client / consultant-client relationship. We may decline to take on a project for any reason. If we decide to engage, we'll send a written proposal.
+  </p>
+
+  <h2><span class="num">06 — DISCLAIMERS</span>Limitations of website content</h2>
+  <p>
+    Our website content (including blog posts, case studies, and informational text) is for general informational purposes only. It is provided "as-is," without warranties of any kind. Specific advice and deliverables come only as part of a paid engagement.
+  </p>
+  <p>
+    Case study results reflect outcomes achieved with specific clients in specific contexts and are not guarantees of similar results for your business.
+  </p>
+
+  <h2><span class="num">07 — LIABILITY</span>Limitations</h2>
+  <p>
+    To the maximum extent permitted by law, Crestics LLC and its officers, employees, agents, and contractors are <strong>not liable</strong> for any indirect, incidental, special, consequential, or punitive damages arising from your use of this website.
+  </p>
+  <p>
+    For paid engagements, liability limits are governed by the MSA + SOW.
+  </p>
+
+  <h2><span class="num">08 — INDEMNIFICATION</span>Holding us harmless</h2>
+  <p>
+    You agree to indemnify and hold Crestics LLC harmless from any claims, damages, or expenses (including reasonable attorney fees) arising from your violation of these Terms or your misuse of our website.
+  </p>
+
+  <h2><span class="num">09 — GOVERNING LAW</span>Where disputes are resolved</h2>
+  <p>
+    These Terms are governed by the laws of the <strong>State of Texas, USA</strong>, without regard to conflict of law provisions. Any dispute arising from these Terms or your use of crestics.com will be resolved in the state or federal courts located in Travis County, Texas.
+  </p>
+
+  <h2><span class="num">10 — CHANGES</span>Updates to these Terms</h2>
+  <p>
+    We may update these Terms from time to time. The "Last updated" date at the top tells you when. Significant changes will be highlighted. Continued use of our website after changes means you accept the updated Terms.
+  </p>
+
+  <h2><span class="num">11 — SEVERABILITY</span>If part is invalid</h2>
+  <p>
+    If any provision of these Terms is found invalid or unenforceable, the rest remain in full effect.
+  </p>
+
+  <div class="doc-divider"></div>
+
+  <div class="doc-contact-card">
+    <h3>Questions about these Terms?</h3>
+    <p>Email us at the address below. For engagement-specific questions, please refer to your MSA + SOW.</p>
+    <div class="doc-contact-list">
+      <div><strong>Email</strong><a href="mailto:hello@crestics.com">hello@crestics.com</a></div>
+      <div><strong>Phone</strong><a href="tel:+17373390372">+1 (737) 339-0372</a></div>
+      <div><strong>Mail</strong>Crestics LLC, 6001 W Parmer Ln, Austin, TX 78727, USA</div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-bottom">
+    <div class="footer-legal">© 2026 Crestics LLC · Austin, Texas · All rights reserved</div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

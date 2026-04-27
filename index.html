@@ -986,6 +986,13 @@
   .footer-logo { display: inline-flex; align-items: center; }
   .footer-logo img { height: 32px; width: auto; display: block; }
   .footer-tagline { color: var(--muted); font-size: 14px; max-width: 320px; line-height: 1.6; }
+  .footer-contact { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; max-width: 340px; }
+  .footer-contact-row { display: flex; flex-direction: column; gap: 2px; padding-top: 10px; border-top: 1px dashed var(--border); }
+  .footer-contact-row:first-child { border-top: 1px solid var(--border); padding-top: 14px; }
+  .footer-contact-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--subtle); letter-spacing: 0.15em; text-transform: uppercase; }
+  .footer-contact-value { font-family: 'Inter', sans-serif; font-size: 13.5px; color: var(--text); font-weight: 500; }
+  a.footer-contact-value { color: var(--violet); transition: color 0.2s; }
+  a.footer-contact-value:hover { color: var(--violet-light); }
   .footer-col-title { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 18px; }
   .footer-col { display: flex; flex-direction: column; gap: 12px; }
   .footer-col a { color: var(--muted); font-size: 14px; transition: color 0.2s; }
@@ -1043,7 +1050,7 @@
       Crestics is an Austin-based AI product studio. We help companies <strong>identify what's worth building</strong>, ship it in production, and keep it operational. Senior engineers. Fixed scope. Delivered in weeks, not quarters.
     </p>
     <div class="hero-cta-row">
-      <a href="#contact" class="btn btn-primary">
+      <a href="work-with-us.html" class="btn btn-primary">
         Book a 30-min Call
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1127,7 +1134,7 @@
           <span class="phase-pill">Business case</span>
         </div>
       </div>
-      <a href="#contact" class="phase-cta">
+      <a href="work-with-us.html" class="phase-cta">
         Talk to us
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1153,7 +1160,7 @@
           <span class="phase-pill">Production-grade</span>
         </div>
       </div>
-      <a href="#contact" class="phase-cta">
+      <a href="work-with-us.html" class="phase-cta">
         Scope a build
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1179,7 +1186,7 @@
           <span class="phase-pill">Month-to-month</span>
         </div>
       </div>
-      <a href="#contact" class="phase-cta">
+      <a href="work-with-us.html" class="phase-cta">
         Talk to us
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1368,7 +1375,7 @@
       <h2>Got a workflow that's <span class="accent">begging</span> for AI?</h2>
       <p>Book a free 30-min call. We'll map your operations, flag three high-ROI AI opportunities, and tell you what we'd build first — whether or not we end up working together.</p>
       <div class="cta-row">
-        <a href="mailto:hello@crestics.com" class="btn btn-primary">
+        <a href="work-with-us.html" class="btn btn-primary">
           Book a 30-min Call
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -1389,6 +1396,20 @@
       <p class="footer-tagline">
         AI product studio based in Austin, Texas. We ship production-grade AI for companies that need senior engineering — without the senior hiring cycle.
       </p>
+      <div class="footer-contact">
+        <div class="footer-contact-row">
+          <span class="footer-contact-label">Studio</span>
+          <span class="footer-contact-value">6001 W Parmer Ln, Austin, TX 78727</span>
+        </div>
+        <div class="footer-contact-row">
+          <span class="footer-contact-label">Phone</span>
+          <a href="tel:+17373390372" class="footer-contact-value">+1 (737) 339-0372</a>
+        </div>
+        <div class="footer-contact-row">
+          <span class="footer-contact-label">Email</span>
+          <a href="mailto:hello@crestics.com" class="footer-contact-value">hello@crestics.com</a>
+        </div>
+      </div>
     </div>
 
     <div class="footer-col">
@@ -1402,7 +1423,7 @@
       <div class="footer-col-title">Company</div>
       <a href="#approach">Approach</a>
       <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+      <a href="work-with-us.html">Contact</a>
     </div>
 
     <div class="footer-col">

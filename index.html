@@ -238,10 +238,9 @@
 
   /* ─── SCROLL-DRIVEN ANIMATIONS ─── */
 
-  /* Hero parallax fade-out */
+  /* Hero parallax */
   .hero-inner {
-    will-change: transform, opacity;
-    transition: opacity 0.1s linear;
+    will-change: transform;
   }
 
   /* Hero glow parallax */
@@ -290,15 +289,15 @@
     transition: opacity 0.3s ease;
   }
 
-  /* Floating violet ambient orb */
+  /* Floating violet ambient orb (sits behind everything) */
   .ambient-orb {
     position: fixed;
     width: 400px; height: 400px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(124, 92, 255, 0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(124, 92, 255, 0.06), transparent 70%);
     pointer-events: none;
-    z-index: 1;
-    filter: blur(40px);
+    z-index: 0;
+    filter: blur(60px);
     will-change: transform;
     transform: translate3d(0, 0, 0);
   }
@@ -1444,21 +1443,14 @@
       scrollProgress.style.transform = `scaleX(${progress})`;
     }
 
-    // Hero parallax + fade
-    if (heroInner && scrollY < winH) {
-      const heroProgress = scrollY / winH;
-      heroInner.style.transform = `translateY(${scrollY * 0.3}px)`;
-      heroInner.style.opacity = Math.max(0, 1 - heroProgress * 1.5);
+    // Hero gentle parallax (subtle, no fade-out)
+    if (heroInner && scrollY < winH * 1.2) {
+      heroInner.style.transform = `translateY(${scrollY * 0.15}px)`;
     }
 
-    // Hero gradient parallax (slower than content)
-    if (heroGlow) {
-      heroGlow.style.setProperty('--hero-parallax', `${scrollY * 0.15}px`);
-    }
-
-    // Ambient orbs (counter-parallax for depth)
-    if (orb1) orb1.style.transform = `translate3d(0, ${scrollY * -0.15}px, 0)`;
-    if (orb2) orb2.style.transform = `translate3d(0, ${scrollY * -0.25}px, 0)`;
+    // Ambient orbs (gentle parallax for depth)
+    if (orb1) orb1.style.transform = `translate3d(0, ${scrollY * -0.08}px, 0)`;
+    if (orb2) orb2.style.transform = `translate3d(0, ${scrollY * -0.12}px, 0)`;
 
     // Nav state
     if (scrollY > 20) nav.classList.add('scrolled');

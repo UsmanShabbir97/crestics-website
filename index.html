@@ -91,9 +91,20 @@
   [data-stagger].in-view > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.57s; }
   [data-stagger].in-view > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.70s; }
 
-  /* Word-by-word reveal for hero (safe fallback to visible) */
-  .word-reveal { display: inline-block; }
-  .word-reveal .word { display: inline-block; }
+  /* Word-by-word reveal for hero (safe — falls back to visible if animation fails) */
+  .word-reveal {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .word-reveal .word {
+    display: inline-block;
+    animation: wordRise 1.1s var(--ease-out) both;
+  }
+  @keyframes wordRise {
+    0% { transform: translateY(110%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
 
   /* Clip-path reveal for section titles */
   .clip-reveal {
@@ -499,11 +510,18 @@
   }
   .marquee-logo:hover { opacity: 1; color: var(--text); }
 
-  /* ─── INTRO / EMPATHY ─── */
+  /* ─── INTRO / EMPATHY (with subtle violet wash) ─── */
+  .intro-wrap {
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124, 92, 255, 0.06), transparent 60%),
+      linear-gradient(180deg, var(--dark) 0%, #0d0d10 50%, var(--dark) 100%);
+  }
   .intro-section {
     max-width: 920px; margin: 0 auto;
     padding: 140px var(--pad-x);
     text-align: center;
+    position: relative;
   }
   .intro-eyebrow {
     display: inline-block;
@@ -777,10 +795,29 @@
   }
   .case-meta .read { color: var(--violet); }
 
-  /* ─── PHILOSOPHY (simple Morningside-style) ─── */
+  /* ─── PHILOSOPHY (gradient band — different feel from rest) ─── */
+  .philosophy-wrap {
+    position: relative;
+    background:
+      radial-gradient(ellipse 100% 70% at 0% 50%, rgba(124, 92, 255, 0.10), transparent 55%),
+      radial-gradient(ellipse 100% 70% at 100% 50%, rgba(91, 63, 212, 0.08), transparent 55%),
+      linear-gradient(180deg, var(--dark) 0%, #110e1f 50%, var(--dark) 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .philosophy-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
   .philosophy-section {
     max-width: var(--container); margin: 0 auto;
-    padding: 140px var(--pad-x); border-top: 1px solid var(--border);
+    padding: 140px var(--pad-x);
+    position: relative;
+    z-index: 1;
   }
   .philosophy-header { text-align: center; margin-bottom: 80px; }
   .philosophy-header .eyebrow {
@@ -831,10 +868,15 @@
   }
   .principle-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-  /* ─── FAQ ─── */
+  /* ─── FAQ (subtle warm dark gradient) ─── */
+  .faq-wrap {
+    position: relative;
+    background: linear-gradient(180deg, var(--dark) 0%, #0c0a14 50%, var(--dark) 100%);
+  }
   .faq-section {
     max-width: 920px; margin: 0 auto;
-    padding: 140px var(--pad-x); border-top: 1px solid var(--border);
+    padding: 140px var(--pad-x);
+    position: relative;
   }
   .faq-header { text-align: center; margin-bottom: 56px; }
   .faq-eyebrow {
@@ -974,7 +1016,7 @@
       <a href="#services">Services</a>
       <a href="#work">Work</a>
       <a href="#approach">Approach</a>
-      <a href="#contact" class="nav-cta">Book a Call</a>
+      <a href="work-with-us.html" class="nav-cta">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -986,7 +1028,17 @@
       <span class="dot"></span>
       Now Accepting Projects · Austin, TX
     </div>
-    <h1 id="heroHeadline">We don't just talk AI.<br>We <span class="accent">deliver</span> it.</h1>
+    <h1 id="heroHeadline">
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.15s;">We</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.22s;">don't</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.29s;">just</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.36s;">talk</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.43s;">AI.</span></span>
+      <br>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.55s;">We</span></span>
+      <span class="word-reveal"><span class="word accent" style="animation-delay: 0.62s;">deliver</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.69s;">it.</span></span>
+    </h1>
     <p class="hero-sub">
       Crestics is an Austin-based AI product studio. We help companies <strong>identify what's worth building</strong>, ship it in production, and keep it operational. Senior engineers. Fixed scope. Delivered in weeks, not quarters.
     </p>
@@ -1028,7 +1080,8 @@
 </section>
 
 <!-- ─── INTRO / EMPATHY ─── -->
-<section class="intro-section" id="approach">
+<div class="intro-wrap" id="approach">
+<section class="intro-section">
   <div data-animate>
     <div class="intro-eyebrow">— THE REALITY</div>
     <h2>You're not behind. You're <span class="accent">stuck</span> where every company gets stuck.</h2>
@@ -1040,6 +1093,9 @@
     </p>
   </div>
 </section>
+
+</section>
+</div>
 
 <!-- ─── 3 PHASES ─── -->
 <section class="phases-section" id="services">
@@ -1200,6 +1256,7 @@
 </section>
 
 <!-- ─── PHILOSOPHY ─── -->
+<div class="philosophy-wrap">
 <section class="philosophy-section">
   <div class="philosophy-header" data-animate>
     <div class="eyebrow">— OUR APPROACH</div>
@@ -1243,7 +1300,11 @@
   </div>
 </section>
 
+</section>
+</div>
+
 <!-- ─── FAQ (Morningside-style accordion) ─── -->
+<div class="faq-wrap">
 <section class="faq-section">
   <div class="faq-header" data-animate>
     <div class="faq-eyebrow">— FREQUENTLY ASKED</div>
@@ -1296,6 +1357,9 @@
 
   </div>
 </section>
+
+</section>
+</div>
 
 <!-- ─── CTA ─── -->
 <section class="cta-section" id="contact">

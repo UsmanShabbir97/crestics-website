@@ -91,20 +91,9 @@
   [data-stagger].in-view > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.57s; }
   [data-stagger].in-view > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.70s; }
 
-  /* Word-by-word reveal for hero */
-  .word-reveal {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: bottom;
-  }
-  .word-reveal .word {
-    display: inline-block;
-    animation: wordRise 1.1s var(--ease-out) both;
-  }
-  @keyframes wordRise {
-    from { transform: translateY(110%); }
-    to { transform: translateY(0); }
-  }
+  /* Word-by-word reveal for hero (safe fallback to visible) */
+  .word-reveal { display: inline-block; }
+  .word-reveal .word { display: inline-block; }
 
   /* Clip-path reveal for section titles */
   .clip-reveal {
@@ -404,11 +393,6 @@
     font-family: 'Geist Mono', monospace; font-size: 11px;
     color: var(--violet); letter-spacing: 0.12em; text-transform: uppercase;
     margin-bottom: 36px;
-    animation: fadeInPill 1s var(--ease-out) 0.1s both;
-  }
-  @keyframes fadeInPill {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
   }
   .hero-pill .dot {
     width: 7px; height: 7px; background: var(--violet); border-radius: 50%;
@@ -441,14 +425,12 @@
     color: var(--muted);
     max-width: 720px; margin: 0 auto 44px;
     line-height: 1.55;
-    animation: lineUp 1.2s var(--ease-out) 0.4s both;
   }
   .hero-sub strong { color: var(--text); font-weight: 500; }
 
   .hero-cta-row {
     display: flex; gap: 16px; justify-content: center;
     flex-wrap: wrap; align-items: center;
-    animation: lineUp 1.2s var(--ease-out) 0.55s both;
   }
   .btn {
     display: inline-flex; align-items: center; gap: 10px;
@@ -1004,17 +986,7 @@
       <span class="dot"></span>
       Now Accepting Projects · Austin, TX
     </div>
-    <h1 id="heroHeadline">
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.25s;">We</span></span>
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.32s;">don't</span></span>
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.39s;">just</span></span>
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.46s;">talk</span></span>
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.53s;">AI.</span></span>
-      <br>
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.65s;">We</span></span>
-      <span class="word-reveal"><span class="word accent" style="animation-delay: 0.72s;">deliver</span></span>
-      <span class="word-reveal"><span class="word" style="animation-delay: 0.79s;">it.</span></span>
-    </h1>
+    <h1 id="heroHeadline">We don't just talk AI.<br>We <span class="accent">deliver</span> it.</h1>
     <p class="hero-sub">
       Crestics is an Austin-based AI product studio. We help companies <strong>identify what's worth building</strong>, ship it in production, and keep it operational. Senior engineers. Fixed scope. Delivered in weeks, not quarters.
     </p>

@@ -62,7 +62,24 @@
     mix-blend-mode: overlay;
   }
 
-  /* Animations */
+  /* ───────────────────────────────────── */
+  /*  ANIMATIONS — Morningside-grade        */
+  /* ───────────────────────────────────── */
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--violet) 0%, var(--violet-light) 100%);
+    z-index: 1001;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.1s linear;
+    box-shadow: 0 0 10px var(--violet);
+  }
+
+  /* Standard scroll-triggered animations */
   [data-animate] { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
   [data-animate].in-view { opacity: 1; transform: translateY(0); }
   [data-animate="fade"] { transform: none; }
@@ -73,7 +90,161 @@
   [data-stagger].in-view > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.44s; }
   [data-stagger].in-view > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.57s; }
   [data-stagger].in-view > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.70s; }
-  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+  /* Word-by-word reveal for hero */
+  .word-reveal {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .word-reveal .word {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: wordRise 1.1s var(--ease-out) forwards;
+  }
+  @keyframes wordRise {
+    to { transform: translateY(0); }
+  }
+
+  /* Clip-path reveal for section titles */
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1.2s var(--ease-out);
+  }
+  .clip-reveal.in-view {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Cursor-aware glow on cards (Morningside signature) */
+  .glow-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .glow-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(124, 92, 255, 0.12),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-card:hover::after { opacity: 1; }
+  .glow-card > * { position: relative; z-index: 1; }
+
+  /* Phase chevron rotation on hover */
+  .phase-card .phase-chevron svg {
+    transition: transform 0.5s var(--ease-out);
+  }
+  .phase-card:hover .phase-chevron svg {
+    transform: translateX(4px);
+  }
+
+  /* SVG path draw-in animation */
+  .draw-svg path,
+  .draw-svg polyline,
+  .draw-svg circle {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  .draw-svg.in-view path,
+  .draw-svg.in-view polyline,
+  .draw-svg.in-view circle {
+    animation: drawIn 1.5s var(--ease-out) forwards;
+  }
+  @keyframes drawIn {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Number counter container */
+  .counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Smooth hover lift */
+  .lift-hover { transition: transform 0.4s var(--ease-out), box-shadow 0.4s ease; }
+  .lift-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(124, 92, 255, 0.15);
+  }
+
+  /* Section divider animated line */
+  .divider-line {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .divider-line::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--violet), transparent);
+    transform: translateX(-100%);
+    animation: lineSweep 3s ease-in-out infinite;
+  }
+  @keyframes lineSweep {
+    to { transform: translateX(100%); }
+  }
+
+  /* Magnetic effect on links */
+  .link-magnetic {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .link-magnetic::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--violet);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .link-magnetic:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Smooth fade for FAQ accordion */
+  .faq-item .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0; padding-bottom: 0;
+    transition: max-height 0.5s var(--ease-out), padding 0.5s var(--ease-out);
+  }
+  .faq-item[open] .faq-a {
+    max-height: 500px;
+    padding-bottom: 24px;
+    padding-top: 0;
+  }
+
+  /* Tilt effect on case cards */
+  .tilt-card {
+    transition: transform 0.4s var(--ease-out);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .word-reveal .word { transform: translateY(0) !important; }
+    .clip-reveal { clip-path: none !important; }
+    .draw-svg path, .draw-svg polyline, .draw-svg circle { stroke-dasharray: none !important; }
+  }
 
   /* ─── NAV ─── */
   .nav {
@@ -144,10 +315,9 @@
     letter-spacing: -0.045em;
     line-height: 0.98;
     margin-bottom: 32px;
-    opacity: 0;
-    animation: lineUp 1.2s var(--ease-out) 0.25s forwards;
   }
-  .hero h1 .accent { color: var(--violet); font-style: italic; }
+  .hero h1 .accent,
+  .hero h1 .word.accent { color: var(--violet); font-style: italic; }
   @keyframes lineUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -693,6 +863,9 @@
 </head>
 <body>
 
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- ─── NAV ─── -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
@@ -715,7 +888,17 @@
       <span class="dot"></span>
       Now Accepting Projects · Austin, TX
     </div>
-    <h1>We don't just talk AI.<br>We <span class="accent">deliver</span> it.</h1>
+    <h1 id="heroHeadline">
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.25s;">We</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.32s;">don't</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.39s;">just</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.46s;">talk</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.53s;">AI.</span></span>
+      <br>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.65s;">We</span></span>
+      <span class="word-reveal"><span class="word accent" style="animation-delay: 0.72s;">deliver</span></span>
+      <span class="word-reveal"><span class="word" style="animation-delay: 0.79s;">it.</span></span>
+    </h1>
     <p class="hero-sub">
       Crestics is an Austin-based AI product studio. We help companies <strong>identify what's worth building</strong>, ship it in production, and keep it operational. Senior engineers. Fixed scope. Delivered in weeks, not quarters.
     </p>
@@ -780,7 +963,7 @@
 
   <div class="phases-stack" data-stagger>
 
-    <article class="phase-card">
+    <article class="phase-card glow-card">
       <div class="phase-num-block">
         <div class="phase-chevron">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -806,7 +989,7 @@
       </a>
     </article>
 
-    <article class="phase-card">
+    <article class="phase-card glow-card">
       <div class="phase-num-block">
         <div class="phase-chevron">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -832,7 +1015,7 @@
       </a>
     </article>
 
-    <article class="phase-card">
+    <article class="phase-card glow-card">
       <div class="phase-num-block">
         <div class="phase-chevron">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -871,7 +1054,7 @@
 
   <div class="cases-grid" data-stagger>
 
-    <article class="case">
+    <article class="case glow-card tilt-card">
       <div class="case-image">
         <div class="case-stat-overlay">
           <div class="case-stat-num">340<span class="unit">hrs/mo</span></div>
@@ -889,7 +1072,7 @@
       </div>
     </article>
 
-    <article class="case">
+    <article class="case glow-card tilt-card">
       <div class="case-image">
         <div class="case-stat-overlay">
           <div class="case-stat-num">3×<span class="unit">faster</span></div>
@@ -907,7 +1090,7 @@
       </div>
     </article>
 
-    <article class="case">
+    <article class="case glow-card tilt-card">
       <div class="case-image">
         <div class="case-stat-overlay">
           <div class="case-stat-num">$180K<span class="unit">saved</span></div>
@@ -937,7 +1120,7 @@
 
   <div class="principles-grid" data-stagger>
 
-    <div class="principle-card">
+    <div class="principle-card glow-card">
       <div class="principle-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </div>
@@ -945,7 +1128,7 @@
       <p>We use Cursor, Claude Code, Vapi, v0 — every modern AI tool, end-to-end. A 2-person Crestics team ships what used to take six.</p>
     </div>
 
-    <div class="principle-card">
+    <div class="principle-card glow-card">
       <div class="principle-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
       </div>
@@ -953,7 +1136,7 @@
       <p>No hourly billing. No scope creep. You know exactly what you're getting and when. Milestones in the contract — we hit them or eat the difference.</p>
     </div>
 
-    <div class="principle-card">
+    <div class="principle-card glow-card">
       <div class="principle-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
@@ -961,7 +1144,7 @@
       <p>AI without solid engineering is a demo. We've shipped real production software for 8+ years. AI is the latest tool in a discipline we already know how to do.</p>
     </div>
 
-    <div class="principle-card">
+    <div class="principle-card glow-card">
       <div class="principle-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
       </div>
@@ -1095,6 +1278,7 @@
 </footer>
 
 <script>
+  // ─── Scroll-triggered animations ───
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1103,14 +1287,26 @@
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-  document.querySelectorAll('[data-animate], [data-stagger]').forEach(el => observer.observe(el));
+  document.querySelectorAll('[data-animate], [data-stagger], .clip-reveal, .draw-svg').forEach(el => observer.observe(el));
 
+  // ─── Nav scroll state ───
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 20) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
   }, { passive: true });
 
+  // ─── Scroll progress bar ───
+  const scrollProgress = document.getElementById('scrollProgress');
+  if (scrollProgress) {
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.pageYOffset / docHeight;
+      scrollProgress.style.transform = `scaleX(${scrolled})`;
+    }, { passive: true });
+  }
+
+  // ─── Magnetic primary buttons ───
   document.querySelectorAll('.btn-primary').forEach(btn => {
     btn.addEventListener('mousemove', (e) => {
       const rect = btn.getBoundingClientRect();
@@ -1119,6 +1315,51 @@
       btn.style.transform = `translate(${x * 0.08}px, ${y * 0.08 - 2}px)`;
     });
     btn.addEventListener('mouseleave', () => btn.style.transform = '');
+  });
+
+  // ─── Cursor-aware glow on cards (Morningside signature) ───
+  document.querySelectorAll('.glow-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', `${x}%`);
+      card.style.setProperty('--my', `${y}%`);
+    });
+  });
+
+  // ─── Subtle 3D tilt on case cards ───
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ─── Hero gradient parallax ───
+  const heroGlow = document.querySelector('.hero::before');
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+  });
+
+  // ─── Smooth scroll for anchor links ───
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   });
 </script>
 

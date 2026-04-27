@@ -4,33 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crestics — AI Product Studio in Austin, Texas. Ship AI in Weeks, Not Quarters.</title>
-<meta name="description" content="Austin-based AI product studio. Senior engineers. Fixed scope. Ship production-grade AI features, automations, and custom products in weeks — not quarters.">
+<meta name="description" content="Austin-based AI product studio. We ship production-grade AI for companies that need to move fast without hiring in-house.">
 <meta name="keywords" content="AI agency Austin, AI development Austin, AI product studio, AI consulting Austin, AI implementation Texas, Austin software agency">
 <meta name="geo.region" content="US-TX">
 <meta name="geo.placename" content="Austin">
 <meta name="geo.position" content="30.2672;-97.7431">
 <meta name="ICBM" content="30.2672, -97.7431">
-<!-- Open Graph -->
 <meta property="og:title" content="Crestics — AI Product Studio in Austin, Texas">
-<meta property="og:description" content="Ship AI in weeks, not quarters. Senior engineers. Fixed scope. Austin-based AI product studio.">
+<meta property="og:description" content="Ship AI in weeks, not quarters. Senior engineers. Fixed scope.">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="en_US">
+<link rel="icon" type="image/png" href="assets/logo/PNGs/icon-white-violet-dot.png">
+<link rel="apple-touch-icon" href="assets/logo/PNGs/icon-white-violet-dot.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --violet: #7c5cff;
-    --violet-light: #9b7fff;
-    --violet-deep: #5b3fd4;
-    --dark: #0a0a0b;
-    --surface: #111113;
-    --surface-hi: #1f1f22;
-    --border: #2a2a2e;
+    --violet:        #7c5cff;
+    --violet-light:  #9b7fff;
+    --violet-deep:   #5b3fd4;
+    --violet-wash:   rgba(124, 92, 255, 0.08);
+    --violet-border: rgba(124, 92, 255, 0.3);
+    --dark:          #0a0a0b;
+    --surface:       #111113;
+    --surface-hi:    #1f1f22;
+    --border:        #2a2a2e;
     --border-strong: #3f3f46;
-    --text: #f5f5f7;
-    --muted: #a1a1aa;
-    --subtle: #71717a;
+    --text:          #f5f5f7;
+    --muted:         #a1a1aa;
+    --subtle:        #71717a;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --container: 1200px;
+    --pad-x: 32px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
@@ -44,1256 +49,1010 @@
     position: relative;
   }
   a { color: inherit; text-decoration: none; }
-  img { max-width: 100%; display: block; }
 
-  /* ═══════════════════════════════════════════════ */
-  /* GRAIN TEXTURE (Morningside-style) */
-  /* ═══════════════════════════════════════════════ */
+  /* Grain overlay (Morningside signature) */
   body::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.045;
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: overlay;
   }
 
-  /* ═══════════════════════════════════════════════ */
-  /* SCROLL ANIMATIONS (Morningside-inspired) */
-  /* ═══════════════════════════════════════════════ */
-  [data-animate] {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-  }
-  [data-animate].in-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  [data-animate="fade"] {
-    transform: none;
-  }
-  [data-animate="fade"].in-view {
-    opacity: 1;
-  }
-  [data-animate="scale"] {
-    transform: scale(0.96);
-  }
-  [data-animate="scale"].in-view {
-    transform: scale(1);
-  }
-  [data-animate="slide-left"] {
-    transform: translateX(-40px);
-  }
-  [data-animate="slide-left"].in-view {
-    transform: translateX(0);
-  }
-
-  /* Stagger delays for grids */
-  [data-stagger] > * {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  /* Animations */
+  [data-animate] { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+  [data-animate].in-view { opacity: 1; transform: translateY(0); }
+  [data-animate="fade"] { transform: none; }
+  [data-stagger] > * { opacity: 0; transform: translateY(30px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
   [data-stagger].in-view > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
-  [data-stagger].in-view > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
-  [data-stagger].in-view > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
-  [data-stagger].in-view > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
-  [data-stagger].in-view > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
-  [data-stagger].in-view > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+  [data-stagger].in-view > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+  [data-stagger].in-view > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.31s; }
+  [data-stagger].in-view > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.44s; }
+  [data-stagger].in-view > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.57s; }
+  [data-stagger].in-view > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.70s; }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 
-  /* Hero fade-in on load */
-  .hero-content > * {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* ─── NAV ─── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(10, 10, 11, 0.65);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    z-index: 1000; transition: background 0.3s, border-color 0.3s;
   }
-  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-  .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
-  .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
-  .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
-  .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
+  .nav.scrolled { background: rgba(10, 10, 11, 0.92); border-bottom-color: var(--border); }
+  .nav-inner { max-width: var(--container); margin: 0 auto; padding: 18px var(--pad-x); display: flex; justify-content: space-between; align-items: center; }
+  .nav-brand { display: flex; align-items: center; }
+  .nav-brand img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--violet); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+  .nav-cta:hover { background: var(--violet-light); transform: translateY(-1px); }
+  @media (max-width: 768px) { .nav-links a:not(.nav-cta) { display: none; } }
 
-  @keyframes heroReveal {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* ─── HERO (centered, Morningside-style) ─── */
+  .hero {
+    position: relative;
+    padding: 180px var(--pad-x) 140px;
+    text-align: center;
+    overflow: hidden;
   }
-
-  /* Subtle gradient glow animation on hero */
   .hero::before {
-    animation: heroGlow 8s ease-in-out infinite alternate;
+    content: '';
+    position: absolute;
+    top: 25%; left: 50%; transform: translateX(-50%);
+    width: 80vw; height: 60vh; max-width: 900px; max-height: 700px;
+    background: radial-gradient(ellipse at center, rgba(124, 92, 255, 0.18), transparent 65%);
+    pointer-events: none;
+    animation: heroGlow 10s ease-in-out infinite alternate;
   }
   @keyframes heroGlow {
-    from { opacity: 0.7; transform: translateX(-50%) scale(1); }
-    to { opacity: 1; transform: translateX(-50%) scale(1.08); }
+    from { transform: translateX(-50%) scale(1); opacity: 0.7; }
+    to { transform: translateX(-50%) scale(1.12); opacity: 1; }
   }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
 
-  /* Pulse the indicator dot */
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px;
+    background: var(--violet-wash); border: 1px solid var(--violet-border);
+    border-radius: 100px;
+    font-family: 'Geist Mono', monospace; font-size: 11px;
+    color: var(--violet); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 36px;
+    opacity: 0; animation: pillIn 1s var(--ease-out) 0.1s forwards;
+  }
+  @keyframes pillIn { to { opacity: 1; } }
   .hero-pill .dot {
+    width: 7px; height: 7px; background: var(--violet); border-radius: 50%;
+    box-shadow: 0 0 14px var(--violet);
     animation: dotPulse 2s ease-in-out infinite;
   }
   @keyframes dotPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.7); }
-    50% { box-shadow: 0 0 0 8px rgba(124, 92, 255, 0); }
-  }
-
-  /* Trust logo marquee effect */
-  .trust-logos {
-    animation: fadeInLogos 1.5s ease-out;
-  }
-  @keyframes fadeInLogos {
-    from { opacity: 0; }
-    to { opacity: 0.6; }
-  }
-
-  /* Card hover — smoother */
-  .problem-card, .service-card, .process-step, .why-card, .case-card {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.3s ease,
-                background 0.3s ease,
-                box-shadow 0.4s ease;
-  }
-
-  /* Button shimmer on hover */
-  .btn-primary {
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.6s ease;
-  }
-  .btn-primary:hover::after {
-    left: 100%;
-  }
-
-  /* Nav subtle entrance */
-  .nav {
-    animation: navDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes navDown {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
-  }
-
-  /* Respect reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-
-  /* ═══════════════════════════════════════════════ */
-  /* NAVIGATION */
-  /* ═══════════════════════════════════════════════ */
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    background: rgba(10, 10, 11, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    z-index: 1000;
-  }
-  .nav-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 18px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Geist', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.04em;
-  }
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
-  .nav-links a {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-cta {
-    background: var(--violet);
-    color: white !important;
-    padding: 9px 18px;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-  .nav-cta:hover {
-    background: var(--violet-light);
-    transform: translateY(-1px);
-  }
-  @media (max-width: 768px) {
-    .nav-links a:not(.nav-cta) { display: none; }
-  }
-
-  /* ═══════════════════════════════════════════════ */
-  /* HERO */
-  /* ═══════════════════════════════════════════════ */
-  .hero {
-    position: relative;
-    padding: 180px 32px 120px;
-    max-width: 1280px;
-    margin: 0 auto;
-    text-align: center;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 20%; left: 50%;
-    transform: translateX(-50%);
-    width: 800px; height: 500px;
-    background: radial-gradient(ellipse at center, rgba(124, 92, 255, 0.15), transparent 65%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero-content { position: relative; z-index: 1; }
-
-  .hero-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 14px;
-    background: rgba(124, 92, 255, 0.08);
-    border: 1px solid rgba(124, 92, 255, 0.3);
-    border-radius: 100px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    color: var(--violet);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
-  .hero-pill .dot {
-    width: 6px; height: 6px;
-    background: var(--violet);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--violet);
+    50% { box-shadow: 0 0 0 10px rgba(124, 92, 255, 0); }
   }
 
   .hero h1 {
     font-family: 'Geist', sans-serif;
-    font-size: clamp(48px, 8vw, 88px);
+    font-size: clamp(48px, 7.5vw, 96px);
     font-weight: 700;
     letter-spacing: -0.045em;
-    line-height: 1.0;
-    margin-bottom: 28px;
+    line-height: 0.98;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: lineUp 1.2s var(--ease-out) 0.25s forwards;
   }
-  .hero h1 .accent { color: var(--violet); font-style: italic; font-family: 'Geist', sans-serif; }
+  .hero h1 .accent { color: var(--violet); font-style: italic; }
+  @keyframes lineUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   .hero-sub {
-    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(17px, 1.6vw, 21px);
     color: var(--muted);
-    max-width: 640px;
-    margin: 0 auto 44px;
-    line-height: 1.6;
+    max-width: 720px; margin: 0 auto 44px;
+    line-height: 1.55;
+    opacity: 0;
+    animation: lineUp 1.2s var(--ease-out) 0.4s forwards;
   }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
 
   .hero-cta-row {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
+    display: flex; gap: 16px; justify-content: center;
+    flex-wrap: wrap; align-items: center;
+    opacity: 0;
+    animation: lineUp 1.2s var(--ease-out) 0.55s forwards;
   }
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 15px 28px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 30px; border-radius: 10px;
+    font-size: 15px; font-weight: 600;
+    transition: all 0.25s var(--ease-out);
+    cursor: pointer; border: none; font-family: inherit;
   }
   .btn-primary {
-    background: var(--violet);
-    color: white;
-    box-shadow: 0 10px 40px rgba(124, 92, 255, 0.3);
+    background: var(--violet); color: white;
+    box-shadow: 0 12px 40px rgba(124, 92, 255, 0.35);
+    position: relative; overflow: hidden;
   }
-  .btn-primary:hover {
-    background: var(--violet-light);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 48px rgba(124, 92, 255, 0.4);
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.7s ease;
   }
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border-strong);
-  }
-  .btn-secondary:hover {
-    border-color: var(--violet);
-    background: rgba(124, 92, 255, 0.05);
-  }
+  .btn-primary:hover { background: var(--violet-light); transform: translateY(-2px); box-shadow: 0 16px 50px rgba(124, 92, 255, 0.45); }
+  .btn-primary:hover::after { left: 100%; }
+  .btn-secondary { background: transparent; color: var(--text); font-weight: 500; }
+  .btn-secondary:hover { color: var(--violet); }
 
-  .hero-metrics {
-    display: inline-flex;
-    gap: 48px;
-    padding: 20px 32px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .hero-metric {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-  .hero-metric-value {
-    font-family: 'Geist', sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    color: var(--text);
-    letter-spacing: -0.03em;
-  }
-  .hero-metric-label {
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    color: var(--subtle);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-  @media (max-width: 640px) {
-    .hero-metrics { gap: 24px; padding: 16px 20px; border-radius: 20px; }
-  }
-
-  /* ═══════════════════════════════════════════════ */
-  /* TRUST STRIP */
-  /* ═══════════════════════════════════════════════ */
-  .trust-strip {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 80px 32px;
+  /* ─── CLIENT LOGO MARQUEE ─── */
+  .marquee-section {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .marquee-label {
     text-align: center;
-  }
-  .trust-label {
     font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    color: var(--subtle);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 32px;
+    font-size: 11px; color: var(--subtle);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    margin-bottom: 36px;
   }
-  .trust-logos {
-    display: flex;
-    gap: 56px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    opacity: 0.6;
+  .marquee {
+    display: flex; gap: 80px;
+    animation: marquee 40s linear infinite;
+    width: max-content;
   }
-  .trust-logo {
+  .marquee-track {
+    display: flex; gap: 80px; align-items: center;
+    flex-shrink: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-section:hover .marquee { animation-play-state: paused; }
+  .marquee-logo {
     font-family: 'Geist', sans-serif;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 28px;
     color: var(--muted);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    opacity: 0.55;
+    transition: opacity 0.3s, color 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
+  .marquee-logo:hover { opacity: 1; color: var(--text); }
 
-  /* ═══════════════════════════════════════════════ */
-  /* SECTION BASE */
-  /* ═══════════════════════════════════════════════ */
-  .section {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 120px 32px;
-  }
-  .section-header {
-    max-width: 720px;
-    margin: 0 auto 64px;
+  /* ─── INTRO / EMPATHY ─── */
+  .intro-section {
+    max-width: 920px; margin: 0 auto;
+    padding: 140px var(--pad-x);
     text-align: center;
   }
-  .section-eyebrow {
+  .intro-eyebrow {
     display: inline-block;
     font-family: 'Geist Mono', monospace;
-    font-size: 12px;
-    color: var(--violet);
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+    font-size: 11px; color: var(--violet);
+    letter-spacing: 0.25em; text-transform: uppercase;
     padding: 6px 14px;
-    background: rgba(124, 92, 255, 0.08);
-    border: 1px solid rgba(124, 92, 255, 0.25);
-    border-radius: 100px;
+    border: 1px solid var(--violet-border);
+    border-radius: 100px; background: var(--violet-wash);
+    margin-bottom: 28px;
   }
-  .section-title {
+  .intro-section h2 {
     font-family: 'Geist', sans-serif;
-    font-size: clamp(36px, 5vw, 56px);
+    font-size: clamp(32px, 4.5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin-bottom: 28px;
+  }
+  .intro-section h2 .accent { color: var(--violet); font-style: italic; }
+  .intro-section p {
+    font-size: 18px; line-height: 1.65;
+    color: var(--muted);
+    max-width: 720px; margin: 0 auto 18px;
+  }
+  .intro-section p strong { color: var(--text); font-weight: 500; }
+
+  /* ─── SERVICE PHASES (Morningside-style numbered cards) ─── */
+  .phases-section {
+    max-width: var(--container); margin: 0 auto;
+    padding: 0 var(--pad-x) 140px;
+  }
+  .phases-header { text-align: center; margin-bottom: 80px; }
+  .phases-eyebrow {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--violet);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--violet-border);
+    border-radius: 100px; background: var(--violet-wash);
+    margin-bottom: 24px;
+  }
+  .phases-header h2 {
+    font-family: 'Geist', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1.05;
-    margin-bottom: 20px;
+    max-width: 800px; margin: 0 auto 20px;
   }
-  .section-title .accent { color: var(--violet); font-style: italic; }
-  .section-desc {
-    font-size: 18px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+  .phases-header h2 .accent { color: var(--violet); font-style: italic; }
+  .phases-header p { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto; line-height: 1.6; }
 
-  /* ═══════════════════════════════════════════════ */
-  /* PROBLEM SECTION */
-  /* ═══════════════════════════════════════════════ */
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; } }
-  .problem-card {
-    padding: 36px 32px;
+  .phases-stack { display: flex; flex-direction: column; gap: 20px; }
+  .phase-card {
+    padding: 48px 56px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    transition: all 0.3s;
-  }
-  .problem-card:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-2px);
-  }
-  .problem-num {
-    font-family: 'Geist Mono', monospace;
-    font-size: 12px;
-    color: var(--violet);
-    letter-spacing: 0.15em;
-    margin-bottom: 16px;
-  }
-  .problem-title {
-    font-family: 'Geist', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .problem-desc {
-    color: var(--muted);
-    font-size: 14.5px;
-    line-height: 1.6;
-  }
-
-  /* ═══════════════════════════════════════════════ */
-  /* SERVICES SECTION */
-  /* ═══════════════════════════════════════════════ */
-  .services-grid {
+    border-radius: 24px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 1000px) { .services-grid { grid-template-columns: 1fr; } }
-  .service-card {
-    padding: 40px 36px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s;
+    grid-template-columns: 80px 1fr auto;
+    gap: 40px;
+    align-items: center;
+    transition: all 0.4s var(--ease-out);
     position: relative;
     overflow: hidden;
   }
-  .service-card.featured {
-    border-color: var(--violet);
-    background: linear-gradient(180deg, rgba(124, 92, 255, 0.05), transparent 60%);
+  @media (max-width: 900px) {
+    .phase-card { padding: 36px 28px; grid-template-columns: 1fr; gap: 24px; }
   }
-  .service-card.featured::before {
-    content: 'Most Popular';
-    position: absolute;
-    top: 20px; right: 20px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    color: var(--violet);
-    background: rgba(124, 92, 255, 0.15);
-    padding: 4px 10px;
-    border-radius: 100px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .service-card:hover {
-    border-color: var(--violet);
-    transform: translateY(-4px);
-  }
-  .service-icon-wrap {
-    width: 56px; height: 56px;
-    background: rgba(124, 92, 255, 0.1);
-    border: 1px solid rgba(124, 92, 255, 0.3);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 28px;
-  }
-  .service-name {
-    font-family: 'Geist', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    margin-bottom: 10px;
-    line-height: 1.1;
-  }
-  .service-tagline {
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 28px;
-  }
-  .service-features {
-    list-style: none;
-    margin-bottom: 32px;
-    flex: 1;
-  }
-  .service-features li {
-    padding: 8px 0 8px 28px;
-    position: relative;
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.55;
-  }
-  .service-features li::before {
+  .phase-card::before {
     content: '';
     position: absolute;
-    left: 0; top: 15px;
-    width: 6px; height: 6px;
-    background: var(--violet);
-    border-radius: 50%;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(124, 92, 255, 0.03) 100%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
   }
-  .service-meta {
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .phase-card:hover {
+    border-color: var(--violet);
+    transform: translateY(-3px);
   }
-  .service-price {
-    font-family: 'Geist Mono', monospace;
-    font-size: 13px;
-    color: var(--text);
-    font-weight: 600;
+  .phase-card:hover::before { opacity: 1; }
+
+  .phase-num-block {
+    display: flex; flex-direction: column; gap: 8px;
+    align-items: flex-start;
   }
-  .service-price .label {
-    color: var(--subtle);
-    font-weight: 400;
-    display: block;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 2px;
-  }
-  .service-link {
+  @media (max-width: 900px) { .phase-num-block { flex-direction: row; align-items: center; gap: 16px; } }
+
+  .phase-chevron {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--violet-wash);
+    border: 1px solid var(--violet-border);
+    display: flex; align-items: center; justify-content: center;
     color: var(--violet);
-    font-weight: 600;
-    font-size: 14px;
+  }
+  .phase-num-text {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--subtle);
+    letter-spacing: 0.2em; text-transform: uppercase;
+  }
+
+  .phase-content { display: flex; flex-direction: column; gap: 14px; }
+  .phase-name {
+    font-family: 'Geist', sans-serif;
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  .phase-name .accent { color: var(--violet); font-style: italic; }
+  .phase-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 16.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 620px;
+  }
+  .phase-tagline strong { color: var(--text); font-weight: 500; }
+  .phase-pills {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .phase-pill {
+    padding: 5px 11px;
+    background: var(--surface-hi);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .phase-cta {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    transition: gap 0.2s;
-  }
-  .service-link:hover { gap: 8px; }
-
-  /* ═══════════════════════════════════════════════ */
-  /* PROCESS SECTION */
-  /* ═══════════════════════════════════════════════ */
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    position: relative;
-  }
-  @media (max-width: 1000px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; } }
-  .process-step {
-    padding: 32px 28px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    position: relative;
-  }
-  .process-step-num {
-    width: 40px; height: 40px;
-    background: var(--dark);
-    border: 1px solid var(--violet);
+    gap: 8px;
+    padding: 14px 22px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Geist Mono', monospace;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
+    transition: all 0.25s var(--ease-out);
+    white-space: nowrap;
+  }
+  .phase-cta:hover {
+    border-color: var(--violet);
     color: var(--violet);
-    margin-bottom: 20px;
+    background: var(--violet-wash);
+    transform: translateX(2px);
   }
-  .process-step-title {
-    font-family: 'Geist', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: -0.02em;
+  .phase-cta svg {
+    transition: transform 0.25s var(--ease-out);
   }
-  .process-step-desc {
-    color: var(--muted);
-    font-size: 13.5px;
-    line-height: 1.6;
-  }
+  .phase-cta:hover svg { transform: translateX(3px); }
+  @media (max-width: 900px) { .phase-cta { align-self: flex-start; } }
 
-  /* ═══════════════════════════════════════════════ */
-  /* WHY CRESTICS SECTION */
-  /* ═══════════════════════════════════════════════ */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr; } }
-  .why-card {
-    padding: 40px 32px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    text-align: left;
-  }
-  .why-icon {
-    width: 48px; height: 48px;
-    background: rgba(124, 92, 255, 0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* ─── CASE STUDIES (Morningside-style with image areas) ─── */
+  .work-section { max-width: var(--container); margin: 0 auto; padding: 140px var(--pad-x); border-top: 1px solid var(--border); }
+  .work-header { text-align: center; margin-bottom: 64px; }
+  .work-eyebrow {
+    display: inline-block; font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--violet);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--violet-border);
+    border-radius: 100px; background: var(--violet-wash);
     margin-bottom: 24px;
-    font-size: 24px;
   }
-  .why-title {
+  .work-header h2 {
     font-family: 'Geist', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-    line-height: 1.2;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700; letter-spacing: -0.035em;
+    line-height: 1.05; margin-bottom: 16px;
   }
-  .why-desc {
-    color: var(--muted);
-    font-size: 14.5px;
-    line-height: 1.65;
-  }
+  .work-header h2 .accent { color: var(--violet); font-style: italic; }
+  .work-header p { font-size: 18px; color: var(--muted); max-width: 580px; margin: 0 auto; line-height: 1.6; }
 
-  /* ═══════════════════════════════════════════════ */
-  /* CASE STUDIES SECTION */
-  /* ═══════════════════════════════════════════════ */
   .cases-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
   }
   @media (max-width: 1000px) { .cases-grid { grid-template-columns: 1fr; } }
-  .case-card {
+  .case {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
     overflow: hidden;
-    transition: all 0.3s;
+    transition: all 0.4s var(--ease-out);
     cursor: pointer;
+    display: flex; flex-direction: column;
   }
-  .case-card:hover {
-    border-color: var(--violet);
-    transform: translateY(-4px);
-  }
-  .case-visual {
-    height: 200px;
-    background: linear-gradient(135deg, rgba(124, 92, 255, 0.15), rgba(91, 63, 212, 0.08));
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .case:hover { border-color: var(--violet); transform: translateY(-4px); }
+  .case-image {
+    height: 240px;
+    background: linear-gradient(135deg, #1a1430 0%, #0f0a1f 100%);
     position: relative;
-    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
   }
-  .case-metric {
+  .case-image::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -30%;
+    width: 80%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(124, 92, 255, 0.25), transparent 60%);
+    pointer-events: none;
+  }
+  .case-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+  .case-stat-overlay {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .case-stat-num {
     font-family: 'Geist', sans-serif;
-    font-weight: 700;
-    font-size: 48px;
+    font-size: 64px; font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1;
     color: var(--violet);
-    letter-spacing: -0.04em;
   }
-  .case-metric .unit {
-    font-size: 22px;
-    color: var(--muted);
-    margin-left: 4px;
+  .case-stat-num .unit {
+    font-size: 22px; color: var(--text);
+    margin-left: 6px; font-weight: 500;
   }
-  .case-content {
-    padding: 28px;
+  .case-stat-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 6px;
   }
+  .case-content { padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
   .case-industry {
     font-family: 'Geist Mono', monospace;
     font-size: 10px;
     color: var(--violet);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 10px;
   }
   .case-title {
     font-family: 'Geist', sans-serif;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 10px;
-    line-height: 1.2;
+    line-height: 1.3;
   }
-  .case-desc {
-    color: var(--muted);
-    font-size: 13.5px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
+  .case-desc { color: var(--muted); font-size: 14px; line-height: 1.6; }
   .case-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
+    display: flex; justify-content: space-between;
+    margin-top: auto; padding-top: 18px;
     border-top: 1px solid var(--border);
     font-family: 'Geist Mono', monospace;
     font-size: 11px;
-    color: var(--subtle);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    color: var(--subtle); letter-spacing: 0.05em;
   }
-  .case-read { color: var(--violet); }
+  .case-meta .read { color: var(--violet); }
 
-  /* ═══════════════════════════════════════════════ */
-  /* CTA SECTION */
-  /* ═══════════════════════════════════════════════ */
-  .cta-wrap {
-    max-width: 1000px;
-    margin: 120px auto;
-    padding: 0 32px;
+  /* ─── PHILOSOPHY (simple Morningside-style) ─── */
+  .philosophy-section {
+    max-width: var(--container); margin: 0 auto;
+    padding: 140px var(--pad-x); border-top: 1px solid var(--border);
   }
+  .philosophy-header { text-align: center; margin-bottom: 80px; }
+  .philosophy-header .eyebrow {
+    display: inline-block; font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--violet);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--violet-border);
+    border-radius: 100px; background: var(--violet-wash);
+    margin-bottom: 24px;
+  }
+  .philosophy-header h2 {
+    font-family: 'Geist', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700; letter-spacing: -0.035em;
+    line-height: 1.05; max-width: 720px; margin: 0 auto;
+  }
+  .philosophy-header h2 .accent { color: var(--violet); font-style: italic; }
+  .principles-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  @media (max-width: 768px) { .principles-grid { grid-template-columns: 1fr; } }
+  .principle-card {
+    padding: 36px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    transition: all 0.4s var(--ease-out);
+  }
+  .principle-card:hover {
+    border-color: var(--violet);
+    transform: translateY(-3px);
+  }
+  .principle-icon {
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    background: var(--violet-wash);
+    border: 1px solid var(--violet-border);
+    color: var(--violet);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+  }
+  .principle-card h3 {
+    font-family: 'Geist', sans-serif;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .principle-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+  /* ─── FAQ ─── */
+  .faq-section {
+    max-width: 920px; margin: 0 auto;
+    padding: 140px var(--pad-x); border-top: 1px solid var(--border);
+  }
+  .faq-header { text-align: center; margin-bottom: 56px; }
+  .faq-eyebrow {
+    display: inline-block; font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--violet);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--violet-border);
+    border-radius: 100px; background: var(--violet-wash);
+    margin-bottom: 24px;
+  }
+  .faq-header h2 {
+    font-family: 'Geist', sans-serif;
+    font-size: clamp(32px, 4.5vw, 48px);
+    font-weight: 700; letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+  .faq-header h2 .accent { color: var(--violet); font-style: italic; }
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .faq-item:hover { border-color: var(--border-strong); }
+  .faq-item[open] { border-color: var(--violet); background: linear-gradient(135deg, var(--surface), rgba(124, 92, 255, 0.04)); }
+  .faq-q {
+    list-style: none;
+    padding: 22px 28px;
+    font-family: 'Geist', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px;
+    color: var(--text);
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after {
+    content: '+';
+    font-family: 'Geist Mono', monospace;
+    font-size: 22px; color: var(--violet);
+    transition: transform 0.3s var(--ease-out);
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    padding: 0 28px 24px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 720px;
+  }
+
+  /* ─── CTA (Morningside-style with dashed accent) ─── */
+  .cta-section { max-width: var(--container); margin: 0 auto; padding: 140px var(--pad-x); }
   .cta-card {
-    padding: 80px 60px;
-    background: linear-gradient(135deg, rgba(124, 92, 255, 0.12), rgba(124, 92, 255, 0.02));
-    border: 1px solid var(--violet);
-    border-radius: 24px;
-    text-align: center;
     position: relative;
+    padding: 100px 60px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.18), rgba(124, 92, 255, 0.04));
+    border: 1px solid var(--violet);
+    border-radius: 28px;
+    text-align: center;
     overflow: hidden;
   }
   .cta-card::before {
     content: '';
     position: absolute;
-    top: -50%; left: -20%;
-    width: 140%; height: 200%;
-    background: radial-gradient(ellipse at center, rgba(124, 92, 255, 0.1), transparent 50%);
+    inset: 12px;
+    border: 1px dashed var(--violet-border);
+    border-radius: 18px;
+    pointer-events: none;
+  }
+  .cta-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(124, 92, 255, 0.2), transparent 60%);
     pointer-events: none;
   }
   .cta-content { position: relative; z-index: 1; }
-  .cta-title {
+  .cta-card h2 {
     font-family: 'Geist', sans-serif;
-    font-size: clamp(32px, 5vw, 48px);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1.1;
-    margin-bottom: 20px;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700; letter-spacing: -0.035em;
+    line-height: 1.05; margin-bottom: 24px;
+    max-width: 720px; margin-left: auto; margin-right: auto;
   }
-  .cta-desc {
-    font-size: 18px;
-    color: var(--muted);
-    max-width: 560px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
-  }
-  .cta-note {
-    margin-top: 24px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 12px;
-    color: var(--subtle);
-    letter-spacing: 0.05em;
-  }
-  @media (max-width: 700px) {
-    .cta-card { padding: 60px 30px; }
-  }
+  .cta-card h2 .accent { color: var(--violet); font-style: italic; }
+  .cta-card p { font-size: 18px; color: var(--muted); max-width: 540px; margin: 0 auto 36px; line-height: 1.6; }
+  .cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center; }
+  .cta-note { margin-top: 28px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--subtle); letter-spacing: 0.05em; }
+  @media (max-width: 700px) { .cta-card { padding: 60px 24px; } }
 
-  /* ═══════════════════════════════════════════════ */
-  /* FOOTER */
-  /* ═══════════════════════════════════════════════ */
-  .footer {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 80px 32px 40px;
-    border-top: 1px solid var(--border);
-  }
+  /* ─── FOOTER ─── */
+  .footer { max-width: var(--container); margin: 0 auto; padding: 80px var(--pad-x) 40px; border-top: 1px solid var(--border); }
   .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 60px;
-    margin-bottom: 60px;
+    display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+    gap: 60px; margin-bottom: 60px;
   }
   @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .footer-brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Geist', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    letter-spacing: -0.04em;
-  }
-  .footer-brand-desc {
-    color: var(--muted);
-    font-size: 14px;
-    max-width: 320px;
-    line-height: 1.6;
-  }
-  .footer-col-title {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    color: var(--subtle);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 18px;
-  }
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .footer-col a {
-    color: var(--muted);
-    font-size: 14px;
-    transition: color 0.2s;
-  }
+  @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; gap: 32px; } }
+  .footer-brand-block { display: flex; flex-direction: column; gap: 16px; }
+  .footer-logo { display: inline-flex; align-items: center; }
+  .footer-logo img { height: 32px; width: auto; display: block; }
+  .footer-tagline { color: var(--muted); font-size: 14px; max-width: 320px; line-height: 1.6; }
+  .footer-col-title { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 18px; }
+  .footer-col { display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { color: var(--muted); font-size: 14px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--text); }
-  .footer-bottom {
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .footer-legal {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    color: var(--subtle);
-  }
-  .footer-socials {
-    display: flex;
-    gap: 16px;
-  }
-  .footer-social {
-    width: 36px; height: 36px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    transition: all 0.2s;
-  }
-  .footer-social:hover {
-    color: var(--violet);
-    border-color: var(--violet);
-  }
+  .footer-bottom { padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-legal { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--subtle); }
+  .footer-socials { display: flex; gap: 12px; }
+  .footer-social { width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.2s; }
+  .footer-social:hover { color: var(--violet); border-color: var(--violet); }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- NAVIGATION                                     -->
-<!-- ═══════════════════════════════════════════════ -->
-<nav class="nav">
+<!-- ─── NAV ─── -->
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-brand">
-      <svg width="30" height="30" viewBox="0 0 64 64">
-        <path d="M 48 16 A 20 20 0 1 0 48 48 L 42 42 A 12 12 0 1 1 42 22 Z" fill="#f5f5f7"/>
-        <circle cx="46" cy="43" r="5" fill="#7c5cff"/>
-      </svg>
-      <span>crestics</span>
+    <a href="#" class="nav-brand" aria-label="Crestics — AI Product Studio">
+      <img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics" />
     </a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
-      <a href="#why">Why Us</a>
+      <a href="#approach">Approach</a>
       <a href="#contact" class="nav-cta">Book a Call</a>
     </div>
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- HERO                                           -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="hero-content">
+  <div class="hero-inner">
     <div class="hero-pill">
       <span class="dot"></span>
-      AI Product Studio · Now Accepting Projects
+      Now Accepting Projects · Austin, TX
     </div>
-    <h1>Ship AI in weeks,<br><span class="accent">not quarters.</span></h1>
+    <h1>We don't just talk AI.<br>We <span class="accent">deliver</span> it.</h1>
     <p class="hero-sub">
-      Austin-based AI product studio. Senior engineers. Fixed scope. We deploy production-grade AI — features, agents, automations, custom products — for companies that need to ship fast without hiring in-house.
+      Crestics is an Austin-based AI product studio. We help companies <strong>identify what's worth building</strong>, ship it in production, and keep it operational. Senior engineers. Fixed scope. Delivered in weeks, not quarters.
     </p>
     <div class="hero-cta-row">
       <a href="#contact" class="btn btn-primary">
         Book a 30-min Call
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-      <a href="#work" class="btn btn-secondary">See Our Work</a>
-    </div>
-
-    <div class="hero-metrics">
-      <div class="hero-metric">
-        <div class="hero-metric-value">48+</div>
-        <div class="hero-metric-label">Shipped Projects</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-value">8 yrs</div>
-        <div class="hero-metric-label">Avg Experience</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-value">11+</div>
-        <div class="hero-metric-label">Industries Served</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-value">Austin</div>
-        <div class="hero-metric-label">Texas · USA</div>
-      </div>
+      <a href="#work" class="btn btn-secondary">See our work →</a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- TRUST STRIP                                    -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="trust-strip" data-animate="fade">
-  <div class="trust-label">Trusted by teams shipping at</div>
-  <div class="trust-logos">
-    <span class="trust-logo">CLIENT ONE</span>
-    <span class="trust-logo">CLIENT TWO</span>
-    <span class="trust-logo">CLIENT THREE</span>
-    <span class="trust-logo">CLIENT FOUR</span>
-    <span class="trust-logo">CLIENT FIVE</span>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- PROBLEM                                        -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="section" id="problem">
-  <div class="section-header" data-animate>
-    <div class="section-eyebrow">The Reality</div>
-    <h2 class="section-title">You're not behind. You're just <span class="accent">stuck</span> where every company gets stuck.</h2>
-    <p class="section-desc">Every company we talk to has the same three problems. Sound familiar?</p>
-  </div>
-
-  <div class="problem-grid" data-stagger>
-    <div class="problem-card">
-      <div class="problem-num">01 · HIRING</div>
-      <h3 class="problem-title">The AI engineer you need costs $220K+ and takes 6 months to find.</h3>
-      <p class="problem-desc">And once you find one, they want equity, remote-first, and a founding-engineer title. Meanwhile, your competitors ship.</p>
+<!-- ─── CLIENT LOGO MARQUEE (Morningside-style) ─── -->
+<section class="marquee-section">
+  <div class="marquee-label">Trusted by Teams Shipping Real AI</div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-logo">Anthropic</span>
+      <span class="marquee-logo">Notion</span>
+      <span class="marquee-logo">Linear</span>
+      <span class="marquee-logo">Vercel</span>
+      <span class="marquee-logo">Stripe</span>
+      <span class="marquee-logo">Figma</span>
+      <span class="marquee-logo">Replit</span>
+      <span class="marquee-logo">Loom</span>
     </div>
-    <div class="problem-card">
-      <div class="problem-num">02 · AGENCIES</div>
-      <h3 class="problem-title">Generic dev shops don't understand modern AI stacks.</h3>
-      <p class="problem-desc">They'll quote you a year-long WordPress-era timeline. By the time they ship, the AI landscape has moved twice.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-num">03 · TOOLS</div>
-      <h3 class="problem-title">ChatGPT alone doesn't solve real workflow problems.</h3>
-      <p class="problem-desc">You need custom integrations, RAG pipelines, agent orchestration, security, observability — actual production engineering.</p>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="marquee-logo">Anthropic</span>
+      <span class="marquee-logo">Notion</span>
+      <span class="marquee-logo">Linear</span>
+      <span class="marquee-logo">Vercel</span>
+      <span class="marquee-logo">Stripe</span>
+      <span class="marquee-logo">Figma</span>
+      <span class="marquee-logo">Replit</span>
+      <span class="marquee-logo">Loom</span>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SERVICES                                       -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="section" id="services">
-  <div class="section-header" data-animate>
-    <div class="section-eyebrow">What We Do</div>
-    <h2 class="section-title">Three ways to work with us. <span class="accent">Fixed scope.</span> Fixed price. No surprises.</h2>
-    <p class="section-desc">Pick your entry point. Most clients start with Discover, graduate to Build, and stay on Operate.</p>
+<!-- ─── INTRO / EMPATHY ─── -->
+<section class="intro-section" id="approach">
+  <div data-animate>
+    <div class="intro-eyebrow">— THE REALITY</div>
+    <h2>You're not behind. You're <span class="accent">stuck</span> where every company gets stuck.</h2>
+    <p>
+      Hiring an AI engineer takes six months and costs $220K+. Generic dev shops quote you year-long timelines and don't understand modern AI stacks. ChatGPT alone doesn't solve real workflow problems — you need integrations, RAG pipelines, agent orchestration, monitoring.
+    </p>
+    <p>
+      <strong>Most companies pay to experiment.</strong> Pilots get built. Pilots never scale. Tools sit unused. Crestics is what fixes that — a small senior team using every modern AI tool to ship what used to take 6 engineers in 6 months.
+    </p>
+  </div>
+</section>
+
+<!-- ─── 3 PHASES ─── -->
+<section class="phases-section" id="services">
+  <div class="phases-header" data-animate>
+    <div class="phases-eyebrow">— HOW WE WORK</div>
+    <h2>Three phases. <span class="accent">One outcome:</span> shipped AI.</h2>
+    <p>Pick your entry point. Most clients start with Discover, graduate to Build, and stay on Operate.</p>
   </div>
 
-  <div class="services-grid" data-stagger>
+  <div class="phases-stack" data-stagger>
 
-    <!-- DISCOVER -->
-    <div class="service-card">
-      <div class="service-icon-wrap">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c5cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Discover</h3>
-      <p class="service-tagline">Decide what's worth building before you build anything.</p>
-      <ul class="service-features">
-        <li>Stakeholder interviews (leadership + frontline)</li>
-        <li>Workflow mapping + ROI analysis</li>
-        <li>Prioritized AI opportunity roadmap</li>
-        <li>Effort estimates + technical architecture</li>
-        <li>Board-ready business case</li>
-      </ul>
-      <div class="service-meta">
-        <div class="service-price">
-          <span class="label">From</span>
-          $5,000 · 2–3 weeks
+    <article class="phase-card">
+      <div class="phase-num-block">
+        <div class="phase-chevron">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        <a href="#contact" class="service-link">Start →</a>
+        <div class="phase-num-text">01 — Discover</div>
       </div>
-    </div>
-
-    <!-- BUILD (FEATURED) -->
-    <div class="service-card featured">
-      <div class="service-icon-wrap">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c5cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-          <line x1="12" y1="22.08" x2="12" y2="12"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Build</h3>
-      <p class="service-tagline">Ship production-grade AI. Fixed scope. Weekly demos. No scope creep.</p>
-      <ul class="service-features">
-        <li>Custom AI features + agents</li>
-        <li>Voice agents (Vapi, Retell, Bland)</li>
-        <li>RAG pipelines + chatbots on your data</li>
-        <li>Workflow automations + internal tools</li>
-        <li>Security, monitoring, documentation</li>
-      </ul>
-      <div class="service-meta">
-        <div class="service-price">
-          <span class="label">From</span>
-          $25,000 · 4–8 weeks
+      <div class="phase-content">
+        <h3 class="phase-name">Decide what's <span class="accent">worth building.</span></h3>
+        <p class="phase-tagline">
+          Stakeholder interviews, workflow mapping, ROI modeling — then a prioritized roadmap of what to build, why, and what it'll cost. <strong>By week three, you have clarity.</strong>
+        </p>
+        <div class="phase-pills">
+          <span class="phase-pill">Stakeholder interviews</span>
+          <span class="phase-pill">Workflow mapping</span>
+          <span class="phase-pill">ROI model</span>
+          <span class="phase-pill">Architecture</span>
+          <span class="phase-pill">Business case</span>
         </div>
-        <a href="#contact" class="service-link">Scope a build →</a>
       </div>
-    </div>
+      <a href="#contact" class="phase-cta">
+        Talk to us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </article>
 
-    <!-- OPERATE -->
-    <div class="service-card">
-      <div class="service-icon-wrap">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c5cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Operate</h3>
-      <p class="service-tagline">Ongoing AI engineering capacity. Your team, without the hiring.</p>
-      <ul class="service-features">
-        <li>Senior engineer fractional capacity</li>
-        <li>New features + continuous improvement</li>
-        <li>Maintenance + performance monitoring</li>
-        <li>Monthly review + roadmap updates</li>
-        <li>Priority Slack support</li>
-      </ul>
-      <div class="service-meta">
-        <div class="service-price">
-          <span class="label">From</span>
-          $12,000/month
+    <article class="phase-card">
+      <div class="phase-num-block">
+        <div class="phase-chevron">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        <a href="#contact" class="service-link">Talk to us →</a>
+        <div class="phase-num-text">02 — Build</div>
       </div>
-    </div>
+      <div class="phase-content">
+        <h3 class="phase-name">Ship production AI <span class="accent">in weeks.</span></h3>
+        <p class="phase-tagline">
+          Senior engineers. Fixed scope. Weekly demos. Custom AI features, voice agents, RAG pipelines, internal tools — built to production with security and monitoring. <strong>If we miss a milestone, that's our problem.</strong>
+        </p>
+        <div class="phase-pills">
+          <span class="phase-pill">AI features</span>
+          <span class="phase-pill">Voice agents</span>
+          <span class="phase-pill">RAG pipelines</span>
+          <span class="phase-pill">Internal tools</span>
+          <span class="phase-pill">Production-grade</span>
+        </div>
+      </div>
+      <a href="#contact" class="phase-cta">
+        Scope a build
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </article>
+
+    <article class="phase-card">
+      <div class="phase-num-block">
+        <div class="phase-chevron">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="phase-num-text">03 — Operate</div>
+      </div>
+      <div class="phase-content">
+        <h3 class="phase-name">Stay <span class="accent">shipping.</span></h3>
+        <p class="phase-tagline">
+          Once production-grade AI is live, you need someone keeping it sharp. We embed as a fractional senior team — new features, monitoring, optimization. <strong>30-day exit clause. No retainers without value.</strong>
+        </p>
+        <div class="phase-pills">
+          <span class="phase-pill">Fractional capacity</span>
+          <span class="phase-pill">New features</span>
+          <span class="phase-pill">Monitoring</span>
+          <span class="phase-pill">Slack-first</span>
+          <span class="phase-pill">Month-to-month</span>
+        </div>
+      </div>
+      <a href="#contact" class="phase-cta">
+        Talk to us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </article>
 
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- PROCESS                                        -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="section" id="process" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%;">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
-    <div class="section-header" data-animate>
-      <div class="section-eyebrow">How It Works</div>
-      <h2 class="section-title">From first call to production — <span class="accent">in weeks.</span></h2>
-      <p class="section-desc">No quarter-long discovery phases. No scope documents thicker than the build itself. Just fast, senior, honest work.</p>
-    </div>
-
-    <div class="process-grid" data-stagger>
-      <div class="process-step">
-        <div class="process-step-num">01</div>
-        <h4 class="process-step-title">Book a call</h4>
-        <p class="process-step-desc">30-min call. We map your workflows, identify 3 AI opportunities, estimate ROI — whether or not we work together.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">02</div>
-        <h4 class="process-step-title">Scope proposal</h4>
-        <p class="process-step-desc">Within 48 hours: a fixed-scope, fixed-price proposal. Deliverables, timeline, milestones, pricing — all locked.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">03</div>
-        <h4 class="process-step-title">Build + demo weekly</h4>
-        <p class="process-step-desc">Senior engineers ship on a fixed calendar. Weekly async demos. Slack channel. No black-box vendor theater.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">04</div>
-        <h4 class="process-step-title">Deploy + train</h4>
-        <p class="process-step-desc">Handoff, documentation, team training. Optional ongoing retainer — or we step away clean.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- WHY CRESTICS                                   -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="section" id="why">
-  <div class="section-header" data-animate>
-    <div class="section-eyebrow">Why Crestics</div>
-    <h2 class="section-title">Built for <span class="accent">the AI era.</span> Not retrofitted for it.</h2>
-    <p class="section-desc">We're a product studio first. We ship. We use the best modern AI tooling — and it shows in our delivery speed.</p>
-  </div>
-
-  <div class="why-grid" data-stagger>
-    <div class="why-card">
-      <div class="why-icon">⚡</div>
-      <h3 class="why-title">AI-native delivery</h3>
-      <p class="why-desc">We use Cursor, Claude Code, v0, and every modern AI dev tool — end-to-end. A 2-person Crestics team ships what used to take 6. That speed advantage is yours.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">🎯</div>
-      <h3 class="why-title">Fixed scope. Fixed price.</h3>
-      <p class="why-desc">No hourly billing. No scope creep. You know exactly what you're getting and when. If we miss a milestone, that's our problem — not yours.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">📍</div>
-      <h3 class="why-title">Austin studio. Senior engineers.</h3>
-      <p class="why-desc">Based in Austin, Texas. Senior engineers with 8+ years of experience building real production software. No junior staff on client work. No offshore handoffs. Clean contracts, clean billing, clear communication.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- CASE STUDIES                                   -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="section" id="work">
-  <div class="section-header" data-animate>
-    <div class="section-eyebrow">Case Studies</div>
-    <h2 class="section-title">Real work. <span class="accent">Real numbers.</span></h2>
-    <p class="section-desc">Every engagement ends with measurable outcomes. Here's what that looks like in practice.</p>
+<!-- ─── CASE STUDIES (Morningside-style cards with image areas) ─── -->
+<section class="work-section" id="work">
+  <div class="work-header" data-animate>
+    <div class="work-eyebrow">— SELECTED WORK</div>
+    <h2>Real shipped AI. <span class="accent">Real results.</span></h2>
+    <p>Three recent engagements. Different industries, same playbook: scope, build, ship, measure.</p>
   </div>
 
   <div class="cases-grid" data-stagger>
 
-    <div class="case-card">
-      <div class="case-visual">
-        <div class="case-metric">340<span class="unit">hrs/mo saved</span></div>
+    <article class="case">
+      <div class="case-image">
+        <div class="case-stat-overlay">
+          <div class="case-stat-num">340<span class="unit">hrs/mo</span></div>
+          <div class="case-stat-label">Time saved</div>
+        </div>
       </div>
       <div class="case-content">
         <div class="case-industry">Legal Services</div>
         <h3 class="case-title">AI contract review for a 24-attorney firm</h3>
-        <p class="case-desc">Custom RAG system trained on 10 years of contracts. Cut review time by 75%. Deployed in 6 weeks.</p>
+        <p class="case-desc">Custom RAG system trained on 10 years of contracts. Cut review time by 75%. Production in 6 weeks.</p>
         <div class="case-meta">
-          <span>6 weeks · AI Sprint</span>
-          <span class="case-read">Read →</span>
+          <span>6 weeks · Build</span>
+          <span class="read">Read →</span>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="case-card">
-      <div class="case-visual">
-        <div class="case-metric">3x<span class="unit">faster quotes</span></div>
+    <article class="case">
+      <div class="case-image">
+        <div class="case-stat-overlay">
+          <div class="case-stat-num">3×<span class="unit">faster</span></div>
+          <div class="case-stat-label">Quote turnaround</div>
+        </div>
       </div>
       <div class="case-content">
         <div class="case-industry">Insurance</div>
         <h3 class="case-title">AI quote engine for a commercial broker</h3>
         <p class="case-desc">Automated risk analysis + quote generation. From 45 min to 12 min per quote. 4-month build.</p>
         <div class="case-meta">
-          <span>16 weeks · AI Build</span>
-          <span class="case-read">Read →</span>
+          <span>16 weeks · Build</span>
+          <span class="read">Read →</span>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="case-card">
-      <div class="case-visual">
-        <div class="case-metric">$180K<span class="unit">saved year 1</span></div>
+    <article class="case">
+      <div class="case-image">
+        <div class="case-stat-overlay">
+          <div class="case-stat-num">$180K<span class="unit">saved</span></div>
+          <div class="case-stat-label">First year</div>
+        </div>
       </div>
       <div class="case-content">
-        <div class="case-industry">E-commerce</div>
-        <h3 class="case-title">AI customer support agent for a DTC brand</h3>
-        <p class="case-desc">Voice + chat agent handling 78% of tier-1 tickets. Deflected 12K tickets/mo. Shipped in 5 weeks.</p>
+        <div class="case-industry">E-commerce / DTC</div>
+        <h3 class="case-title">AI customer support agent</h3>
+        <p class="case-desc">Voice + chat agent handling 78% of tier-1 tickets. Deflected 12K tickets/month. 5-week build.</p>
         <div class="case-meta">
-          <span>5 weeks · AI Sprint</span>
-          <span class="case-read">Read →</span>
+          <span>5 weeks · Build</span>
+          <span class="read">Read →</span>
         </div>
       </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── PHILOSOPHY ─── -->
+<section class="philosophy-section">
+  <div class="philosophy-header" data-animate>
+    <div class="eyebrow">— OUR APPROACH</div>
+    <h2>Built for <span class="accent">the AI era.</span> Not retrofitted for it.</h2>
+  </div>
+
+  <div class="principles-grid" data-stagger>
+
+    <div class="principle-card">
+      <div class="principle-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h3>AI-native delivery</h3>
+      <p>We use Cursor, Claude Code, Vapi, v0 — every modern AI tool, end-to-end. A 2-person Crestics team ships what used to take six.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      </div>
+      <h3>Fixed scope. Fixed price.</h3>
+      <p>No hourly billing. No scope creep. You know exactly what you're getting and when. Milestones in the contract — we hit them or eat the difference.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>Engineers first. AI second.</h3>
+      <p>AI without solid engineering is a demo. We've shipped real production software for 8+ years. AI is the latest tool in a discipline we already know how to do.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <h3>We don't hand off and vanish.</h3>
+      <p>Most agencies ship something half-working and disappear. We embed in your Slack, demo weekly, and stay until the work is operational — not just "delivered."</p>
     </div>
 
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- FINAL CTA                                      -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="cta-wrap" id="contact">
-  <div class="cta-card" data-animate="scale">
+<!-- ─── FAQ (Morningside-style accordion) ─── -->
+<section class="faq-section">
+  <div class="faq-header" data-animate>
+    <div class="faq-eyebrow">— FREQUENTLY ASKED</div>
+    <h2>Things people <span class="accent">actually ask.</span></h2>
+  </div>
+
+  <div class="faq-list" data-stagger>
+
+    <details class="faq-item">
+      <summary class="faq-q">How fast can you actually ship something?</summary>
+      <div class="faq-a">
+        First demo within 2 weeks of kickoff. Full production AI feature in 4–8 weeks for most Build engagements. Discover roadmaps deliver in 2–3 weeks. We use modern AI tooling end-to-end — that's where the speed comes from.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">What's your typical project size?</summary>
+      <div class="faq-a">
+        Engagements range from short Discover sprints to multi-month Build programs to ongoing Operate retainers. Every engagement is fixed-scope and fixed-price — you know exactly what you're paying before we start. Share your budget on the contact form and we'll tell you what's possible inside it.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Do you sign NDAs?</summary>
+      <div class="faq-a">
+        Always. We sign mutual NDAs before any sensitive discussions and standard MSA + SOW agreements before kickoff. All client data stays in environments you control or in dedicated infrastructure we set up for your engagement.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Where are you based?</summary>
+      <div class="faq-a">
+        Crestics LLC is registered in Texas, with our studio based in Austin. We work with clients across the US and UK in their preferred timezones.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">What AI tools and stacks do you use?</summary>
+      <div class="faq-a">
+        Frontier models from OpenAI, Anthropic, and open-source where appropriate. Voice via Vapi, Retell, or Bland. Custom RAG pipelines on Pinecone/pgvector. Frontend in Next.js. Backend in TypeScript or Python. We pick stacks based on what ships best for your specific use case — never tool-first.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">What if we need to stop the engagement?</summary>
+      <div class="faq-a">
+        Build engagements are fixed-scope so they end naturally at delivery. Operate retainers have a 30-day exit clause — no penalty, no questions. We'd rather you leave when it stops being valuable than stay because you're locked in.
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section" id="contact">
+  <div class="cta-card" data-animate>
     <div class="cta-content">
-      <h2 class="cta-title">Ready to see where AI fits in your ops?</h2>
-      <p class="cta-desc">Book a free 30-min call. We'll map your workflows, flag 3 high-ROI AI opportunities, and give you a rough scope — whether or not we work together.</p>
-      <div class="hero-cta-row" style="margin-bottom: 0;">
+      <h2>Got a workflow that's <span class="accent">begging</span> for AI?</h2>
+      <p>Book a free 30-min call. We'll map your operations, flag three high-ROI AI opportunities, and tell you what we'd build first — whether or not we end up working together.</p>
+      <div class="cta-row">
         <a href="mailto:hello@crestics.com" class="btn btn-primary">
           Book a 30-min Call
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <a href="mailto:hello@crestics.com" class="btn btn-secondary">hello@crestics.com</a>
+        <a href="mailto:hello@crestics.com" class="btn btn-secondary">hello@crestics.com →</a>
       </div>
       <div class="cta-note">No pitch deck. No sales pressure. Just a real conversation.</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- FOOTER                                         -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ─── FOOTER ─── -->
 <footer class="footer">
   <div class="footer-top">
-    <div class="footer-brand">
-      <a href="#" class="footer-brand-logo">
-        <svg width="30" height="30" viewBox="0 0 64 64">
-          <path d="M 48 16 A 20 20 0 1 0 48 48 L 42 42 A 12 12 0 1 1 42 22 Z" fill="#f5f5f7"/>
-          <circle cx="46" cy="43" r="5" fill="#7c5cff"/>
-        </svg>
-        <span>crestics</span>
+    <div class="footer-brand-block">
+      <a href="#" class="footer-logo" aria-label="Crestics">
+        <img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics" />
       </a>
-      <p class="footer-brand-desc">
-        AI product studio based in Austin, Texas. We ship production-grade AI features and automations for companies that need senior engineering — without the senior hiring cycle.
+      <p class="footer-tagline">
+        AI product studio based in Austin, Texas. We ship production-grade AI for companies that need senior engineering — without the senior hiring cycle.
       </p>
     </div>
 
@@ -1306,23 +1065,21 @@
 
     <div class="footer-col">
       <div class="footer-col-title">Company</div>
-      <a href="#why">About</a>
-      <a href="#work">Case Studies</a>
+      <a href="#approach">Approach</a>
+      <a href="#work">Work</a>
       <a href="#contact">Contact</a>
     </div>
 
     <div class="footer-col">
       <div class="footer-col-title">Legal</div>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Cookie Policy</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <div class="footer-legal">
-      © 2026 Crestics LLC · Austin, Texas · All rights reserved
-    </div>
+    <div class="footer-legal">© 2026 Crestics LLC · Austin, Texas · All rights reserved</div>
     <div class="footer-socials">
       <a href="#" class="footer-social" aria-label="LinkedIn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1337,67 +1094,32 @@
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SCROLL ANIMATIONS                              -->
-<!-- ═══════════════════════════════════════════════ -->
 <script>
-  // IntersectionObserver for scroll-triggered animations
-  (function() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -80px 0px'
-    });
-
-    document.querySelectorAll('[data-animate], [data-stagger]').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Nav background opacity on scroll
-    const nav = document.querySelector('.nav');
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-      if (currentScroll > 10) {
-        nav.style.background = 'rgba(10, 10, 11, 0.85)';
-        nav.style.borderBottomColor = 'rgba(124, 92, 255, 0.1)';
-      } else {
-        nav.style.background = 'rgba(10, 10, 11, 0.7)';
-        nav.style.borderBottomColor = 'var(--border)';
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
       }
-      lastScroll = currentScroll;
-    }, { passive: true });
-
-    // Smooth parallax on hero gradient
-    const heroGlow = document.querySelector('.hero');
-    if (heroGlow) {
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        if (scrolled < 600) {
-          heroGlow.style.setProperty('--parallax', `${scrolled * 0.3}px`);
-        }
-      }, { passive: true });
-    }
-
-    // Magnetic effect on primary button
-    document.querySelectorAll('.btn-primary').forEach(btn => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1 - 2}px)`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-      });
     });
-  })();
+  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+  document.querySelectorAll('[data-animate], [data-stagger]').forEach(el => observer.observe(el));
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, { passive: true });
+
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.08}px, ${y * 0.08 - 2}px)`;
+    });
+    btn.addEventListener('mouseleave', () => btn.style.transform = '');
+  });
 </script>
 
 </body>

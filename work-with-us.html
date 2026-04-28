@@ -704,7 +704,7 @@
           </div>
           <div class="form-field" style="margin: 0;">
             <label class="form-label" for="website">Website</label>
-            <input class="form-input" type="url" id="website" name="website" placeholder="https://acme.com">
+            <input class="form-input" type="url" id="website" name="website" placeholder="acme.com">
           </div>
         </div>
 
@@ -859,9 +859,28 @@
       errorBox.textContent = '';
     }
 
+    // Normalize a website input — accept "acme.com", "www.acme.com",
+    // "acme.com/foo" and turn them into a real URL with protocol.
+    // Leaves anything already prefixed with http(s):// alone.
+    function normalizeWebsite() {
+      const input = form.querySelector('input[name="website"]');
+      if (!input) return;
+      const raw = input.value.trim();
+      if (!raw) return;
+      if (/^https?:\/\//i.test(raw)) return;
+      // Reject obvious garbage early — must contain at least one dot
+      if (!/\./.test(raw)) return;
+      input.value = 'https://' + raw;
+    }
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       clearError();
+
+      // Auto-fix common website input ("www.acme.com" → "https://www.acme.com")
+      // before native validation runs, so users don't get yelled at for a URL
+      // missing its protocol.
+      normalizeWebsite();
 
       // Native validation first — surfaces the browser's red borders + tooltips
       if (!form.checkValidity()) {

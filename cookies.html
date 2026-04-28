@@ -6,6 +6,15 @@
 <title>Cookie Policy — Crestics</title>
 <meta name="description" content="Crestics cookie policy: what cookies we use (almost none) and how to control them.">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://crestics.com/cookies.html">
+<meta property="og:title" content="Cookie Policy — Crestics">
+<meta property="og:description" content="What cookies we use (almost none) and how to control them.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crestics.com/cookies.html">
+<meta property="og:site_name" content="Crestics">
+<meta property="og:image" content="https://crestics.com/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://crestics.com/assets/og-default.png">
 <link rel="icon" type="image/png" href="assets/logo/PNGs/icon-white-violet-dot.png">
 <link rel="apple-touch-icon" href="assets/logo/PNGs/icon-white-violet-dot.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,9 +42,20 @@
   .nav-links { display: flex; gap: 32px; align-items: center; }
   .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta { background: var(--violet); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+  .nav-cta { background: var(--violet); color: white !important; padding: 10px 18px; border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 11.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease-in-out; }
   .nav-cta:hover { background: var(--violet-light); }
-  @media (max-width: 768px) { .nav-links a:not(.nav-cta) { display: none; } }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; width: 40px; height: 40px; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s ease, opacity 0.2s ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-mobile { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); padding: 24px var(--pad-x) 32px; flex-direction: column; gap: 4px; transform: translateY(-12px); opacity: 0; transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; box-shadow: 0 18px 40px -16px rgba(0,0,0,0.6); }
+  .nav-mobile.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .nav-mobile a { display: block; padding: 14px 0; font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+  .nav-mobile a:hover, .nav-mobile a:focus { color: var(--violet); }
+  .nav-mobile a:last-child { border-bottom: none; }
+  .nav-mobile-cta { margin-top: 16px; background: var(--violet); color: white !important; border-radius: 8px; text-align: center; padding: 16px !important; font-family: 'Geist Mono', monospace !important; font-size: 13px !important; letter-spacing: 0.12em; text-transform: uppercase; border: none !important; }
+  @media (max-width: 768px) { .nav-links { display: none; } .nav-toggle { display: flex; } .nav-mobile { display: flex; } }
   .doc-hero { position: relative; padding: 140px var(--pad-x) 60px; text-align: center; z-index: 1; }
   .doc-eyebrow { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.25em; text-transform: uppercase; padding: 6px 14px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 100px; margin-bottom: 24px; }
   .doc-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(40px, 5vw, 64px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px; }
@@ -85,8 +105,27 @@
       <a href="index.html#approach">Approach</a>
       <a href="work-with-us.html" class="nav-cta">Book a Call</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#work">Work</a>
+    <a href="index.html#approach">Approach</a>
+    <a href="work-with-us.html" class="nav-mobile-cta">Book a Call</a>
   </div>
 </nav>
+<script>
+  (function(){
+    var t = document.getElementById('navToggle'), m = document.getElementById('navMobile');
+    if (!t || !m) return;
+    var close = function(){ m.classList.remove('open'); t.setAttribute('aria-expanded','false'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+    t.addEventListener('click', function(){ var o = m.classList.toggle('open'); t.setAttribute('aria-expanded', String(o)); m.setAttribute('aria-hidden', String(!o)); document.body.style.overflow = o ? 'hidden' : ''; });
+    m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+    window.addEventListener('resize', function(){ if (window.innerWidth > 768) close(); });
+  })();
+</script>
 
 <section class="doc-hero">
   <div class="doc-eyebrow">— LEGAL</div>
@@ -105,7 +144,7 @@
     A cookie is a small text file that a website stores in your browser. It's used to remember things like login state, preferences, or analytics data. Some are essential (the site won't work without them), and some are optional (used for tracking or marketing).
   </p>
   <p>
-    We only use the essential, anonymous kind — and not many of those.
+    We only use the essential, anonymous kind, and not many of those.
   </p>
 
   <h2><span class="num">02 — WHAT WE USE</span>Cookies on crestics.com</h2>
@@ -122,7 +161,7 @@
     <tbody>
       <tr>
         <td><strong>__cf_bm</strong></td>
-        <td>Cloudflare bot management — prevents automated abuse</td>
+        <td>Cloudflare bot management. Prevents automated abuse.</td>
         <td>Essential</td>
         <td>30 minutes</td>
       </tr>
@@ -141,7 +180,7 @@
 
   <h2><span class="num">03 — ANALYTICS</span>How we measure traffic</h2>
   <p>
-    If we add analytics in the future, we'll use a privacy-respecting tool — like <strong>Plausible</strong>, <strong>Fathom</strong>, or <strong>Cloudflare Analytics</strong> — that:
+    If we add analytics in the future, we'll use a privacy-respecting tool (like <strong>Plausible</strong>, <strong>Fathom</strong>, or <strong>Cloudflare Analytics</strong>) that:
   </p>
   <ul>
     <li>Doesn't set cookies on your device</li>
@@ -161,7 +200,7 @@
     Currently embedded third parties (if any):
   </p>
   <ul>
-    <li><strong>Google Fonts</strong> — for typography. Google may log requests to its font CDN. <a href="https://policies.google.com/privacy">Google's policy</a></li>
+    <li><strong>Google Fonts</strong>:for typography. Google may log requests to its font CDN. <a href="https://policies.google.com/privacy">Google's policy</a></li>
   </ul>
 
   <h2><span class="num">05 — YOUR CHOICES</span>How to control cookies</h2>
@@ -169,7 +208,7 @@
     You can control cookies in your browser settings. Most browsers let you:
   </p>
   <ul>
-    <li>Block all cookies (note: some sites — including ours — may break)</li>
+    <li>Block all cookies (note: some sites, including ours, may break)</li>
     <li>Block third-party cookies only</li>
     <li>Delete existing cookies</li>
     <li>Set up notifications when a site sets a cookie</li>
@@ -191,7 +230,7 @@
 
   <div class="doc-contact-card">
     <h3>Questions about cookies?</h3>
-    <p>Reach out — we'll explain exactly what runs on our site and why.</p>
+    <p>Reach out and we'll explain exactly what runs on our site and why.</p>
     <div class="doc-contact-list">
       <div><strong>Email</strong><a href="mailto:hello@crestics.com">hello@crestics.com</a></div>
       <div><strong>Phone</strong><a href="tel:+17373390372">+1 (737) 339-0372</a></div>

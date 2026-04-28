@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — Zero-touch order pipeline for an industrial distributor · Crestics</title>
+<meta name="description" content="How we built a Django platform automating order-to-delivery across 200+ supplier portals and 100+ warehouses for an industrial distributor. 2.5× throughput, 5-person manual ops team displaced, ~1,500 orders/month auto-recovered.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://crestics.com/case-industrial-distribution.html">
+<meta property="og:title" content="Case Study — Zero-touch order pipeline for an industrial distributor">
+<meta property="og:description" content="Django platform across 200+ suppliers, 100+ warehouses. 2.5× throughput, 5-person team displaced, ~1,500 orders/month auto-recovered. 16-week build.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://crestics.com/case-industrial-distribution.html">
+<meta property="og:site_name" content="Crestics">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://crestics.com/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case Study — Zero-touch order pipeline for an industrial distributor">
+<meta name="twitter:description" content="200+ suppliers, 100+ warehouses, 2.5× throughput. 16-week Django build.">
+<meta name="twitter:image" content="https://crestics.com/assets/og-default.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Zero-touch order pipeline for an industrial distributor",
+  "description": "How we built a Django platform automating order-to-delivery across 200+ supplier portals and 100+ warehouses. 2.5× throughput, 5-person manual ops team displaced, ~1,500 orders/month auto-recovered.",
+  "author": { "@type": "Organization", "name": "Crestics LLC", "url": "https://crestics.com/" },
+  "publisher": { "@type": "Organization", "name": "Crestics LLC", "logo": { "@type": "ImageObject", "url": "https://crestics.com/assets/logo/PNGs/crestics-white-violet-dot.png" } },
+  "datePublished": "2026-04-28",
+  "image": "https://crestics.com/assets/og-default.png",
+  "mainEntityOfPage": "https://crestics.com/case-industrial-distribution.html",
+  "about": [
+    { "@type": "Thing", "name": "Industrial Distribution" },
+    { "@type": "Thing", "name": "Order Management Automation" },
+    { "@type": "Thing", "name": "Django Platform Engineering" },
+    { "@type": "Thing", "name": "Supplier Integration" }
+  ]
+}
+</script>
+
+<link rel="icon" type="image/png" href="assets/logo/PNGs/icon-white-violet-dot.png">
+<link rel="apple-touch-icon" href="assets/logo/PNGs/icon-white-violet-dot.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Poppins:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violet:        #7c5cff;
+    --violet-light:  #9b7fff;
+    --violet-deep:   #5b3fd4;
+    --violet-wash:   rgba(124, 92, 255, 0.08);
+    --violet-border: rgba(124, 92, 255, 0.3);
+    --dark:          #0a0a0b;
+    --surface:       #111113;
+    --surface-hi:    #1a1a1d;
+    --border:        #2a2a2e;
+    --border-hi:     #3a3a40;
+    --text:          #f5f5f7;
+    --muted:         #a1a1aa;
+    --subtle:        #71717a;
+    --container:     1200px;
+    --pad-x:         32px;
+    --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  /* Background orbs */
+  .orb { position: fixed; pointer-events: none; z-index: 0; border-radius: 50%; filter: blur(120px); opacity: 0.35; }
+  .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--violet) 0%, transparent 70%); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--violet-deep) 0%, transparent 70%); bottom: -200px; right: -200px; opacity: 0.2; }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); background: rgba(10, 10, 11, 0.7); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: var(--container); margin: 0 auto; padding: 18px var(--pad-x); display: flex; justify-content: space-between; align-items: center; }
+  .nav-logo img { height: 24px; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { font-size: 14px; color: var(--muted); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; padding: 10px 18px; background: var(--violet); color: white !important; border-radius: 8px; transition: all 0.2s; }
+  .nav-cta:hover { background: var(--violet-light); transform: translateY(-1px); }
+  .nav-mobile-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 8px; }
+  .nav-mobile-menu { display: none; position: fixed; inset: 65px 0 0 0; background: rgba(10, 10, 11, 0.95); backdrop-filter: blur(20px); padding: 32px var(--pad-x); flex-direction: column; gap: 24px; z-index: 99; }
+  .nav-mobile-menu a { font-size: 18px; color: var(--text); padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .nav-mobile-cta { font-family: 'Geist Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; padding: 14px 20px; background: var(--violet); color: white !important; border-radius: 8px; text-align: center; margin-top: 12px; border-bottom: none !important; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-mobile-toggle { display: block; }
+    .nav-mobile-menu.open { display: flex; }
+  }
+
+  /* Sections */
+  .section { max-width: var(--container); margin: 0 auto; padding: 110px var(--pad-x); position: relative; z-index: 1; }
+  @media (max-width: 768px) { .section { padding: 70px 20px; } }
+  .section-eyebrow { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px; }
+  .section-title { font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.4vw, 52px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 18px; max-width: 820px; }
+  .section-title .accent { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 200; background: linear-gradient(90deg, #ffffff 0%, #B8A6FF 40%, #7C5CFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .section-sub { font-size: 17px; color: var(--muted); max-width: 720px; line-height: 1.6; margin-bottom: 48px; }
+
+  /* Hero */
+  .hero { padding: 80px var(--pad-x) 60px; max-width: var(--container); margin: 0 auto; position: relative; z-index: 1; }
+  @media (max-width: 768px) { .hero { padding: 50px 20px 40px; } }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 8px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 100px; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 28px; }
+  .hero-eyebrow .num { font-weight: 700; padding: 3px 7px; background: var(--violet); color: white; border-radius: 100px; font-size: 9.5px; }
+  .hero-title { font-family: 'Geist', sans-serif; font-size: clamp(40px, 6vw, 76px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.04; margin-bottom: 28px; max-width: 1000px; }
+  .hero-title .accent { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 200; background: linear-gradient(90deg, #ffffff 0%, #B8A6FF 40%, #7C5CFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-desc { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 760px; margin-bottom: 44px; }
+  .hero-desc strong { color: var(--text); font-weight: 600; }
+  .hero-cta-row { display: flex; gap: 14px; margin-bottom: 56px; flex-wrap: wrap; }
+  .btn-primary, .btn-secondary { display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 16px 22px; border-radius: 10px; transition: all 0.2s; cursor: pointer; }
+  .btn-primary { background: var(--violet); color: white !important; }
+  .btn-primary:hover { background: var(--violet-light); transform: translateY(-1px); }
+  .btn-secondary { border: 1px solid var(--border); color: var(--text) !important; }
+  .btn-secondary:hover { border-color: var(--violet-border); background: var(--violet-wash); }
+
+  /* Hero stat strip */
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 36px; border-top: 1px solid var(--border); }
+  @media (max-width: 768px) { .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
+  .hero-stat-num { font-family: 'Geist', sans-serif; font-size: clamp(26px, 3vw, 36px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+  .hero-stat-num .unit { font-size: 14px; color: var(--muted); margin-left: 4px; font-weight: 500; }
+  .hero-stat-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--subtle); letter-spacing: 0.16em; text-transform: uppercase; }
+
+  /* Section: The Challenge — uses larger callout typography */
+  .challenge-wrap { background: linear-gradient(180deg, transparent, var(--violet-wash) 50%, transparent); }
+  .challenge-callout { font-family: 'Geist', sans-serif; font-size: clamp(22px, 2.6vw, 30px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.4; color: var(--text); margin-top: 32px; padding: 32px 36px; border-left: 3px solid var(--violet); background: var(--surface); border-radius: 4px; }
+  .challenge-callout .accent { color: var(--violet); font-weight: 700; }
+  .challenge-bullets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  @media (max-width: 800px) { .challenge-bullets { grid-template-columns: 1fr; } }
+  .challenge-bullet { padding: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+  .challenge-bullet-num { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
+  .challenge-bullet-title { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .challenge-bullet-desc { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+
+  /* The 5 systems grid */
+  .systems-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .systems-grid { grid-template-columns: 1fr; } }
+  .system-card { padding: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; transition: all 0.3s var(--ease-out); display: flex; flex-direction: column; gap: 14px; }
+  .system-card:hover { border-color: var(--violet-border); transform: translateY(-2px); }
+  .system-card.featured { grid-column: span 2; background: linear-gradient(180deg, var(--surface) 0%, rgba(124, 92, 255, 0.05) 100%); }
+  @media (max-width: 800px) { .system-card.featured { grid-column: span 1; } }
+  .system-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 8px; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 700; color: var(--violet); margin-bottom: 4px; }
+  .system-title { font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+  .system-desc { font-size: 15px; color: var(--muted); line-height: 1.65; }
+  .system-desc strong { color: var(--text); font-weight: 600; }
+  .system-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .system-tag { padding: 5px 11px; background: var(--surface-hi); border: 1px solid var(--border); border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* Architecture */
+  .arch-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 44px; max-width: 980px; }
+  @media (max-width: 768px) { .arch-wrap { padding: 28px; } }
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; margin-top: 18px; }
+  @media (max-width: 800px) { .arch-grid { grid-template-columns: 1fr; gap: 20px; } }
+  .arch-cat-label { font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+  .arch-cat-list { display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; color: var(--text); font-weight: 500; }
+  .arch-cat-list span { color: var(--muted); font-weight: 400; font-size: 13px; }
+
+  /* Results */
+  .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 800px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .results-grid { grid-template-columns: 1fr; } }
+  .result-card { padding: 32px 28px; background: linear-gradient(180deg, var(--surface) 0%, rgba(124, 92, 255, 0.04) 100%); border: 1px solid var(--border); border-radius: 18px; }
+  .result-num { font-family: 'Geist', sans-serif; font-size: clamp(36px, 4vw, 48px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; color: var(--violet); margin-bottom: 14px; }
+  .result-num .unit { font-size: 18px; color: var(--text); margin-left: 4px; font-weight: 500; }
+  .result-title { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .result-desc { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+  /* Timeline */
+  .timeline-wrap { position: relative; max-width: 920px; padding-left: 36px; }
+  .timeline-wrap::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--violet) 0%, var(--violet-border) 100%); }
+  .timeline-block { position: relative; padding-bottom: 44px; }
+  .timeline-block:last-child { padding-bottom: 0; }
+  .timeline-block::before { content: ''; position: absolute; left: -36px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 0 4px var(--dark), 0 0 0 5px var(--violet-border); }
+  .timeline-label { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; }
+  .timeline-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .timeline-desc { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 640px; }
+
+  /* CTA */
+  .cta-card { background: linear-gradient(135deg, var(--surface) 0%, rgba(124, 92, 255, 0.1) 100%); border: 1px solid var(--violet-border); border-radius: 24px; padding: 64px 48px; text-align: center; max-width: 920px; margin: 0 auto; }
+  @media (max-width: 768px) { .cta-card { padding: 40px 24px; } }
+  .cta-card h2 { font-family: 'Geist', sans-serif; font-size: clamp(28px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+  .cta-card h2 .accent { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 200; background: linear-gradient(90deg, #ffffff 0%, #B8A6FF 40%, #7C5CFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .cta-card p { font-size: 17px; color: var(--muted); max-width: 580px; margin: 0 auto 32px; line-height: 1.6; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* Phase nav */
+  .phase-nav { max-width: var(--container); margin: 0 auto; padding: 56px var(--pad-x); display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-top: 1px solid var(--border); }
+  @media (max-width: 768px) { .phase-nav { grid-template-columns: 1fr; padding: 36px 20px; } }
+  .phase-nav-card { padding: 24px 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; transition: all 0.2s; display: flex; flex-direction: column; gap: 6px; }
+  .phase-nav-card:hover { border-color: var(--violet-border); background: var(--violet-wash); }
+  .phase-nav-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--subtle); letter-spacing: 0.18em; text-transform: uppercase; }
+  .phase-nav-title { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.015em; color: var(--text); }
+  .phase-nav-card.next { text-align: right; }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--border); padding: 48px var(--pad-x); margin-top: 80px; }
+  .footer-inner { max-width: var(--container); margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  .footer-brand img { height: 22px; margin-bottom: 14px; }
+  .footer-tagline { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 280px; }
+  .footer-col-title { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--subtle); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom { max-width: var(--container); margin: 36px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12.5px; color: var(--subtle); }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics"></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="work-with-us.html" class="nav-cta">Book a Call</a>
+    </div>
+    <button class="nav-mobile-toggle" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile-menu">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#work">Work</a>
+    <a href="index.html#approach">Approach</a>
+    <a href="work-with-us.html" class="nav-mobile-cta">Book a Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="num">CASE</span>
+    Industrial Distribution · Build engagement
+  </div>
+  <h1 class="hero-title">Zero-touch order pipeline <span class="accent">across 200+ suppliers.</span></h1>
+  <p class="hero-desc">
+    A multi-supplier industrial distributor was bleeding 15–20% of orders to supplier failures and manual chaos. We built a Django platform that runs the entire <strong>order-to-delivery flow across 200+ vendor portals and 100+ warehouses</strong> with zero manual bottlenecks. Five integrated systems. 16 weeks from kickoff to production. Five-person manual ops team displaced.
+  </p>
+  <div class="hero-cta-row">
+    <a href="work-with-us.html" class="btn-primary">Build something like this <span style="font-family:sans-serif;">→</span></a>
+    <a href="#systems" class="btn-secondary">See how it works <span style="font-family:sans-serif;">↓</span></a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">2.5<span class="unit">×</span></div>
+      <div class="hero-stat-label">Throughput unlocked</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">200<span class="unit">+ suppliers</span></div>
+      <div class="hero-stat-label">Vendor portals integrated</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">5 → 0</div>
+      <div class="hero-stat-label">Manual ops headcount</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">16<span class="unit">weeks</span></div>
+      <div class="hero-stat-label">Build to production</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE CHALLENGE -->
+<div class="challenge-wrap">
+<section class="section">
+  <div class="section-eyebrow">— The challenge</div>
+  <h2 class="section-title">Industrial distribution runs on <span class="accent">hidden manual labor.</span></h2>
+  <p class="section-sub">When you're routing 8–10K orders/month across 200+ supplier portals, every step that touches a human becomes a leak. The client's pre-build state was a five-person team manually reconciling orders, chasing suppliers, and reconstructing payment reports — and still bleeding revenue to the failures they couldn't catch in time.</p>
+
+  <div class="challenge-callout">
+    Most industrial distributors lose <span class="accent">15–20% of orders</span> to supplier stockouts, payment mismatches, and human dropouts. That leakage doesn't show up as a single line on the P&L — it shows up as customer churn, support tickets, and ops headcount.
+  </div>
+
+  <div class="challenge-bullets">
+    <div class="challenge-bullet">
+      <div class="challenge-bullet-num">Bottleneck 01</div>
+      <div class="challenge-bullet-title">Manual order intake</div>
+      <p class="challenge-bullet-desc">Five-person ops team typing orders from spreadsheets, email threads, and phone calls into the system. Capped throughput at ~100 orders/day. Beyond that, queues built up and SLAs slipped.</p>
+    </div>
+    <div class="challenge-bullet">
+      <div class="challenge-bullet-num">Bottleneck 02</div>
+      <div class="challenge-bullet-title">Supplier coordination chaos</div>
+      <p class="challenge-bullet-desc">Each of 200+ suppliers had its own pricing portal, its own stock format, its own quirks. Ops would tab between dozens of vendor sites just to confirm whether something was in stock today.</p>
+    </div>
+    <div class="challenge-bullet">
+      <div class="challenge-bullet-num">Bottleneck 03</div>
+      <div class="challenge-bullet-title">Failures discovered too late</div>
+      <p class="challenge-bullet-desc">A failed payment or out-of-stock supplier wouldn't surface until end-of-day reconciliation — sometimes days later. By then the customer had already churned, opened a ticket, or both.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- THE SOLUTION (5 SYSTEMS) -->
+<section class="section" id="systems">
+  <div class="section-eyebrow">— The solution</div>
+  <h2 class="section-title">Five integrated systems. <span class="accent">One zero-touch pipeline.</span></h2>
+  <p class="section-sub">We didn't replace the team's tools — we replaced the manual workflow itself. Every order now flows through a single Django platform that handles intake, supplier negotiation, failure recovery, customer communication, and payment reconciliation without human intervention. Humans get involved only when the system explicitly escalates.</p>
+
+  <div class="systems-grid">
+
+    <div class="system-card">
+      <div class="system-num">01</div>
+      <h3 class="system-title">Intelligent Order Management</h3>
+      <p class="system-desc">Every order auto-generates a confirmation number on submission, syncs in real-time with the POS system, and is tracked end-to-end from placement to delivery. <strong>No spreadsheets. No status emails. No "let me check on that."</strong></p>
+      <div class="system-tags">
+        <span class="system-tag">Real-time POS sync</span>
+        <span class="system-tag">Auto-confirmation</span>
+        <span class="system-tag">End-to-end tracking</span>
+      </div>
+    </div>
+
+    <div class="system-card">
+      <div class="system-num">02</div>
+      <h3 class="system-title">Automated Supplier Coordination</h3>
+      <p class="system-desc">Web scrapers pull live pricing and inventory directly from <strong>200+ vendor portals</strong>. Supplier-specific parsers handle structural differences automatically — when a vendor changes their HTML, the parser logs the drift and rolls forward. Stock availability is always current, no manual lookups.</p>
+      <div class="system-tags">
+        <span class="system-tag">200+ scrapers</span>
+        <span class="system-tag">Per-vendor parsers</span>
+        <span class="system-tag">Drift detection</span>
+      </div>
+    </div>
+
+    <div class="system-card">
+      <div class="system-num">03</div>
+      <h3 class="system-title">Failed Order Recovery</h3>
+      <p class="system-desc">Stock issues and payment failures are flagged within seconds of detection. The system automatically re-routes the order to alternate suppliers ranked by price, lead time, and historical fulfillment rate — <strong>before the customer is ever aware</strong>. Cases that can't auto-recover escalate via auto-generated tickets with full context attached.</p>
+      <div class="system-tags">
+        <span class="system-tag">Real-time detection</span>
+        <span class="system-tag">Auto-rerouting</span>
+        <span class="system-tag">Smart escalation</span>
+      </div>
+    </div>
+
+    <div class="system-card">
+      <div class="system-num">04</div>
+      <h3 class="system-title">Zero-Touch Communication</h3>
+      <p class="system-desc">Customer notifications fire automatically at every milestone: order confirmation, dispatch, delay, delivery. Supplier follow-ups run through an integrated calling system. Everything is logged and traceable — no "I called them last Tuesday, I think" guesswork.</p>
+      <div class="system-tags">
+        <span class="system-tag">Milestone notifications</span>
+        <span class="system-tag">Integrated calling</span>
+        <span class="system-tag">Full audit trail</span>
+      </div>
+    </div>
+
+    <div class="system-card featured">
+      <div class="system-num">05</div>
+      <h3 class="system-title">Financial Reconciliation</h3>
+      <p class="system-desc">Payments are matched against bank entries automatically. Mismatches surface in real-time instead of at month-end close. Daily reconciliation reports generate with zero human input — finance reviews exceptions, not raw transactions. <strong>What used to take a person two days a month now takes 20 minutes of review.</strong></p>
+      <div class="system-tags">
+        <span class="system-tag">Auto bank matching</span>
+        <span class="system-tag">Real-time mismatch alerts</span>
+        <span class="system-tag">Exception-only review</span>
+        <span class="system-tag">Daily auto-reports</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="section">
+  <div class="section-eyebrow">— Under the hood</div>
+  <h2 class="section-title">The stack that holds it together.</h2>
+  <p class="section-sub">A boring stack on purpose. Django + PostgreSQL gave us the reliability and ORM ergonomics needed for a transactional system this critical. Celery handles the async work — scraping, retries, escalations, notifications — without blocking the request path. We picked the tools that wouldn't surprise the client's eventual in-house team.</p>
+
+  <div class="arch-wrap">
+    <div class="arch-grid">
+
+      <div>
+        <div class="arch-cat-label">Backend</div>
+        <div class="arch-cat-list">
+          <div>Django <span>(core platform)</span></div>
+          <div>PostgreSQL <span>(transactional store)</span></div>
+          <div>Celery + Redis <span>(async task queue)</span></div>
+          <div>Django REST <span>(internal APIs)</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="arch-cat-label">Integrations</div>
+        <div class="arch-cat-list">
+          <div>200+ supplier scrapers</div>
+          <div>POS sync <span>(real-time webhooks)</span></div>
+          <div>Payment gateway <span>(reconciliation)</span></div>
+          <div>Calling system <span>(supplier follow-up)</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="arch-cat-label">Operations</div>
+        <div class="arch-cat-list">
+          <div>Sentry <span>(error tracking)</span></div>
+          <div>Monitoring dashboards</div>
+          <div>Per-supplier health checks</div>
+          <div>Auto-escalation rules</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THE BUILD (TIMELINE) -->
+<section class="section">
+  <div class="section-eyebrow">— How we built it</div>
+  <h2 class="section-title">16 weeks. <span class="accent">Four phases.</span> One production system.</h2>
+  <p class="section-sub">Every Build engagement runs the same playbook: foundation, core, polish, handoff. This one was no exception — though the per-supplier scraper work made phase 2 especially dense.</p>
+
+  <div class="timeline-wrap">
+
+    <div class="timeline-block">
+      <div class="timeline-label">Weeks 01–02 — Foundation</div>
+      <div class="timeline-title">Architecture lock + risk spike</div>
+      <p class="timeline-desc">Mapped the existing manual workflow with the ops team, locked the Django + Celery + Postgres architecture, and de-risked the highest-uncertainty piece first: a working scraper for the 5 most-used supplier portals. By Friday demo of week 2, we could pull live stock from real vendors. The riskiest unknown was no longer unknown.</p>
+    </div>
+
+    <div class="timeline-block">
+      <div class="timeline-label">Weeks 03–08 — Core build</div>
+      <div class="timeline-title">All five systems, end to end</div>
+      <p class="timeline-desc">Built order management, the remaining 195+ supplier scrapers (with shared base class + per-vendor overrides), failure detection + auto-rerouting, customer notifications, and the payment reconciliation engine. Weekly Friday demos showed each system going live behind a feature flag. By week 8, real orders were flowing through the system in shadow mode alongside the manual process.</p>
+    </div>
+
+    <div class="timeline-block">
+      <div class="timeline-label">Weeks 09–13 — Polish + harden</div>
+      <div class="timeline-title">Edge cases, drift, scale</div>
+      <p class="timeline-desc">Built per-supplier health checks (so a scraper breaking doesn't break the whole pipeline), tuned escalation rules, added monitoring dashboards, and stress-tested at 5× expected daily load. Caught and fixed three categories of failure modes the manual process had been quietly absorbing for years.</p>
+    </div>
+
+    <div class="timeline-block">
+      <div class="timeline-label">Weeks 14–16 — Production handoff</div>
+      <div class="timeline-title">Cutover, training, transition</div>
+      <p class="timeline-desc">Cutover from manual to automated in stages — first 25%, then 50%, then 100% of orders flowing through the new pipeline. Trained the (now-redeployed) ops team on the exception-handling dashboard. Wrote the runbook. By the end of week 16, the manual process was off and the platform was the system of record.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section">
+  <div class="section-eyebrow">— What changed</div>
+  <h2 class="section-title">From <span class="accent">manual chaos</span> to a system that runs itself.</h2>
+  <p class="section-sub">90 days post-launch, the numbers were undeniable. The same client team is now shipping more, recovering more, and freed from the work that was eating their week.</p>
+
+  <div class="results-grid">
+
+    <div class="result-card">
+      <div class="result-num">2.5<span class="unit">×</span></div>
+      <div class="result-title">Daily order throughput</div>
+      <p class="result-desc">From a manual cap of ~100 orders/day to 250+ orders/day automated — without adding headcount.</p>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">5 → 0</div>
+      <div class="result-title">Manual ops headcount</div>
+      <p class="result-desc">Five-person order-chasing team redeployed to higher-leverage work. No layoffs — better problems to solve.</p>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">~1,500<span class="unit">/mo</span></div>
+      <div class="result-title">Orders auto-recovered</div>
+      <p class="result-desc">Failed orders that used to leak off the P&L now self-heal via alternate-supplier rerouting before customers see them.</p>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">200<span class="unit">+</span></div>
+      <div class="result-title">Supplier portals integrated</div>
+      <p class="result-desc">Every vendor scraped live for pricing and inventory. Stock availability is always current, no human lookup needed.</p>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">100<span class="unit">+</span></div>
+      <div class="result-title">Warehouses coordinated</div>
+      <p class="result-desc">Multi-warehouse routing logic picks the best fulfillment path per order based on stock, distance, and lead time.</p>
+    </div>
+
+    <div class="result-card">
+      <div class="result-num">~real-time</div>
+      <div class="result-title">Failure detection</div>
+      <p class="result-desc">From end-of-day reconciliation (hours-to-days lag) to within-seconds detection on stock issues, payment mismatches, and supplier failures.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="cta-card">
+    <h2>Have a workflow like <span class="accent">this one</span> bleeding revenue?</h2>
+    <p>If your business runs on multi-vendor coordination, manual reconciliation, or any process where ops people are doing what software should — we'd like to talk. We respond within 24 hours with a clear scope, timeline, and price.</p>
+    <div class="cta-row">
+      <a href="work-with-us.html" class="btn-primary">Tell us about your workflow <span style="font-family:sans-serif;">→</span></a>
+      <a href="build.html" class="btn-secondary">See the Build process <span style="font-family:sans-serif;">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE NAV -->
+<div class="phase-nav">
+  <a href="index.html#work" class="phase-nav-card">
+    <div class="phase-nav-label">← Back</div>
+    <div class="phase-nav-title">All work</div>
+  </a>
+  <a href="work-with-us.html" class="phase-nav-card next">
+    <div class="phase-nav-label">Next step →</div>
+    <div class="phase-nav-title">Talk to us</div>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html"><img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics"></a>
+      <p class="footer-tagline">AI product studio in Austin. We ship production AI for B2B companies that need to move fast without hiring in-house.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <a href="discover.html">Discover</a>
+      <a href="build.html">Build</a>
+      <a href="operate.html">Operate</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="index.html#approach">Approach</a>
+      <a href="index.html#work">Work</a>
+      <a href="work-with-us.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Crestics LLC · Austin, Texas</div>
+    <div>Built with care, shipped on schedule.</div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const toggle = document.querySelector('.nav-mobile-toggle');
+  const menu = document.querySelector('.nav-mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+# Crestics
+
+> Austin-based AI product studio. We ship production-grade AI for B2B companies that need to move fast without hiring in-house.
+
+Crestics LLC is a Texas-registered AI product studio. Senior engineers build custom AI features, voice agents, RAG pipelines, and internal tools to production grade — with security review, monitoring, evals, and full handoff documentation included. Engagements are fixed-scope and fixed-price.
+
+## What we do
+
+The work runs in three phases. Most clients enter at one and graduate forward.
+
+- **Discover** ($18K–$28K, 2–3 weeks): Stakeholder interviews, workflow mapping, ROI modeling, and a prioritized roadmap with a fixed-scope build estimate. About 18% of Discover engagements end with a "don't build this yet" verdict — the artifact package is worth that answer alone.
+
+- **Build** ($25K–$175K+, 4–12+ weeks): Custom AI features, voice agents, RAG pipelines, internal tools shipped to production. Weekly demos. Milestone-based billing — miss a milestone, we eat the difference. You own all code, models, data, and IP from day one.
+
+- **Operate** ($8K–$35K/month): A fractional AI engineering retainer for production AI systems. Continuous feature shipping, monitoring + on-call, eval suite maintenance, cost optimization. 30-day exit clause. No retainers without value.
+
+## How we work
+
+- **Senior engineers only** — no junior staffing, no offshore handoff. The people who scope it are the people who ship it.
+- **Fixed-scope, fixed-price** — every engagement is priced before kickoff. No hourly billing, no scope creep surprises.
+- **You own everything** — code in your git from week one, model API keys in your accounts, no "our copy" of anything.
+- **We'll tell you when AI isn't the answer** — if the cleaner solution is deterministic code or a SaaS that already exists, we say so.
+
+## Default tech stack
+
+- Models: Claude (default for reasoning), GPT-4 / GPT-4o, Gemini (long context), open-source where self-hosting wins
+- Voice: Vapi, Retell, Bland, Deepgram (STT)
+- Retrieval: Pinecone, pgvector, Turbopuffer, Weaviate
+- Frontend: Next.js 15, React 19, v0, shadcn/ui
+- Backend: TypeScript / Node, Python / FastAPI, Go (perf-critical), Postgres + Redis
+- Infra: Vercel, AWS / GCP, Cloudflare Workers, Modal (GPU)
+- Observability: Langfuse, Datadog, Sentry, Braintrust (evals)
+- Dev tooling: Cursor, Claude Code, Linear, GitHub Actions
+
+## Industries we've shipped AI for
+
+Legal services, commercial insurance, DTC e-commerce, professional services, fintech, B2B SaaS, logistics, healthtech.
+
+## Where we're based
+
+Crestics LLC is registered in Texas, with our studio in Austin. We work with clients across the US and UK in their preferred timezones.
+
+## Key pages
+
+- Homepage: https://crestics.com/
+- Discover service: https://crestics.com/discover.html
+- Build service: https://crestics.com/build.html
+- Operate service: https://crestics.com/operate.html
+- Contact / Work with us: https://crestics.com/work-with-us.html
+
+## Contact
+
+For project inquiries, use the form at https://crestics.com/work-with-us.html. We respond within 24 hours with a clear scope, timeline, and price — or honest advice if AI isn't the right answer.

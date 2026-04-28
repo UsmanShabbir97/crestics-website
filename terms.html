@@ -6,6 +6,15 @@
 <title>Terms of Service — Crestics</title>
 <meta name="description" content="Crestics terms of service: how engagements work, payment, IP, warranties, and liability.">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://crestics.com/terms.html">
+<meta property="og:title" content="Terms of Service — Crestics">
+<meta property="og:description" content="How engagements work, payment, IP, warranties, and liability.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crestics.com/terms.html">
+<meta property="og:site_name" content="Crestics">
+<meta property="og:image" content="https://crestics.com/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://crestics.com/assets/og-default.png">
 <link rel="icon" type="image/png" href="assets/logo/PNGs/icon-white-violet-dot.png">
 <link rel="apple-touch-icon" href="assets/logo/PNGs/icon-white-violet-dot.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,9 +43,20 @@
   .nav-links { display: flex; gap: 32px; align-items: center; }
   .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta { background: var(--violet); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+  .nav-cta { background: var(--violet); color: white !important; padding: 10px 18px; border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 11.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease-in-out; }
   .nav-cta:hover { background: var(--violet-light); }
-  @media (max-width: 768px) { .nav-links a:not(.nav-cta) { display: none; } }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; width: 40px; height: 40px; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s ease, opacity 0.2s ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-mobile { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); padding: 24px var(--pad-x) 32px; flex-direction: column; gap: 4px; transform: translateY(-12px); opacity: 0; transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; box-shadow: 0 18px 40px -16px rgba(0,0,0,0.6); }
+  .nav-mobile.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .nav-mobile a { display: block; padding: 14px 0; font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+  .nav-mobile a:hover, .nav-mobile a:focus { color: var(--violet); }
+  .nav-mobile a:last-child { border-bottom: none; }
+  .nav-mobile-cta { margin-top: 16px; background: var(--violet); color: white !important; border-radius: 8px; text-align: center; padding: 16px !important; font-family: 'Geist Mono', monospace !important; font-size: 13px !important; letter-spacing: 0.12em; text-transform: uppercase; border: none !important; }
+  @media (max-width: 768px) { .nav-links { display: none; } .nav-toggle { display: flex; } .nav-mobile { display: flex; } }
   .doc-hero { position: relative; padding: 140px var(--pad-x) 60px; text-align: center; z-index: 1; }
   .doc-eyebrow { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.25em; text-transform: uppercase; padding: 6px 14px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 100px; margin-bottom: 24px; }
   .doc-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(40px, 5vw, 64px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px; }
@@ -82,8 +102,27 @@
       <a href="index.html#approach">Approach</a>
       <a href="work-with-us.html" class="nav-cta">Book a Call</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#work">Work</a>
+    <a href="index.html#approach">Approach</a>
+    <a href="work-with-us.html" class="nav-mobile-cta">Book a Call</a>
   </div>
 </nav>
+<script>
+  (function(){
+    var t = document.getElementById('navToggle'), m = document.getElementById('navMobile');
+    if (!t || !m) return;
+    var close = function(){ m.classList.remove('open'); t.setAttribute('aria-expanded','false'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+    t.addEventListener('click', function(){ var o = m.classList.toggle('open'); t.setAttribute('aria-expanded', String(o)); m.setAttribute('aria-hidden', String(!o)); document.body.style.overflow = o ? 'hidden' : ''; });
+    m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+    window.addEventListener('resize', function(){ if (window.innerWidth > 768) close(); });
+  })();
+</script>
 
 <section class="doc-hero">
   <div class="doc-eyebrow">— LEGAL</div>
@@ -114,7 +153,7 @@
 
   <h2><span class="num">03 — INTELLECTUAL PROPERTY</span>What's ours</h2>
   <p>
-    All content on crestics.com — including the Crestics name, logo, design, copy, code, and case studies — is the property of Crestics LLC. You may not reproduce, redistribute, or create derivative works without written permission.
+    All content on crestics.com (including the Crestics name, logo, design, copy, code, and case studies) is the property of Crestics LLC. You may not reproduce, redistribute, or create derivative works without written permission.
   </p>
   <p>
     The "Crestics" name and logo are trademarks of Crestics LLC.

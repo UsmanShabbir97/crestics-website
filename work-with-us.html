@@ -454,6 +454,99 @@
   }
   .form-disclaimer a { color: var(--violet); }
 
+  /* Honeypot — visually hidden but accessible to bots */
+  .form-hp {
+    position: absolute !important;
+    left: -10000px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Submit button states */
+  .form-submit[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 4px 14px rgba(124, 92, 255, 0.2) !important;
+  }
+  .form-submit .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Inline error message */
+  .form-error {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    color: #fca5a5;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .form-error.is-visible { display: block; }
+  .form-error a { color: #fca5a5; text-decoration: underline; }
+
+  /* Success card (replaces form on success) */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .form-success.is-visible { display: block; }
+  .form-success .check-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(124, 92, 255, 0.15);
+    border: 1px solid var(--violet-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--violet);
+  }
+  .form-success h3 {
+    font-family: 'Geist', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+  .form-success h3 .accent { color: var(--violet); font-style: italic; }
+  .form-success p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 420px;
+  }
+  .form-success p + p { margin-top: 12px; }
+  .form-success .reply-time {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 6px 14px;
+    background: var(--violet-wash);
+    border: 1px solid var(--violet-border);
+    border-radius: 999px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--violet);
+    letter-spacing: 0.3px;
+  }
+
   /* ─── FOOTER ─── */
   .footer { max-width: var(--container); margin: 0 auto; padding: 60px var(--pad-x) 40px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
   .footer-bottom {
@@ -580,7 +673,13 @@
       <h2 class="form-title">Tell us about your <span class="accent">project.</span></h2>
       <p class="form-subtitle">A few questions to make our first call useful. The more context you share, the better the conversation.</p>
 
-      <form action="#" method="post" novalidate>
+      <form id="inquiryForm" action="/api/contact" method="post" novalidate>
+
+        <!-- Honeypot: bots fill this, humans don't see it -->
+        <div class="form-hp" aria-hidden="true">
+          <label for="_gotcha">Leave this field empty</label>
+          <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
 
         <div class="form-row">
           <div class="form-field" style="margin: 0;">
@@ -676,15 +775,28 @@
           <textarea class="form-textarea" id="project" name="project" required placeholder="What workflow are you trying to fix? What have you tried? What does success look like? The more context, the better."></textarea>
         </div>
 
-        <button type="submit" class="form-submit">
-          Submit Inquiry
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <div id="formError" class="form-error" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="form-submit" id="submitBtn">
+          <span class="btn-label">Submit Inquiry</span>
+          <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
 
         <p class="form-disclaimer">
           We respond within 24 hours. By submitting, you agree to our <a href="privacy.html">privacy policy</a>. We never share your details.
         </p>
       </form>
+
+      <!-- Success state — replaces form on successful submit -->
+      <div id="formSuccess" class="form-success" role="status" aria-live="polite">
+        <div class="check-circle">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Thanks — we got your <span class="accent">inquiry.</span></h3>
+        <p>A senior engineer will review your project and respond within 24 hours with next steps, a few clarifying questions, or honest advice if AI isn't the right answer.</p>
+        <p>In the meantime, feel free to reply to the confirmation we'll send to your inbox.</p>
+        <span class="reply-time">RESPONSE WITHIN 24 HOURS</span>
+      </div>
     </div>
   </div>
 </main>
@@ -706,6 +818,93 @@
     </div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    const form = document.getElementById('inquiryForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorBox = document.getElementById('formError');
+    const successBox = document.getElementById('formSuccess');
+    if (!form || !submitBtn || !errorBox || !successBox) return;
+
+    const btnLabel = submitBtn.querySelector('.btn-label');
+    const btnIcon = submitBtn.querySelector('.btn-icon');
+    const originalLabel = btnLabel ? btnLabel.textContent : 'Submit Inquiry';
+
+    function setLoading(loading) {
+      submitBtn.disabled = loading;
+      if (loading) {
+        if (btnLabel) btnLabel.textContent = 'Sending...';
+        if (btnIcon) btnIcon.style.display = 'none';
+        if (!submitBtn.querySelector('.spinner')) {
+          const s = document.createElement('span');
+          s.className = 'spinner';
+          submitBtn.appendChild(s);
+        }
+      } else {
+        if (btnLabel) btnLabel.textContent = originalLabel;
+        if (btnIcon) btnIcon.style.display = '';
+        const sp = submitBtn.querySelector('.spinner');
+        if (sp) sp.remove();
+      }
+    }
+
+    function showError(message) {
+      errorBox.innerHTML = message;
+      errorBox.classList.add('is-visible');
+    }
+
+    function clearError() {
+      errorBox.classList.remove('is-visible');
+      errorBox.textContent = '';
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      clearError();
+
+      // Native validation first — surfaces the browser's red borders + tooltips
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Collect form data → JSON
+      const formData = new FormData(form);
+      const payload = {};
+      formData.forEach((value, key) => {
+        payload[key] = typeof value === 'string' ? value.trim() : value;
+      });
+
+      setLoading(true);
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+
+        if (res.ok && data.ok) {
+          // Success — hide form, show confirmation, scroll into view
+          form.style.display = 'none';
+          successBox.classList.add('is-visible');
+          successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          const msg = (data && data.error) ? data.error : 'Something went wrong. Please try again, or email <a href="mailto:hello@crestics.com">hello@crestics.com</a> directly.';
+          showError(msg);
+          setLoading(false);
+        }
+      } catch (err) {
+        showError('Network error. Please try again, or email <a href="mailto:hello@crestics.com">hello@crestics.com</a> directly.');
+        setLoading(false);
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>

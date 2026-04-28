@@ -14,10 +14,12 @@ The work runs in three phases. Most clients enter at one and graduate forward.
 
 - **Operate** ($8K–$35K/month): A fractional AI engineering retainer for production AI systems. Continuous feature shipping, monitoring + on-call, eval suite maintenance, cost optimization. 30-day exit clause. No retainers without value.
 
+- **AI Pod** ($12K–$25K/month): Dedicated AI engineering team for buyers who need ongoing capacity rather than a fixed-scope project. One US-led senior engineer plus dedicated engineers, working on your priorities month-to-month. Switch focus weekly. Cancel anytime.
+
 ## How we work
 
-- **Senior engineers only** — no junior staffing, no offshore handoff. The people who scope it are the people who ship it.
-- **Fixed-scope, fixed-price** — every engagement is priced before kickoff. No hourly billing, no scope creep surprises.
+- **Senior team, US-led** — every engagement has a US-based senior engineer accountable for architecture, code review, and delivery. Our broader engineering team is global.
+- **Fixed-scope, fixed-price** — every engagement is priced before kickoff. No hourly billing, no scope creep surprises. AI Pod monthly subscription available for ongoing capacity.
 - **You own everything** — code in your git from week one, model API keys in your accounts, no "our copy" of anything.
 - **We'll tell you when AI isn't the answer** — if the cleaner solution is deterministic code or a SaaS that already exists, we say so.
 

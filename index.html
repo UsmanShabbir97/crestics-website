@@ -1024,6 +1024,75 @@
   .phase-cta:hover svg { transform: translateX(3px); }
   @media (max-width: 900px) { .phase-cta { align-self: flex-start; } }
 
+  /* ─── SERVICES GRID (What we build) ─── */
+  .services-section {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 140px var(--pad-x) 0;
+    border-top: 1px solid var(--border);
+  }
+  .services-header { text-align: center; margin-bottom: 64px; }
+  .services-eyebrow {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--violet);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--violet-border);
+    border-radius: 100px; background: var(--violet-wash);
+    margin-bottom: 24px;
+  }
+  .services-header h2 {
+    font-family: 'Geist', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700; letter-spacing: -0.035em;
+    line-height: 1.05; margin-bottom: 16px;
+  }
+  .services-header p {
+    color: var(--muted); font-size: 18px; max-width: 540px; margin: 0 auto;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+
+  .service-tile {
+    padding: 28px 26px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  }
+  .service-tile:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+  .service-icon {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--violet-wash);
+    color: var(--violet);
+    margin-bottom: 18px;
+  }
+  .service-name {
+    font-family: 'Geist', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.015em;
+  }
+  .service-desc {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
   /* ─── CASE STUDIES (Morningside-style with image areas) ─── */
   .work-section { max-width: var(--container); margin: 0 auto; padding: 140px var(--pad-x); border-top: 1px solid var(--border); }
   .work-header { text-align: center; margin-bottom: 64px; }
@@ -1453,7 +1522,7 @@
       <span class="word-reveal"><span class="word" style="animation-delay: 0.69s;">it.</span></span>
     </h1>
     <p class="hero-sub">
-      Crestics is an Austin-based AI product studio. We help companies <strong>identify what's worth building</strong>, ship it in production, and keep it operational. Senior engineers. Fixed scope. Delivered in weeks, not quarters.
+      Crestics is an AI product studio for <strong>e-commerce, fintech, and B2B SaaS teams</strong>. We help you identify what's worth building, ship it in production, and keep it operational. Senior team. Fixed scope. Delivered in weeks, not quarters.
     </p>
     <div class="hero-cta-row">
       <a href="work-with-us.html" class="btn btn-primary">
@@ -1465,29 +1534,29 @@
   </div>
 </section>
 
-<!-- ─── CLIENT LOGO MARQUEE (Morningside-style) ─── -->
+<!-- ─── INDUSTRIES MARQUEE ─── -->
 <section class="marquee-section">
-  <div class="marquee-label">Industries We've Shipped AI For</div>
+  <div class="marquee-label">Industries We Build For</div>
   <div class="marquee">
     <div class="marquee-track">
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M239.43,133l-32-80a7.93,7.93,0,0,0-3-3.78A8,8,0,0,0,200,48H136V32a8,8,0,0,0-16,0V48H56a8,8,0,0,0-4.43,1.21,7.93,7.93,0,0,0-3,3.78l-32,80a8.27,8.27,0,0,0-.57,3,40,40,0,0,0,80,0,8.27,8.27,0,0,0-.57-3L67.81,64H120V208H88a8,8,0,0,0,0,16h80a8,8,0,0,0,0-16H136V64h52.19L160.57,133a8.27,8.27,0,0,0-.57,3,40,40,0,0,0,80,0A8.27,8.27,0,0,0,239.43,133ZM56,156a24,24,0,0,1-23.4-19H79.4A24,24,0,0,1,56,156ZM43.78,121,56,90.46,68.22,121ZM200,156a24,24,0,0,1-23.4-19H223.4A24,24,0,0,1,200,156Zm-12.22-35L200,90.46,212.22,121Z"/></svg>Legal Services</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.62,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.77,91-124.39V56A16,16,0,0,0,208,40Zm-35.75,69.66-58.66,56a8,8,0,0,1-11,0l-29.34-28a8,8,0,1,1,11-11.62l23.81,22.73,53.16-50.74a8,8,0,0,1,11,11.62Z"/></svg>Commercial Insurance</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>DTC E-commerce</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm120,24v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"/></svg>Professional Services</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>E-commerce</span>
       <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M243.55,77.39,131.55,21.46a8,8,0,0,0-7.16,0L12.39,77.39A8,8,0,0,0,8,84.55v23.61A8,8,0,0,0,16,116.16H32V184H16a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V192a8,8,0,0,0-8-8H224V116.16h16a8,8,0,0,0,8-8V84.55ZM48,184V116.16H80V184Zm64,0V116.16h32V184Zm96,0H176V116.16h32Z"/></svg>FinTech</span>
       <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M248,128a56.07,56.07,0,0,0-44.79-54.86,72,72,0,0,0-141.31,9.49A48,48,0,0,0,72,176H192A56.06,56.06,0,0,0,248,128Z"/></svg>B2B SaaS</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M247.42,117l-14-35A15.93,15.93,0,0,0,218.58,72H184V64a8,8,0,0,0-8-8H32a16,16,0,0,0-16,16V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,247.42,117ZM184,88h34.58l9.6,24H184ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm112,0a16,16,0,1,1,16-16A16,16,0,0,1,192,208Z"/></svg>Logistics</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z"/></svg>Healthtech</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>E-commerce</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M243.55,77.39,131.55,21.46a8,8,0,0,0-7.16,0L12.39,77.39A8,8,0,0,0,8,84.55v23.61A8,8,0,0,0,16,116.16H32V184H16a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V192a8,8,0,0,0-8-8H224V116.16h16a8,8,0,0,0,8-8V84.55ZM48,184V116.16H80V184Zm64,0V116.16h32V184Zm96,0H176V116.16h32Z"/></svg>FinTech</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M248,128a56.07,56.07,0,0,0-44.79-54.86,72,72,0,0,0-141.31,9.49A48,48,0,0,0,72,176H192A56.06,56.06,0,0,0,248,128Z"/></svg>B2B SaaS</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>E-commerce</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M243.55,77.39,131.55,21.46a8,8,0,0,0-7.16,0L12.39,77.39A8,8,0,0,0,8,84.55v23.61A8,8,0,0,0,16,116.16H32V184H16a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V192a8,8,0,0,0-8-8H224V116.16h16a8,8,0,0,0,8-8V84.55ZM48,184V116.16H80V184Zm64,0V116.16h32V184Zm96,0H176V116.16h32Z"/></svg>FinTech</span>
     </div>
     <div class="marquee-track" aria-hidden="true">
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M239.43,133l-32-80a7.93,7.93,0,0,0-3-3.78A8,8,0,0,0,200,48H136V32a8,8,0,0,0-16,0V48H56a8,8,0,0,0-4.43,1.21,7.93,7.93,0,0,0-3,3.78l-32,80a8.27,8.27,0,0,0-.57,3,40,40,0,0,0,80,0,8.27,8.27,0,0,0-.57-3L67.81,64H120V208H88a8,8,0,0,0,0,16h80a8,8,0,0,0,0-16H136V64h52.19L160.57,133a8.27,8.27,0,0,0-.57,3,40,40,0,0,0,80,0A8.27,8.27,0,0,0,239.43,133ZM56,156a24,24,0,0,1-23.4-19H79.4A24,24,0,0,1,56,156ZM43.78,121,56,90.46,68.22,121ZM200,156a24,24,0,0,1-23.4-19H223.4A24,24,0,0,1,200,156Zm-12.22-35L200,90.46,212.22,121Z"/></svg>Legal Services</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.62,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.77,91-124.39V56A16,16,0,0,0,208,40Zm-35.75,69.66-58.66,56a8,8,0,0,1-11,0l-29.34-28a8,8,0,1,1,11-11.62l23.81,22.73,53.16-50.74a8,8,0,0,1,11,11.62Z"/></svg>Commercial Insurance</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>DTC E-commerce</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm120,24v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"/></svg>Professional Services</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>E-commerce</span>
       <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M243.55,77.39,131.55,21.46a8,8,0,0,0-7.16,0L12.39,77.39A8,8,0,0,0,8,84.55v23.61A8,8,0,0,0,16,116.16H32V184H16a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V192a8,8,0,0,0-8-8H224V116.16h16a8,8,0,0,0,8-8V84.55ZM48,184V116.16H80V184Zm64,0V116.16h32V184Zm96,0H176V116.16h32Z"/></svg>FinTech</span>
       <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M248,128a56.07,56.07,0,0,0-44.79-54.86,72,72,0,0,0-141.31,9.49A48,48,0,0,0,72,176H192A56.06,56.06,0,0,0,248,128Z"/></svg>B2B SaaS</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M247.42,117l-14-35A15.93,15.93,0,0,0,218.58,72H184V64a8,8,0,0,0-8-8H32a16,16,0,0,0-16,16V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,247.42,117ZM184,88h34.58l9.6,24H184ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm112,0a16,16,0,1,1,16-16A16,16,0,0,1,192,208Z"/></svg>Logistics</span>
-      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z"/></svg>Healthtech</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>E-commerce</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M243.55,77.39,131.55,21.46a8,8,0,0,0-7.16,0L12.39,77.39A8,8,0,0,0,8,84.55v23.61A8,8,0,0,0,16,116.16H32V184H16a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V192a8,8,0,0,0-8-8H224V116.16h16a8,8,0,0,0,8-8V84.55ZM48,184V116.16H80V184Zm64,0V116.16h32V184Zm96,0H176V116.16h32Z"/></svg>FinTech</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M248,128a56.07,56.07,0,0,0-44.79-54.86,72,72,0,0,0-141.31,9.49A48,48,0,0,0,72,176H192A56.06,56.06,0,0,0,248,128Z"/></svg>B2B SaaS</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Z"/></svg>E-commerce</span>
+      <span class="marquee-logo"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M243.55,77.39,131.55,21.46a8,8,0,0,0-7.16,0L12.39,77.39A8,8,0,0,0,8,84.55v23.61A8,8,0,0,0,16,116.16H32V184H16a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V192a8,8,0,0,0-8-8H224V116.16h16a8,8,0,0,0,8-8V84.55ZM48,184V116.16H80V184Zm64,0V116.16h32V184Zm96,0H176V116.16h32Z"/></svg>FinTech</span>
     </div>
   </div>
 </section>
@@ -1620,6 +1689,92 @@
       </a>
     </article>
 
+    <article class="phase-card glow-card">
+      <div class="phase-num-block">
+        <div class="phase-chevron">
+          <!-- AI Pod: 3 connected nodes -->
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+            <circle cx="10" cy="20" r="4" fill="currentColor"/>
+            <circle cx="30" cy="12" r="4" fill="currentColor"/>
+            <circle cx="30" cy="28" r="4" fill="currentColor"/>
+            <line x1="14" y1="20" x2="26" y2="12" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="14" y1="20" x2="26" y2="28" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="phase-num-text">04 — AI Pod</div>
+      </div>
+      <div class="phase-content">
+        <h3 class="phase-name">A team you can <span class="accent">switch on.</span></h3>
+        <p class="phase-tagline">
+          When you need ongoing AI engineering capacity but not a fixed-scope project. One US-led senior + dedicated engineers, working on your priorities month-to-month. <strong>Switch focus weekly. Cancel anytime.</strong>
+        </p>
+        <div class="phase-pills">
+          <span class="phase-pill">Dedicated team</span>
+          <span class="phase-pill">Flexible scope</span>
+          <span class="phase-pill">Month-to-month</span>
+          <span class="phase-pill">No long contract</span>
+          <span class="phase-pill">$12K–$25K/mo</span>
+        </div>
+      </div>
+      <a href="work-with-us.html" class="phase-cta">
+        Talk to us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── WHAT WE BUILD (Services grid) ─── -->
+<section class="services-section" id="what-we-build">
+  <div class="services-header" data-animate>
+    <div class="services-eyebrow">— WHAT WE BUILD</div>
+    <h2>Production AI, <span class="accent">not POCs.</span></h2>
+    <p>Whatever phase you're in, here's the actual work we ship.</p>
+  </div>
+  <div class="services-grid" data-stagger>
+    <div class="service-tile glow-card">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="service-name">Custom AI Features</div>
+      <div class="service-desc">In-app AI for SaaS products — search, recommendations, summarization, smart workflows.</div>
+    </div>
+    <div class="service-tile glow-card">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </div>
+      <div class="service-name">Voice Agents</div>
+      <div class="service-desc">Production phone & web voice agents with Vapi, Retell, or custom infra. Real-time, low-latency.</div>
+    </div>
+    <div class="service-tile glow-card">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      </div>
+      <div class="service-name">RAG Over Your Data</div>
+      <div class="service-desc">Chat with your docs, knowledge base, or product. Tuned chunking, retrieval evals, cost-optimized.</div>
+    </div>
+    <div class="service-tile glow-card">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="service-name">Workflow Automation</div>
+      <div class="service-desc">AI-powered ops automation — order processing, reconciliation, document review, intake flows.</div>
+    </div>
+    <div class="service-tile glow-card">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+      </div>
+      <div class="service-name">Internal AI Tools</div>
+      <div class="service-desc">Ops dashboards, agentic workflows, internal copilots — for the work your team does every day.</div>
+    </div>
+    <div class="service-tile glow-card">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div class="service-name">Eval &amp; Monitoring</div>
+      <div class="service-desc">Eval frameworks (Braintrust, Langfuse), drift monitoring, cost tracking — so it stays working in production.</div>
+    </div>
   </div>
 </section>
 
@@ -1636,16 +1791,16 @@
     <article class="case glow-card tilt-card">
       <div class="case-image">
         <div class="case-stat-overlay">
-          <div class="case-stat-num">340<span class="unit">hrs/mo</span></div>
-          <div class="case-stat-label">Time saved</div>
+          <div class="case-stat-num">+32%<span class="unit">conv</span></div>
+          <div class="case-stat-label">Checkout uplift</div>
         </div>
       </div>
       <div class="case-content">
-        <div class="case-industry">Legal Services</div>
-        <h3 class="case-title">AI contract review for a 24-attorney firm</h3>
-        <p class="case-desc">Custom RAG system trained on 10 years of contracts. Cut review time by 75%. Production in 6 weeks.</p>
+        <div class="case-industry">E-commerce</div>
+        <h3 class="case-title">AI search &amp; recommendations for a DTC catalog</h3>
+        <p class="case-desc">Semantic search + personalized product recommendations across 60K SKUs. Replaced legacy keyword search with embedding-based retrieval, lifting checkout conversion by 32%.</p>
         <div class="case-meta">
-          <span>6 weeks · Build</span>
+          <span>8 weeks · Build</span>
         </div>
       </div>
     </article>
@@ -1653,16 +1808,16 @@
     <article class="case glow-card tilt-card">
       <div class="case-image">
         <div class="case-stat-overlay">
-          <div class="case-stat-num">3×<span class="unit">faster</span></div>
-          <div class="case-stat-label">Quote turnaround</div>
+          <div class="case-stat-num">85%<span class="unit">faster</span></div>
+          <div class="case-stat-label">Manual review</div>
         </div>
       </div>
       <div class="case-content">
-        <div class="case-industry">Insurance</div>
-        <h3 class="case-title">AI quote engine for a commercial broker</h3>
-        <p class="case-desc">Automated risk analysis + quote generation. From 45 min to 12 min per quote. 4-month build.</p>
+        <div class="case-industry">FinTech</div>
+        <h3 class="case-title">KYC document automation for a payments platform</h3>
+        <p class="case-desc">Document classification, data extraction, and risk flagging on incoming KYC documents. Cut manual review queue from ~4 hrs to ~35 min per case while keeping human-in-the-loop oversight.</p>
         <div class="case-meta">
-          <span>16 weeks · Build</span>
+          <span>10 weeks · Build</span>
         </div>
       </div>
     </article>

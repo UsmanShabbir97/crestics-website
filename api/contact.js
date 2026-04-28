@@ -16,10 +16,17 @@ function escapeHtml(value) {
   }[c]));
 }
 
-// Hosted brand assets — accessible from email clients
-const LOGO_LIGHT_BG = 'https://crestics.com/assets/logo/PNGs/crestics-black-violet-dot.png'; // black wordmark, for light backgrounds
-const LOGO_DARK_BG = 'https://crestics.com/assets/logo/PNGs/crestics-white-violet-dot.png'; // white wordmark, for dark backgrounds
 const SITE_URL = 'https://crestics.com';
+
+// CSS-styled wordmark — renders reliably even when email clients block
+// remote images (Apple Mail, Outlook, Gmail by default). The "i" is
+// violet so its tittle/dot reads as the brand accent without depending
+// on Geist font (which email clients don't load anyway).
+function wordmark({ color }) {
+  return `<a href="${SITE_URL}" style="text-decoration:none;display:inline-block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1;">
+    <span style="color:${color};">crest</span><span style="color:#7c5cff;">i</span><span style="color:${color};">cs</span>
+  </a>`;
+}
 
 // Map of internal field codes to human-readable labels
 const ROLE_LABELS = {
@@ -90,9 +97,7 @@ function buildConfirmationBodies(data) {
           <!-- Logo header -->
           <tr>
             <td align="left" style="padding:0 0 24px 4px;">
-              <a href="${SITE_URL}" style="text-decoration:none;display:inline-block;">
-                <img src="${LOGO_LIGHT_BG}" alt="Crestics" width="120" style="display:block;width:120px;height:auto;border:0;">
-              </a>
+              ${wordmark({ color: '#0a0a0b' })}
             </td>
           </tr>
 
@@ -226,9 +231,7 @@ function buildEmailBodies(data) {
           <!-- Logo header -->
           <tr>
             <td align="left" style="padding:0 0 24px 4px;">
-              <a href="${SITE_URL}" style="text-decoration:none;display:inline-block;">
-                <img src="${LOGO_DARK_BG}" alt="Crestics" width="120" style="display:block;width:120px;height:auto;border:0;">
-              </a>
+              ${wordmark({ color: '#f5f5f7' })}
             </td>
           </tr>
 

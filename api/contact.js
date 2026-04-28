@@ -405,23 +405,32 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'Email delivery failed. Please try again or email hello@crestics.com directly.' });
     }
 
-    // 2. Auto-confirmation to prospect — best-effort, do not fail the request if this fails
+    // 2. Auto-confirmation to prospect.
+    //
+    // IMPORTANT: We MUST await this, even though we treat its failure as
+    // non-fatal. On Vercel, returning the response can freeze/kill the
+    // function before fire-and-forget promises resolve, so the email
+    // may never actually leave the function. Awaiting adds ~300-600ms
+    // to the response but guarantees the send is attempted.
     const confirm = buildConfirmationBodies(data);
-    sendEmail({
-      from: FROM_ADDRESS,
-      to: [data.email],
-      reply_to: TO_ADDRESS,
-      subject: 'We got your inquiry — Crestics',
-      html: confirm.html,
-      text: confirm.text,
-    }).then(async (r) => {
-      if (!r.ok) {
-        const t = await r.text().catch(() => '');
-        console.warn('Resend (confirmation) non-fatal error:', r.status, t);
+    try {
+      const confirmResp = await sendEmail({
+        from: FROM_ADDRESS,
+        to: [data.email],
+        reply_to: TO_ADDRESS,
+        subject: 'We got your inquiry — Crestics',
+        html: confirm.html,
+        text: confirm.text,
+      });
+      if (!confirmResp.ok) {
+        const errText = await confirmResp.text().catch(() => '');
+        console.warn('Resend (confirmation) non-fatal error:', confirmResp.status, errText);
       }
-    }).catch((e) => {
-      console.warn('Resend (confirmation) network error:', e);
-    });
+    } catch (confirmErr) {
+      // Network or unknown error sending confirmation — log and continue.
+      // The lead is already captured via the internal notification above.
+      console.warn('Resend (confirmation) network error:', confirmErr);
+    }
 
     return res.status(200).json({ ok: true });
   } catch (err) {

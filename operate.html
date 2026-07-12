@@ -239,9 +239,22 @@
   .footer-social { width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.2s; }
   .footer-social:hover { color: var(--violet); border-color: var(--violet); }
   @media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 16px; text-align: center; } }
+
+  /* Blueprint grid backdrop (site-wide family look) */
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(124,92,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,92,255,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+  }
 </style>
 </head>
 <body>
+
+<div class="grid-bg"></div>
 
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -477,40 +490,30 @@
 <section class="section">
   <div class="section-eyebrow">— Recent Operate engagements</div>
   <h2 class="section-title">What "stay shipping" <span class="accent">looks like.</span></h2>
-  <p class="section-sub">Two recent retainers, anonymized. Both began as Build engagements with us and rolled into Operate at handoff.</p>
+  <p class="section-sub">Anonymized because the work was delivered under NDA. Operate is how the systems we build keep earning their keep.</p>
 
   <div class="example-grid">
 
     <article class="example-card">
-      <div class="example-industry">Legal · 24-attorney firm · Standard retainer</div>
-      <h3 class="example-title">Cut LLM costs 47% in 90 days while shipping 4 new features.</h3>
-      <p class="example-desc">Post-launch optimization rotated 80% of routine queries to a smaller cheaper model with no quality loss, added prompt caching, and shipped 4 new attorney-requested features (clause comparison, jurisdiction filter, exhibit linker, deal-archive search).</p>
+      <div class="example-industry">Industrial Distribution · Order platform</div>
+      <h3 class="example-title">A zero-touch order pipeline that keeps running because someone runs it.</h3>
+      <p class="example-desc">The order platform we built now runs as an operated system: supplier scrapers repaired as vendors change their sites, new suppliers added on request, and failed orders recovering automatically before customers notice.</p>
       <div class="example-stat">
         <div class="example-stat-item">
-          <div class="example-stat-num">−47%</div>
-          <div class="example-stat-label">Monthly LLM cost</div>
+          <div class="example-stat-num">~1,500</div>
+          <div class="example-stat-label">Orders auto-recovered / month</div>
         </div>
         <div class="example-stat-item">
-          <div class="example-stat-num">4 new</div>
-          <div class="example-stat-label">Features in 90 days</div>
+          <div class="example-stat-num">200+</div>
+          <div class="example-stat-label">Supplier integrations maintained</div>
         </div>
       </div>
     </article>
 
     <article class="example-card">
-      <div class="example-industry">Insurance · Commercial broker · Heavy retainer</div>
-      <h3 class="example-title">3 new carriers integrated, 2× more quote types, zero downtime.</h3>
-      <p class="example-desc">Quote engine expanded from 1 line of business to 3, integrated 3 additional carrier APIs, added underwriter-assist for high-touch deals. 99.97% uptime over 6 months on the retainer. On-call rotation handled 14 incidents — zero customer-visible.</p>
-      <div class="example-stat">
-        <div class="example-stat-item">
-          <div class="example-stat-num">99.97%</div>
-          <div class="example-stat-label">Uptime · 6 months</div>
-        </div>
-        <div class="example-stat-item">
-          <div class="example-stat-num">2×</div>
-          <div class="example-stat-label">Quote-type coverage</div>
-        </div>
-      </div>
+      <div class="example-industry">Industrial MRO · Supplier automation</div>
+      <h3 class="example-title">Supplier workflows that stay automated as vendors change.</h3>
+      <p class="example-desc">Automation isn't a one-time event when your vendors keep changing formats and portals. We maintain and extend the supplier automation so the client's team never slides back to manual lookups.</p>
     </article>
 
   </div>

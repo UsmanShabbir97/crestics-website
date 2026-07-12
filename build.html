@@ -251,9 +251,22 @@
   .footer-social { width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.2s; }
   .footer-social:hover { color: var(--violet); border-color: var(--violet); }
   @media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 16px; text-align: center; } }
+
+  /* Blueprint grid backdrop (site-wide family look) */
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(124,92,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,92,255,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+  }
 </style>
 </head>
 <body>
+
+<div class="grid-bg"></div>
 
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -300,7 +313,7 @@
     </div>
     <h1>Ship production AI <span class="accent">in weeks.</span></h1>
     <p>
-      Senior engineers, fixed scope, weekly demos. We build custom AI features, voice agents, RAG pipelines, and internal tools to <strong>production grade</strong> — security, monitoring, and handoff documentation included. If we miss a milestone, that's our problem.
+      Senior engineers, fixed scope, weekly demos. We build order automation, supplier integrations, quoting assistants, and internal AI tools to <strong>production grade</strong> — security, monitoring, and handoff documentation included. If we miss a milestone, that's our problem.
     </p>
     <div class="hero-cta-row">
       <a href="work-with-us.html" class="btn btn-primary">
@@ -599,40 +612,20 @@
 <section class="section">
   <div class="section-eyebrow">— Recent Build engagements</div>
   <h2 class="section-title">Real shipped AI. <span class="accent">Real results.</span></h2>
-  <p class="section-sub">Three recent Builds across three industries — same playbook every time.</p>
+  <p class="section-sub">Recent Builds, anonymized because the work was delivered under NDA. The numbers are real — we only publish metrics we can stand behind.</p>
 
   <div class="example-grid">
 
     <article class="example-card">
-      <div class="example-industry">Legal · 24-attorney firm</div>
-      <h3 class="example-title">AI contract review trained on 10 years of precedent.</h3>
-      <p class="example-desc">Custom RAG over historical contracts + redlines. Surfaces risk clauses with citations, drafts negotiation suggestions, exports back to Word.</p>
-      <div class="example-stat">
-        <div class="example-stat-item">
-          <div class="example-stat-num">75%</div>
-          <div class="example-stat-label">Review time cut</div>
-        </div>
-        <div class="example-stat-item">
-          <div class="example-stat-num">6 weeks</div>
-          <div class="example-stat-label">From kickoff to prod</div>
-        </div>
-      </div>
+      <div class="example-industry">HVAC Distribution · B2B equipment</div>
+      <h3 class="example-title">AI-powered CRM for quoting and order management.</h3>
+      <p class="example-desc">Quoting lived in inboxes and spreadsheets. We built an internal CRM with AI in the quoting and order flow — it worked well enough that the client later opened it up to their own customers. Vue 3, TypeScript, Directus, deployed on-prem.</p>
     </article>
 
     <article class="example-card">
-      <div class="example-industry">Insurance · Commercial broker</div>
-      <h3 class="example-title">AI quote engine: risk analysis to bound quote.</h3>
-      <p class="example-desc">Automated submission ingestion, risk scoring, carrier matching, and quote drafting. Underwriters review and approve — they don't draft from scratch anymore.</p>
-      <div class="example-stat">
-        <div class="example-stat-item">
-          <div class="example-stat-num">3×</div>
-          <div class="example-stat-label">Faster turnaround</div>
-        </div>
-        <div class="example-stat-item">
-          <div class="example-stat-num">16 weeks</div>
-          <div class="example-stat-label">Build duration</div>
-        </div>
-      </div>
+      <div class="example-industry">Industrial MRO · US supplier</div>
+      <h3 class="example-title">Supplier automation that ended the manual vendor chase.</h3>
+      <p class="example-desc">Vendor operations ran on manual lookups and follow-up emails. We automated the repetitive supplier work so the team could stop babysitting spreadsheets and get back to selling.</p>
     </article>
 
     <article class="example-card">

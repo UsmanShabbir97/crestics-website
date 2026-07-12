@@ -1,42 +1,45 @@
 # Crestics
 
-> Austin-based AI product studio. We ship production-grade AI for B2B companies that need to move fast without hiring in-house.
+> Austin-based AI studio. We automate order intake, supplier management, and quoting for B2B distributors and wholesalers — production systems wired into the ERP the client already runs.
 
-Crestics LLC is a Texas-registered AI product studio. Senior engineers build custom AI features, voice agents, RAG pipelines, and internal tools to production grade — with security review, monitoring, evals, and full handoff documentation included. Engagements are fixed-scope and fixed-price.
+Crestics LLC is a Texas-registered AI studio focused on operations automation for distribution businesses (HVAC, industrial/MRO, electrical, plumbing, wholesale). Senior engineers build automation to production grade — with security review, monitoring, and full handoff documentation included. Engagements are fixed-scope and fixed-price.
 
-## What we do
+## What we automate
 
-The work runs in three phases. Most clients enter at one and graduate forward.
+- **Order-intake automation** — orders arriving as email PDFs, portal entries, or spreadsheets parsed and pushed into the client's ERP automatically
+- **Supplier & vendor automation** — live pricing/stock from supplier portals, failed-order rerouting, follow-up tracking across hundreds of vendors
+- **RFP & bid processing** — incoming RFPs triaged, summarized, and turned into structured records
+- **AI CRM & quoting assistant** — AI in the quoting and order flow so reps quote in minutes
+- **Catalog & document Q&A** — plain-English questions against catalogs, spec sheets, and docs, with sources
+- **Vendor due-diligence enrichment** — verified company data pulled into CRMs and pipelines
 
-- **Discover** ($18K–$28K, 2–3 weeks): Stakeholder interviews, workflow mapping, ROI modeling, and a prioritized roadmap with a fixed-scope build estimate. About 18% of Discover engagements end with a "don't build this yet" verdict — the artifact package is worth that answer alone.
+## How we engage
 
-- **Build** ($25K–$175K+, 4–12+ weeks): Custom AI features, voice agents, RAG pipelines, internal tools shipped to production. Weekly demos. Milestone-based billing — miss a milestone, we eat the difference. You own all code, models, data, and IP from day one.
+- **Discover** ($18K–$28K, 2–3 weeks): Stakeholder interviews, workflow mapping, ROI modeling, and a prioritized roadmap with a fixed-scope build estimate. Some Discover engagements end with a "don't build this yet" verdict — the artifact package is worth that answer alone.
 
-- **Operate** ($8K–$35K/month): A fractional AI engineering retainer for production AI systems. Continuous feature shipping, monitoring + on-call, eval suite maintenance, cost optimization. 30-day exit clause. No retainers without value.
+- **Build** ($25K–$175K+, 4–12+ weeks): Automation shipped to production. Weekly demos. Milestone-based billing — miss a milestone, we eat the difference. The client owns all code, models, data, and IP from day one.
 
-- **AI Pod** ($12K–$25K/month): Dedicated AI engineering team for buyers who need ongoing capacity rather than a fixed-scope project. One US-led senior engineer plus dedicated engineers, working on your priorities month-to-month. Switch focus weekly. Cancel anytime.
+- **Operate** ($8K–$35K/month): We run and expand what we built — monitoring, on-call, maintenance as vendors change their portals, and new workflows over time. 30-day exit clause.
 
-## How we work
+- **Distributor quick start**: for HVAC/MRO/industrial distributors, first order-automation workflow live in 30 days or the build phase is free. Details: https://crestics.com/distributors
 
-- **Senior team, US-led** — every engagement has a US-based senior engineer accountable for architecture, code review, and delivery. Our broader engineering team is global.
-- **Fixed-scope, fixed-price** — every engagement is priced before kickoff. No hourly billing, no scope creep surprises. AI Pod monthly subscription available for ongoing capacity.
-- **You own everything** — code in your git from week one, model API keys in your accounts, no "our copy" of anything.
-- **We'll tell you when AI isn't the answer** — if the cleaner solution is deterministic code or a SaaS that already exists, we say so.
+## Proof
+
+- Industrial distributor, 200+ suppliers: order throughput lifted from ~100 to 250+ orders/day in a 16-week build, no added headcount; ~1,500 failed orders/month now auto-recover. Case study: https://crestics.com/case-industrial-distribution.html
+- B2B HVAC equipment distributor: AI-powered internal CRM for quoting and order management, later extended customer-facing.
+- US industrial MRO supplier: supplier/vendor workflow automation replacing manual lookups and follow-up emails.
+
+(Case studies are anonymized — work was delivered under NDA.)
 
 ## Default tech stack
 
 - Models: Claude (default for reasoning), GPT-4 / GPT-4o, Gemini (long context), open-source where self-hosting wins
-- Voice: Vapi, Retell, Bland, Deepgram (STT)
 - Retrieval: Pinecone, pgvector, Turbopuffer, Weaviate
-- Frontend: Next.js 15, React 19, v0, shadcn/ui
-- Backend: TypeScript / Node, Python / FastAPI, Go (perf-critical), Postgres + Redis
-- Infra: Vercel, AWS / GCP, Cloudflare Workers, Modal (GPU)
-- Observability: Langfuse, Datadog, Sentry, Braintrust (evals)
-- Dev tooling: Cursor, Claude Code, Linear, GitHub Actions
-
-## Industries we've shipped AI for
-
-Legal services, commercial insurance, DTC e-commerce, professional services, fintech, B2B SaaS, logistics, healthtech.
+- Frontend: Next.js, React, Vue 3, shadcn/ui
+- Backend: TypeScript / Node, Python / Django / FastAPI, Postgres + Redis, Celery
+- Infra: Vercel, AWS / GCP, Docker, on-prem where clients require it
+- Observability: Sentry, Datadog, Langfuse
+- Dev tooling: Cursor, Claude Code, GitHub Actions
 
 ## Where we're based
 
@@ -45,9 +48,11 @@ Crestics LLC is registered in Texas, with our studio in Austin. We work with cli
 ## Key pages
 
 - Homepage: https://crestics.com/
+- For distributors: https://crestics.com/distributors
 - Discover service: https://crestics.com/discover.html
 - Build service: https://crestics.com/build.html
 - Operate service: https://crestics.com/operate.html
+- Case study: https://crestics.com/case-industrial-distribution.html
 - Contact / Work with us: https://crestics.com/work-with-us.html
 
 ## Contact

@@ -53,6 +53,26 @@ function label(map, code) {
   return map[code] || code;
 }
 
+// Best-effort per-IP rate limit. In-memory, so it resets when the serverless
+// instance recycles — that's fine: its job is stopping bursts, not precision.
+const RATE_WINDOW_MS = 60 * 60 * 1000;
+const RATE_MAX = 5;
+const rateHits = new Map();
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const hits = (rateHits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (hits.length >= RATE_MAX) return true;
+  hits.push(now);
+  rateHits.set(ip, hits);
+  if (rateHits.size > 5000) rateHits.clear(); // memory backstop
+  return false;
+}
+
+function clientIp(req) {
+  return String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+}
+
 // Verify a Cloudflare Turnstile token server-side.
 // Fails open on Cloudflare outages so a real lead is never lost to a hiccup;
 // fails closed on a missing/invalid token (that's a bot).
@@ -379,6 +399,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Server misconfigured' });
   }
 
+  // Burst protection — a real prospect doesn't submit 6 inquiries in an hour
+  if (rateLimited(clientIp(req))) {
+    return res.status(429).json({ error: 'Too many submissions from this connection. Please email hello@crestics.com directly.' });
+  }
+
   // Vercel auto-parses JSON when Content-Type is application/json
   const data = (req.body && typeof req.body === 'object') ? req.body : {};
 
@@ -433,9 +458,10 @@ export default async function handler(req, res) {
   }
 
   const { html, text } = buildEmailBodies(data);
+  const safeCompany = String(data.company).replace(/[\r\n]+/g, ' ').slice(0, 120);
   const subject = data.source === 'distributors'
-    ? `Distributor lead (LinkedIn campaign) — ${data.company}`
-    : `New Crestics inquiry — ${data.company} (${data.budget})`;
+    ? `Distributor lead (LinkedIn campaign) — ${safeCompany}`
+    : `New Crestics inquiry — ${safeCompany} (${data.budget})`;
 
   const sendEmail = (payload) => fetch(RESEND_ENDPOINT, {
     method: 'POST',

@@ -575,9 +575,22 @@
     transition: all 0.2s;
   }
   .footer-social:hover { color: var(--violet); border-color: var(--violet); }
+
+  /* Blueprint grid backdrop (site-wide family look) */
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(124,92,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,92,255,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+  }
 </style>
 </head>
 <body>
+
+<div class="grid-bg"></div>
 
 <!-- Floating gradient orbs (depth) -->
 <div class="orb orb-1"></div>
@@ -713,11 +726,13 @@
             <label class="form-label" for="role">Your Role<span class="req">*</span></label>
             <select class="form-select" id="role" name="role" required>
               <option value="">Select your role</option>
+              <option value="owner">Owner / President</option>
               <option value="ceo">CEO / Founder</option>
               <option value="coo">COO</option>
               <option value="cto">CTO / VP Eng</option>
               <option value="product">Head of Product</option>
               <option value="ops">Head of Operations</option>
+              <option value="purchasing">Purchasing / Supply Chain</option>
               <option value="other">Other</option>
             </select>
           </div>

@@ -777,6 +777,9 @@
 
         <div id="formError" class="form-error" role="alert" aria-live="polite"></div>
 
+        <!-- Cloudflare Turnstile renders here when TURNSTILE_SITE_KEY is set -->
+        <div id="turnstileBox" style="margin-bottom: 16px;"></div>
+
         <button type="submit" class="form-submit" id="submitBtn">
           <span class="btn-label">Submit Inquiry</span>
           <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -830,6 +833,38 @@
     const btnLabel = submitBtn.querySelector('.btn-label');
     const btnIcon = submitBtn.querySelector('.btn-icon');
     const originalLabel = btnLabel ? btnLabel.textContent : 'Submit Inquiry';
+
+    // ── Bot protection ─────────────────────────────────────────────
+    // Paste your Cloudflare Turnstile SITE key here to enable the challenge
+    // (the matching SECRET key goes in the TURNSTILE_SECRET_KEY env var on Vercel).
+    // Leave empty to run with honeypot + time-trap only.
+    const TURNSTILE_SITE_KEY = '';
+    const pageLoadedAt = Date.now();
+    let turnstileToken = '';
+
+    function resetTurnstile() {
+      turnstileToken = '';
+      if (TURNSTILE_SITE_KEY && window.turnstile) {
+        try { window.turnstile.reset('#turnstileBox'); } catch (_) {}
+      }
+    }
+
+    if (TURNSTILE_SITE_KEY) {
+      window._onTurnstileLoad = function () {
+        window.turnstile.render('#turnstileBox', {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: 'dark',
+          callback: function (t) { turnstileToken = t; },
+          'expired-callback': resetTurnstile,
+          'error-callback': resetTurnstile,
+        });
+      };
+      const ts = document.createElement('script');
+      ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_onTurnstileLoad';
+      ts.async = true;
+      ts.defer = true;
+      document.head.appendChild(ts);
+    }
 
     function setLoading(loading) {
       submitBtn.disabled = loading;
@@ -895,6 +930,16 @@
         payload[key] = typeof value === 'string' ? value.trim() : value;
       });
 
+      // Bot-protection signals: time-on-page + Turnstile token (when enabled)
+      payload._elapsedMs = Date.now() - pageLoadedAt;
+      if (TURNSTILE_SITE_KEY) {
+        if (!turnstileToken) {
+          showError('Please complete the verification above, then submit again.');
+          return;
+        }
+        payload.turnstileToken = turnstileToken;
+      }
+
       setLoading(true);
 
       try {
@@ -915,10 +960,12 @@
         } else {
           const msg = (data && data.error) ? data.error : 'Something went wrong. Please try again, or email <a href="mailto:hello@crestics.com">hello@crestics.com</a> directly.';
           showError(msg);
+          resetTurnstile(); // tokens are single-use — issue a fresh one for the retry
           setLoading(false);
         }
       } catch (err) {
         showError('Network error. Please try again, or email <a href="mailto:hello@crestics.com">hello@crestics.com</a> directly.');
+        resetTurnstile();
         setLoading(false);
       }
     });

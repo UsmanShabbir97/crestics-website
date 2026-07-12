@@ -50,6 +50,34 @@ function label(map, code) {
   return map[code] || code;
 }
 
+// Verify a Cloudflare Turnstile token server-side.
+// Fails open on Cloudflare outages so a real lead is never lost to a hiccup;
+// fails closed on a missing/invalid token (that's a bot).
+async function verifyTurnstile(token, req) {
+  if (typeof token !== 'string' || token === '') return false;
+  try {
+    const forwarded = String(req.headers['x-forwarded-for'] || '');
+    const remoteip = forwarded.split(',')[0].trim();
+    const resp = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET_KEY,
+        response: token,
+        ...(remoteip ? { remoteip } : {}),
+      }),
+    });
+    const outcome = await resp.json();
+    if (!outcome.success) {
+      console.warn('Turnstile rejected token', outcome['error-codes']);
+    }
+    return outcome.success === true;
+  } catch (err) {
+    console.error('Turnstile verify error (failing open):', err);
+    return true;
+  }
+}
+
 function formatTimestamp() {
   const now = new Date();
   return now.toLocaleString('en-US', {
@@ -354,6 +382,23 @@ export default async function handler(req, res) {
   // Honeypot — silently 200 for bots so they don't retry
   if (data._gotcha && String(data._gotcha).trim() !== '') {
     return res.status(200).json({ ok: true });
+  }
+
+  // Time-trap — the form sends time-on-page; a human can't fill 8 required
+  // fields in under 4 seconds, and bots POSTing directly omit the field
+  // entirely. Silent 200 so bots don't learn they were caught.
+  const elapsed = Number(data._elapsedMs);
+  if (!Number.isFinite(elapsed) || elapsed < 4000) {
+    console.warn('Contact: dropped submission failing time-trap', { elapsed: data._elapsedMs, email: data.email });
+    return res.status(200).json({ ok: true });
+  }
+
+  // Cloudflare Turnstile — enforced only once TURNSTILE_SECRET_KEY is set
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    const human = await verifyTurnstile(data.turnstileToken, req);
+    if (!human) {
+      return res.status(403).json({ error: 'Human verification failed. Please try again, or email hello@crestics.com directly.' });
+    }
   }
 
   // Required field check

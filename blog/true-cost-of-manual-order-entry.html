@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Order Entry Cost Calculator for Distributors | Crestics</title>
+<meta name="description" content="What manual order entry really costs a distribution business: labor math you can run with your own numbers, plus the error and opportunity costs that never show up on the P&L.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://crestics.com/blog/true-cost-of-manual-order-entry.html">
+<meta property="og:title" content="Manual Order Entry Cost Calculator for Distributors">
+<meta property="og:description" content="What manual order entry really costs a distribution business: labor math you can run with your own numbers, plus the error and opportunity costs that never show up on the P&L.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://crestics.com/blog/true-cost-of-manual-order-entry.html">
+<meta property="og:site_name" content="Crestics">
+<meta property="og:image" content="https://crestics.com/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Manual Order Entry Cost Calculator for Distributors">
+<meta name="twitter:description" content="What manual order entry really costs a distribution business: labor math you can run with your own numbers, plus the error and opportunity costs that never show up on the P&L.">
+<meta name="twitter:image" content="https://crestics.com/assets/og-default.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The true cost of manual order entry at a distributor (run your own numbers)",
+  "description": "What manual order entry really costs a distribution business: labor math you can run with your own numbers, plus the error and opportunity costs that never show up on the P&L.",
+  "datePublished": "2026-07-13",
+  "dateModified": "2026-07-13",
+  "author": {
+    "@type": "Organization",
+    "name": "Crestics LLC",
+    "url": "https://crestics.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Crestics LLC",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://crestics.com/assets/logo/PNGs/crestics-black-violet-dot.png"
+    }
+  },
+  "image": "https://crestics.com/assets/og-default.png",
+  "mainEntityOfPage": "https://crestics.com/blog/true-cost-of-manual-order-entry.html"
+}
+</script>
+<link rel="icon" href="/assets/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png?v=2">
+<meta name="theme-color" content="#5b3fd4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@600;700;800;900&family=Poppins:ital,wght@1,200&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css?v=7">
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/logo/PNGs/crestics-black-violet-dot.png" alt="Crestics"></a>
+    <div class="nav-links">
+      <a href="/index.html#automate">What we automate</a>
+      <a href="/index.html#work">Work</a>
+      <a href="/blog/">Blog</a>
+      <a href="/work-with-us.html" class="nav-cta">Book a Call</a>
+    </div>
+    <button class="nav-mobile-toggle" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile-menu">
+    <a href="/index.html#automate">What we automate</a>
+    <a href="/index.html#work">Work</a>
+    <a href="/blog/">Blog</a>
+    <a href="/work-with-us.html" class="nav-mobile-cta">Book a Call</a>
+  </div>
+</nav>
+
+<article class="article">
+  <div class="doc-head"><span class="sec"><a href="/blog/">← Blog</a> · Calculator</span></div>
+  <div class="post-meta"><span>July 13, 2026</span><span>5 min read</span><span class="tag">The Crestics team</span></div>
+  <h1>The true cost of manual order entry at a distributor (run your own numbers)</h1>
+  <p class="standfirst">Every distributor knows order entry eats hours. Few have put their own numbers on it. Here is the math, a calculator to run it with your figures, and the two costs that never make it into the spreadsheet.</p>
+  <div class="prose">
+
+<h2>The labor math</h2>
+<p>The visible cost is simple multiplication: orders per day, times minutes per order, times what an ops hour actually costs you with taxes and benefits loaded in. Run your own numbers here. The defaults are just a starting point; drag them to match your desk.</p>
+
+<div class="calc" id="calc">
+  <div class="calc-title">Order-entry cost calculator</div>
+  <div class="calc-grid">
+    <div>
+      <label class="form-label" for="c-orders">Orders per day</label>
+      <input class="form-input" type="number" id="c-orders" value="80" min="1">
+    </div>
+    <div>
+      <label class="form-label" for="c-mins">Minutes per order</label>
+      <input class="form-input" type="number" id="c-mins" value="6" min="1">
+    </div>
+    <div>
+      <label class="form-label" for="c-rate">Loaded cost per hour ($)</label>
+      <input class="form-input" type="number" id="c-rate" value="32" min="1">
+    </div>
+  </div>
+  <div class="calc-out">
+    <div><div class="calc-num" id="c-hours">–</div><div class="calc-label">Ops hours per year on order entry</div></div>
+    <div><div class="calc-num" id="c-cost">–</div><div class="calc-label">Annual labor cost of order entry</div></div>
+  </div>
+</div>
+
+<p>Most distributors who run this land somewhere between "one full-time salary" and "a small department." And that's the smaller half of the cost.</p>
+
+<h2>The error cost</h2>
+<p>Re-keyed orders have typos. A transposed quantity, a wrong part number, a missed line item. Each one costs a return shipment, a credit memo, an annoyed customer, and an hour of someone untangling it. The industry doesn't agree on an exact error rate for manual entry, and we won't invent one, but you know your own returns-and-credits queue. Ask your team how many of last month's credit memos trace back to an entry mistake. That number, times what a correction cycle costs you, belongs on top of the labor math.</p>
+
+<h2>The cost that hurts most: the ceiling</h2>
+<p>Manual entry doesn't just cost money, it caps growth. Your desk can only key so many orders a day. Past that, queues build, ship dates slip, and the honest options are hire more people or turn work away. One industrial distributor we worked with was capped at roughly 100 orders a day for exactly this reason. After automating intake and the supplier legwork around it, <a href="/case-study-100-to-250-orders-a-day.html">the same team was processing 250 and more a day</a>. The growth was already there in demand; the desk was the bottleneck.</p>
+
+<h2>What automating actually looks like</h2>
+<p>It does not mean replacing your ERP or your people. The pattern that works: orders arriving by email, PDF, or portal get parsed and validated automatically, clean ones flow straight into the ERP you already run, and your team reviews only the exceptions the system flags. People stop being typists and go back to being the judgment layer.</p>
+<p>If your calculator number above made you wince, that's usually the sign it's worth a 30-minute look at how your orders come in today.</p>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const fmt = n => n >= 1000 ? '$' + Math.round(n).toLocaleString() : '$' + Math.round(n);
+  function run() {
+    const orders = +$('c-orders').value || 0, mins = +$('c-mins').value || 0, rate = +$('c-rate').value || 0;
+    const hours = orders * mins / 60 * 250;
+    $('c-hours').textContent = Math.round(hours).toLocaleString() + ' hrs';
+    $('c-cost').textContent = fmt(hours * rate);
+  }
+  ['c-orders','c-mins','c-rate'].forEach(id => $(id).addEventListener('input', run));
+  run();
+})();
+</script>
+
+  </div>
+</article>
+
+<section class="final">
+  <div class="final-inner">
+    <div>
+      <h2>Want a straight answer about <span class="accent">your order desk?</span></h2>
+      <p>Book a 30-minute call. We'll walk through how your orders come in today and tell you which workflow we'd automate first, and whether it's worth doing at all.</p>
+    </div>
+    <div class="final-action">
+      <a href="/distributors/book" class="btn-primary">Book a 30-min Call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <div class="cta-note">If it's not a fit, we'll say so on the call instead of stringing you along.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/"><img src="/assets/logo/PNGs/crestics-black-violet-dot.png" alt="Crestics"></a>
+      <div class="footer-line">© 2026 Crestics LLC · Austin, Texas</div>
+    </div>
+    <div class="footer-links">
+      <a href="tel:+17373390372">+1 (737) 339-0372</a>
+      <a href="mailto:hello@crestics.com">hello@crestics.com</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const toggle = document.querySelector('.nav-mobile-toggle');
+  const menu = document.querySelector('.nav-mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+  }
+})();
+</script>
+
+</body>
+</html>

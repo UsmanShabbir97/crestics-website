@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Automation for Distributors | Crestics</title>
+<meta name="description" content="Done-for-you order automation for HVAC, MRO, and industrial distributors. Your first workflow live in 30 days — built around your existing system, no rip-and-replace. Book a 30-min call.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://crestics.com/distributors">
+<meta property="og:title" content="Order Automation for Distributors | Crestics">
+<meta property="og:description" content="Automate your order desk without ripping out your current system. First workflow live in 30 days — or you don't pay for that phase.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crestics.com/distributors">
+<meta property="og:site_name" content="Crestics">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://crestics.com/assets/og-distributors.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Order Automation for Distributors | Crestics">
+<meta name="twitter:description" content="Automate your order desk without ripping out your current system. First workflow live in 30 days.">
+<meta name="twitter:image" content="https://crestics.com/assets/og-distributors.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Order Automation for Distributors",
+  "serviceType": "Order processing automation",
+  "provider": { "@type": "Organization", "name": "Crestics LLC", "url": "https://crestics.com/" },
+  "areaServed": "US",
+  "audience": { "@type": "BusinessAudience", "name": "HVAC, MRO, and industrial distributors" },
+  "description": "Done-for-you order automation for HVAC, MRO, and industrial distributors. First workflow live in 30 days, built around the distributor's existing system.",
+  "url": "https://crestics.com/distributors"
+}
+</script>
+
+<link rel="icon" href="/assets/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/site.webmanifest?v=2">
+<meta name="theme-color" content="#7c5cff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Poppins:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violet:        #7c5cff;
+    --violet-light:  #9b7fff;
+    --violet-deep:   #5b3fd4;
+    --violet-wash:   rgba(124, 92, 255, 0.08);
+    --violet-border: rgba(124, 92, 255, 0.3);
+    --dark:          #0a0a0b;
+    --surface:       #111113;
+    --surface-hi:    #1a1a1d;
+    --border:        #2a2a2e;
+    --border-hi:     #3a3a40;
+    --text:          #f5f5f7;
+    --muted:         #a1a1aa;
+    --subtle:        #71717a;
+    --container:     1200px;
+    --pad-x:         32px;
+    --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  /* Background orbs */
+  .orb { position: fixed; pointer-events: none; z-index: 0; border-radius: 50%; filter: blur(120px); opacity: 0.35; }
+  .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--violet) 0%, transparent 70%); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--violet-deep) 0%, transparent 70%); bottom: -200px; right: -200px; opacity: 0.2; }
+
+  /* Nav — logo + one action only */
+  .nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); background: rgba(10, 10, 11, 0.7); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: var(--container); margin: 0 auto; padding: 18px var(--pad-x); display: flex; justify-content: space-between; align-items: center; }
+  .nav-logo img { height: 24px; display: block; }
+  .nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; padding: 10px 18px; background: var(--violet); color: white !important; border-radius: 8px; transition: all 0.2s; white-space: nowrap; }
+  .nav-cta:hover { background: var(--violet-light); transform: translateY(-1px); }
+  @media (max-width: 768px) {
+    .nav-inner { padding: 14px 20px; }
+    .nav-cta { font-size: 10px; padding: 9px 14px; }
+  }
+
+  /* Sections */
+  .section { max-width: var(--container); margin: 0 auto; padding: 100px var(--pad-x); position: relative; z-index: 1; }
+  @media (max-width: 768px) { .section { padding: 64px 20px; } }
+  .section-eyebrow { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--violet); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px; }
+  .section-title { font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.4vw, 52px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 18px; max-width: 820px; }
+  .section-title .accent { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 200; background: linear-gradient(90deg, #ffffff 0%, #B8A6FF 40%, #7C5CFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .section-sub { font-size: 17px; color: var(--muted); max-width: 720px; line-height: 1.6; margin-bottom: 48px; }
+  .section-sub strong { color: var(--text); font-weight: 600; }
+
+  /* Hero */
+  .hero { padding: 90px var(--pad-x) 70px; max-width: var(--container); margin: 0 auto; position: relative; z-index: 1; }
+  @media (max-width: 768px) { .hero { padding: 54px 20px 48px; } }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 100px; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 28px; }
+  .hero-title { font-family: 'Geist', sans-serif; font-size: clamp(38px, 5.6vw, 72px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.06; margin-bottom: 26px; max-width: 980px; }
+  .hero-title .accent { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 200; background: linear-gradient(90deg, #ffffff 0%, #B8A6FF 40%, #7C5CFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-desc { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 740px; margin-bottom: 40px; }
+  .hero-desc strong { color: var(--text); font-weight: 600; }
+  .hero-cta-block { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 17px 24px; border-radius: 10px; transition: all 0.2s; cursor: pointer; background: var(--violet); color: white !important; text-align: center; }
+  .btn-primary:hover { background: var(--violet-light); transform: translateY(-1px); }
+  @media (max-width: 480px) { .btn-primary { width: 100%; justify-content: center; padding: 16px 18px; font-size: 11px; } }
+  .cta-microcopy { font-size: 13.5px; color: var(--subtle); }
+
+  /* Proof band */
+  .proof-wrap { background: linear-gradient(180deg, transparent, var(--violet-wash) 50%, transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; z-index: 1; }
+  .proof-inner { max-width: var(--container); margin: 0 auto; padding: 80px var(--pad-x); }
+  @media (max-width: 768px) { .proof-inner { padding: 56px 20px; } }
+  .proof-lead-card { background: linear-gradient(180deg, var(--surface) 0%, rgba(124, 92, 255, 0.05) 100%); border: 1px solid var(--violet-border); border-radius: 20px; padding: 44px; margin-bottom: 20px; }
+  @media (max-width: 768px) { .proof-lead-card { padding: 28px 22px; } }
+  .proof-stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px; }
+  @media (max-width: 800px) { .proof-stat-row { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  .proof-stat-num { font-family: 'Geist', sans-serif; font-size: clamp(30px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; color: var(--violet); margin-bottom: 8px; }
+  .proof-stat-num .unit { font-size: 16px; color: var(--text); margin-left: 4px; font-weight: 500; }
+  .proof-stat-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--subtle); letter-spacing: 0.16em; text-transform: uppercase; }
+  .proof-lead-desc { font-size: 16.5px; color: var(--muted); line-height: 1.65; max-width: 800px; }
+  .proof-lead-desc strong { color: var(--text); font-weight: 600; }
+  .proof-lead-link { display: inline-block; margin-top: 18px; font-size: 14px; color: var(--violet); font-weight: 500; }
+  .proof-lead-link:hover { color: var(--violet-light); }
+  .proof-secondary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 800px) { .proof-secondary-grid { grid-template-columns: 1fr; } }
+  .proof-card { padding: 28px 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
+  .proof-card-industry { font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
+  .proof-card-title { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .proof-card-desc { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+
+  /* How it works */
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .steps-grid { grid-template-columns: 1fr; } }
+  .step-card { padding: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; transition: all 0.3s var(--ease-out); }
+  .step-card:hover { border-color: var(--violet-border); transform: translateY(-2px); }
+  .step-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--violet-wash); border: 1px solid var(--violet-border); border-radius: 8px; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 700; color: var(--violet); margin-bottom: 18px; }
+  .step-title { font-family: 'Geist', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 12px; }
+  .step-desc { font-size: 15px; color: var(--muted); line-height: 1.65; }
+  .step-desc strong { color: var(--text); font-weight: 600; }
+
+  /* Offer + guarantee */
+  .offer-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 48px; max-width: 920px; border-left: 3px solid var(--violet); }
+  @media (max-width: 768px) { .offer-card { padding: 30px 24px; } }
+  .offer-headline { font-family: 'Geist', sans-serif; font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.3; margin-bottom: 20px; }
+  .offer-headline .accent { color: var(--violet); font-weight: 700; }
+  .offer-sub { font-size: 16.5px; color: var(--muted); line-height: 1.65; max-width: 700px; }
+  .offer-sub strong { color: var(--text); font-weight: 600; }
+  .offer-points { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  @media (max-width: 700px) { .offer-points { grid-template-columns: 1fr; } }
+  .offer-point { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+  .offer-point svg { flex-shrink: 0; margin-top: 2px; color: var(--violet); }
+  .offer-point strong { color: var(--text); font-weight: 600; }
+
+  /* Final CTA */
+  .cta-card { background: linear-gradient(135deg, var(--surface) 0%, rgba(124, 92, 255, 0.1) 100%); border: 1px solid var(--violet-border); border-radius: 24px; padding: 64px 48px; text-align: center; max-width: 920px; margin: 0 auto; }
+  @media (max-width: 768px) { .cta-card { padding: 40px 24px; } }
+  .cta-card h2 { font-family: 'Geist', sans-serif; font-size: clamp(28px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+  .cta-card h2 .accent { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 200; background: linear-gradient(90deg, #ffffff 0%, #B8A6FF 40%, #7C5CFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .cta-card p { font-size: 17px; color: var(--muted); max-width: 580px; margin: 0 auto 32px; line-height: 1.6; }
+  .cta-card .btn-primary { justify-content: center; }
+  .cta-note { margin-top: 18px; font-size: 13.5px; color: var(--subtle); }
+
+  /* Footer — slim */
+  .footer { border-top: 1px solid var(--border); padding: 40px var(--pad-x); margin-top: 40px; position: relative; z-index: 1; }
+  .footer-inner { max-width: var(--container); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-brand img { height: 20px; display: block; margin-bottom: 10px; }
+  .footer-line { font-size: 12.5px; color: var(--subtle); }
+  .footer-links { display: flex; gap: 20px; font-size: 12.5px; color: var(--subtle); }
+  .footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics"></a>
+    <a href="work-with-us.html" class="nav-cta">Book a 30-min Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">For HVAC · MRO · Industrial Distributors</div>
+  <h1 class="hero-title">Automate your order desk <span class="accent">without ripping out your current system.</span></h1>
+  <p class="hero-desc">
+    Crestics builds done-for-you order automation for <strong>HVAC, MRO, and industrial distributors</strong> — your first workflow live in 30 days.
+  </p>
+  <div class="hero-cta-block">
+    <a href="work-with-us.html" class="btn-primary">
+      See if this fits your operation → Book a 30-min call
+    </a>
+    <div class="cta-microcopy">30 minutes. We'll tell you honestly if it's not a fit.</div>
+  </div>
+</section>
+
+<!-- PROOF BAND -->
+<div class="proof-wrap">
+  <div class="proof-inner">
+    <div class="section-eyebrow">— Proof, not promises</div>
+
+    <div class="proof-lead-card">
+      <div class="proof-stat-row">
+        <div>
+          <div class="proof-stat-num">2.5<span class="unit">×</span></div>
+          <div class="proof-stat-label">Order throughput</div>
+        </div>
+        <div>
+          <div class="proof-stat-num">100 → 250<span class="unit">+</span></div>
+          <div class="proof-stat-label">Orders per day</div>
+        </div>
+        <div>
+          <div class="proof-stat-num">200<span class="unit">+</span></div>
+          <div class="proof-stat-label">Suppliers automated</div>
+        </div>
+        <div>
+          <div class="proof-stat-num">0</div>
+          <div class="proof-stat-label">Headcount added</div>
+        </div>
+      </div>
+      <p class="proof-lead-desc">
+        For <strong>a leading industrial distributor</strong>, we automated order intake and fulfillment across 200+ supplier portals. Daily throughput went from a manual cap of ~100 orders to <strong>250+ orders a day</strong> — same team, no new hires — and ~1,500 failed orders a month now recover automatically before they hit the P&amp;L.
+      </p>
+      <a href="case-industrial-distribution.html" class="proof-lead-link">Read the full case study →</a>
+    </div>
+
+    <div class="proof-secondary-grid">
+      <div class="proof-card">
+        <div class="proof-card-industry">HVAC Distribution</div>
+        <div class="proof-card-title">AI-powered CRM for a B2B HVAC equipment distributor</div>
+        <p class="proof-card-desc">Quoting and order management ran on manual workflows. Our team built an AI-injected internal CRM — later extended to a customer-facing system — with AI built directly into the quoting and order flow.</p>
+      </div>
+      <div class="proof-card">
+        <div class="proof-card-industry">Industrial MRO</div>
+        <div class="proof-card-title">Supplier automation for a US industrial MRO supplier</div>
+        <p class="proof-card-desc">Supplier and vendor operations were manual and time-consuming. We built a supplier automation system that streamlined vendor workflows and took the repetitive work off the team's plate.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-eyebrow">— How it works</div>
+  <h2 class="section-title">Three steps. <span class="accent">Zero disruption.</span></h2>
+  <p class="section-sub">You don't migrate anything, retrain anyone, or replace the ERP you already run on. We build around what you have.</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h3 class="step-title">We map your current order flow</h3>
+      <p class="step-desc">We sit with your ops team and trace how orders actually move today — email, PDFs, portals, phone, ERP. <strong>Nothing changes for your team.</strong> You get a clear map of where the manual hours go and which workflow to automate first.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h3 class="step-title">We build and integrate around your existing system</h3>
+      <p class="step-desc">We build the automation and wire it into the ERP, supplier portals, and inboxes you already use. <strong>No rip-and-replace, no migration.</strong> Your team keeps working exactly the way they do now while we build alongside.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h3 class="step-title">Live in 30 days — then we run and expand it</h3>
+      <p class="step-desc">Your first workflow goes live in production within 30 days. From there, <strong>we run it, monitor it, and expand it</strong> — order intake first, then supplier coordination, failed-order recovery, and quoting as you grow into it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER + GUARANTEE -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-eyebrow">— The offer</div>
+  <div class="offer-card">
+    <div class="offer-headline">Done-for-you build. <span class="accent">Live in 30 days or you don't pay for that phase.</span></div>
+    <p class="offer-sub">
+      We scope one high-impact order workflow, build it, and put it live in production within 30 days. If it's not live, <strong>that build phase costs you nothing.</strong> After that, a flat monthly engagement to run, maintain, and expand your automations — with a 30-day exit, so we only stay as long as it's paying for itself.
+    </p>
+    <div class="offer-points">
+      <div class="offer-point">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div><strong>Fixed scope, fixed price</strong> — you know the cost before we start.</div>
+      </div>
+      <div class="offer-point">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div><strong>Built on your systems</strong> — your ERP and tools stay exactly where they are.</div>
+      </div>
+      <div class="offer-point">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div><strong>Monthly to run &amp; expand</strong> — we operate what we build and add workflows over time.</div>
+      </div>
+      <div class="offer-point">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div><strong>30-day exit</strong> — no lock-in. Leave whenever it stops being worth it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section" style="padding-top: 20px;">
+  <div class="cta-card">
+    <h2>See if this fits <span class="accent">your operation.</span></h2>
+    <p>A 30-minute call. We'll look at how your orders move today, tell you what we'd automate first, and give you a straight answer on whether it's worth doing.</p>
+    <a href="work-with-us.html" class="btn-primary">
+      Book a 30-min Call
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <div class="cta-note">No pitch deck. No sales pressure. Just a real conversation.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html"><img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics"></a>
+      <div class="footer-line">© 2026 Crestics LLC · Austin, Texas</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:hello@crestics.com">hello@crestics.com</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

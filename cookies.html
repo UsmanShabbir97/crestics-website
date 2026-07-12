@@ -38,7 +38,7 @@
   body { font-family: 'Inter', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; position: relative; min-height: 100vh; }
   a { color: var(--violet); text-decoration: none; transition: color 0.2s; }
   a:hover { color: var(--violet-light); }
-  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.04; pointer-events: none; z-index: 9999; mix-blend-mode: overlay; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0; pointer-events: none; z-index: 9999; mix-blend-mode: overlay; }
   .page-glow { position: fixed; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(ellipse at center, rgba(124, 92, 255, 0.15), transparent 65%); pointer-events: none; z-index: 0; }
   .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 11, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; }
   .nav-inner { max-width: 1280px; margin: 0 auto; padding: 18px var(--pad-x); display: flex; justify-content: space-between; align-items: center; }
@@ -102,7 +102,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-brand" aria-label="Crestics — AI Product Studio">
-      <img src="assets/logo/PNGs/crestics-white-violet-dot.png" alt="Crestics" />
+      <img src="assets/logo/PNGs/crestics-black-violet-dot.png" alt="Crestics" />
     </a>
     <div class="nav-links">
       <a href="index.html#services">Services</a>

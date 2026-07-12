@@ -28,6 +28,8 @@ const ROLE_LABELS = {
   cto: 'CTO / VP Engineering',
   product: 'Head of Product',
   ops: 'Head of Operations',
+  owner: 'Owner / President',
+  purchasing: 'Purchasing / Supply Chain',
   other: 'Other',
 };
 const SIZE_LABELS = {
@@ -36,6 +38,7 @@ const SIZE_LABELS = {
   '51-200': '51–200 employees',
   '201-500': '201–500 employees',
   '500+': '500+ employees',
+  'not-asked': 'Not asked (quick form)',
 };
 const BUDGET_LABELS = {
   '5-25': '$5K – $25K',
@@ -401,6 +404,14 @@ export default async function handler(req, res) {
     }
   }
 
+  // The distributor campaign quick form only asks name/email/company/role —
+  // fill the remaining fields so the shared email templates render cleanly.
+  if (data.source === 'distributors') {
+    if (typeof data.size !== 'string' || data.size.trim() === '') data.size = 'not-asked';
+    if (typeof data.budget !== 'string' || data.budget.trim() === '') data.budget = 'not-sure';
+    if (typeof data.project !== 'string' || data.project.trim() === '') data.project = '(Quick form — no order-flow details provided.)';
+  }
+
   // Required field check
   for (const field of REQUIRED_FIELDS) {
     const v = data[field];
@@ -422,7 +433,9 @@ export default async function handler(req, res) {
   }
 
   const { html, text } = buildEmailBodies(data);
-  const subject = `New Crestics inquiry — ${data.company} (${data.budget})`;
+  const subject = data.source === 'distributors'
+    ? `Distributor lead (LinkedIn campaign) — ${data.company}`
+    : `New Crestics inquiry — ${data.company} (${data.budget})`;
 
   const sendEmail = (payload) => fetch(RESEND_ENDPOINT, {
     method: 'POST',

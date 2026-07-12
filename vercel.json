@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/distributors", "destination": "/distributors.html" }
+    { "source": "/distributors", "destination": "/distributors.html" },
+    { "source": "/distributors/book", "destination": "/book-distributors.html" }
   ]
 }
